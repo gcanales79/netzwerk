@@ -1,0 +1,344 @@
+/*
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+# Framework @ Sniper Front-End 3 - https://github.com/h1dd3nsn1p3r/sniper-front-end
+
+# Package @ Optimistic Blog
+
+# Author @ Offshore Themes
+
+# Author Url @ http://offshorethemes.com/
+
+# License GPL
+
+# Since 2017 Dec
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+**/
+
+/*
+****************************************
+    Search Starts
+****************************************
+*/
+
+.position_static {
+
+    position: static !important;
+}
+
+.search {
+    width: 290px;
+    display: block;
+
+    i {
+
+        margin-right: 10px;
+        position: relative;
+        top: 3px;
+        font-size: 18px;
+    }
+    input {
+        border: 0;
+        border-bottom: 1px solid $primary_color;
+        width: 80px;
+        letter-spacing: 2px;
+        font-weight: bold;
+        font-size: 12px;
+        padding: 5px 0px 5px 5px;
+        transition: .5s all cubic-bezier(.55, 0, .1, 1);
+        &:focus {
+            outline: 0;
+            width: 200px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+    }
+}
+
+.search input::placeholder {
+    color: $primary_color;
+    font-weight: 400;
+}
+
+
+
+
+
+
+
+
+
+
+
+/*
+****************************************
+    Search ends
+****************************************
+*/
+
+.stellarnav ul li a {
+
+    border-bottom: 1px dotted rgba(255, 255, 255, 0.2);
+    padding: 20px;
+}
+
+.stellarnav>ul>li>a {
+
+    border-bottom: none;
+}
+
+.stellarnav li a:hover,
+.stellarnav li a:focus,
+.stellarnav li a:active {
+
+    padding-left: 30px;
+    color: $secondary_color !important;
+}
+
+.stellarnav li:last-child a {
+
+    border: none;
+}
+
+.main-nav ul li ul {
+
+    z-index: 100;
+    text-align: left;
+}
+
+.stellarnav .menu-toggle {
+
+    cursor: pointer;
+}
+
+
+.stellarnav.mobile.right>ul,
+.stellarnav.mobile.left>ul {
+    position: fixed;
+    top: 0;
+    /* bottom: 0; */
+    z-index: 100000;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.stellarnav.mobile.right .close-menu,
+.stellarnav.mobile.left .close-menu {
+    display: block;
+    text-align: left;
+    border-bottom: 1px solid $border_color;
+    padding: 15px 10px;
+}
+
+
+/*
+****************************************
+    Banner section  starts
+****************************************
+*/
+
+.swiper-slide {
+    background: $white;
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+****************************************
+  Banner section  ends
+****************************************
+*/
+
+.error-message-holder {
+
+    text-align: center;
+    padding: 60px 0 90px 0;
+
+    h2 {
+
+        font-size: 92px;
+        padding-bottom: 30px;
+        color: $secondary_color;
+    }
+
+    h4 {
+
+        text-transform: uppercase;
+        padding-bottom: 20px;
+        font-weight: bold;
+    }
+    p {
+
+        padding-bottom: 20px;
+    }
+
+    .error_page_search {
+        max-width: 500px;
+        width: 100%;
+        display: block;
+        margin: 10px auto 0;
+
+        .form-control {
+            height: 45px;
+        }
+
+    }
+}
+
+.error_page_search form .input-group-addon {
+
+    background: $secondary_bg_color;
+    color: $white;
+    height: 100%;
+}
+
+.error_page_search form .input-group-addon .fa {
+    font-size: 16px;
+    color: $white;
+    display: inline-block;
+    background: none;
+}
+
+.error_page_search form .input-group-addon button,
+.error_page_search form .input-group-addon button:focus,
+.error_page_search form .input-group-addon button:hover {
+    background: none;
+    border: none;
+    outline: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+****************************************
+404 page Styles ends
+****************************************
+*/
+
+
+/*
+****************************************
+Search page Styles starts
+****************************************
+*/
+
+.single-wrapper .page-heading {
+
+    text-transform: uppercase;
+    margin-bottom: 40px;
+
+    h2 span {
+
+        color: $secondary_color;
+    }
+}
+
+
+div#instafeed {
+
+    margin-bottom: -30px;
+    position: relative;
+}
+
+div#instafeed .item {
+
+    text-align: center;
+    width: auto !important;
+    -webkit-transition: all 0.7s ease;
+    -o-transition: all 0.7s ease;
+    transition: all 0.7s ease;
+}
+
+
+div#instafeed .item span {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: $white;
+    font-size: 42px;
+    background: rgba(17, 17, 17, 0.5);
+    -webkit-transition: all 0.7s ease;
+    -o-transition: all 0.7s ease;
+    transition: all 0.7s ease;
+    opacity: 0;
+    visibility: hidden;
+    text-align: center; 
+
+    i.fa {
+        position: absolute;
+        top: 50%;
+        -webkit-transform: translate(-50%);
+           -moz-transform: translate(-50%);
+            -ms-transform: translate(-50%);
+             -o-transform: translate(-50%);
+                transform: translate(-50%);
+        line-height: 1px;        
+    }
+}
+
+div#instafeed .item:hover {
+
+    span {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+.pagination>li>a,
+.pagination>li>span {
+
+    padding: 15px 20px;
+}
+.general-header .general-header-inner nav #main-nav>ul>li>a {
+
+    text-transform: uppercase;
+    padding: 20px 20px;
+    font-weight: 500;
+}

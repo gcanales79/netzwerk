@@ -1,0 +1,286 @@
+/*
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+# Framework @ Sniper Front-End 3 - https://github.com/h1dd3nsn1p3r/sniper-front-end
+
+# Package @ Optimistic Blog
+
+# Author @ Offshore Themes
+
+# Author Url @ http://offshorethemes.com/
+
+# License GPL
+
+# Since 2017 Dec
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+**/
+@media (max-width: 1200px) {
+    .header-layout-two .general-header-inner .site-info h1 {
+        font-size: 64px;
+    }
+}
+@media (max-width: 1025px) {
+
+
+    .header-layout-two .general-header-inner .site-info h1 {
+
+        font-size: 52px;
+    }
+   
+}
+
+
+@media (max-width: 768px) {
+
+
+    .general-header .header-top-inner .social-networks ul {
+        text-align: center;
+    }
+    .header-layout-two .general-header-inner nav.layout-two {
+
+        text-align: right;
+    }
+
+
+
+    .header-layout-two .general-header-inner .site-info {
+        text-align: left;
+        padding-bottom: 30px;
+    }
+    .header-layout-two .general-header-inner nav.layout-two #main-nav>ul {
+        text-align: left;
+    }
+    .header-layout-two .general-header-inner nav.layout-two #main-nav>ul>li>a {
+        text-transform: uppercase;
+        padding: 15px 15px;
+    }
+
+    .header-layout-two .navigation-layout-two-wrapper {
+        padding: 30px 0 10px 0;
+        border-bottom: none;
+    }
+
+    .stellarnav.mobile .menu-toggle,
+    .stellarnav.mobile .dd-toggle,
+    .stellarnav.mobile .close-menu,
+    .stellarnav.mobile .call-btn-mobile,
+    .stellarnav.mobile .location-btn-mobile {
+
+        font-size: 18px;
+    }
+
+    .banner-style-two-container .featured-content-holder {
+        .featured-content-meta {
+            a {
+                display: none;
+            }
+        }
+        .featured-posted-date {
+            display: none;
+        }        
+   }
+}
+@media (max-width: 560px) {
+        .general-banner .featured-content-holder .featured-content-title h2 a {
+            font-size: 13px;
+        }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+    *
+    * ================================================================================
+    * ================================================================
+    * Media query for Mobile device max-width 768px ends here
+    * ================================================================
+    * ================================================================================
+    *
+    */
+
+
+/*
+    *
+    * ================================================================================
+    * ================================================================
+    * Media query for Mobile device max-width 450px starts here
+    * ================================================================
+    * ================================================================================
+    *
+    */
+
+@media (max-width: 450px) {
+
+
+    /*
+    * --------------------------------------------
+    * layout two media query starts here //
+    * --------------------------------------------
+    */
+    .header-layout-two .general-header-inner .site-info {
+
+        text-align: center;
+        padding-bottom: 15px;
+
+        h1 {
+
+            font-size: 52px;
+        }
+    }
+    .header-layout-two .general-header-inner nav.layout-two {
+        padding-top: 0;
+    }
+
+    .header-layout-two .general-header-inner nav.layout-two #main-nav>ul {
+        text-align: left;
+    }
+
+
+
+    .header-layout-two .general-header-inner nav.layout-two {
+
+        text-align: right;
+    }
+
+    .header-layout-two .stellarnav .menu-toggle,
+    .header-layout-two .stellarnav .call-btn-mobile,
+    .header-layout-two .stellarnav .location-btn-mobile,
+    .header-layout-two .stellarnav .close-menu {
+
+        padding: 15px 0;
+    }
+
+    .header-layout-two .navigation-layout-two-wrapper {
+
+        padding: 10px 0 10px 0;
+        border-bottom: none;
+    }
+
+    .banner-layout-two .featured-content-title {
+
+        text-align: center;
+
+        h2 {
+
+            font-size: 16px;
+        }
+    }
+
+    .banner-layout-two .swiper-button-prev,
+    .banner-layout-two .swiper-button-next,
+    .banner-layout-two .featured-content-meta,
+    .banner-layout-two .featured-posted-date {
+
+        display: none;
+    }
+
+    .banner-style-two-container .featured-content-holder {
+
+        bottom: 35%;
+    }
+
+
+    .main-post-area-wrapper .layout-two-post-details-holder {
+
+        text-align: left;
+    }
+
+    .main-post-area-wrapper .layout-two-post-details-holder .post-meta-category {
+
+        padding: 30px 0 20px 0;
+    }
+
+    .main-post-area-wrapper .layout-two-post-details-holder .post-title,
+    .main-post-area-wrapper .layout-two-post-details-holder .post-meta-posted-date {
+
+        padding-bottom: 20px;
+    }
+
+    .single-page-layout-two .single-page-layout-two-top-style .post-meta-category h2,
+    .single-page-layout-two .single-page-layout-two-top-style .post-title h2 {
+
+        font-size: 24px;
+    }
+
+    .main-post-area-wrapper .layout-two-post-details-holder .post-author {
+
+        padding-bottom: 10px;
+    }
+
+    .main-post-area-holder .single-page-layout-two-top-style .post-the-content {
+
+        padding-top: 40px;
+    }
+
+    /*
+    ____________________________________________________
+
+    single page layout two  style  starts /
+     ____________________________________________________
+     
+    */
+    .single-page-layout-two .single-page-layout-two-top-style .single-post-layout-two-fimage-and-few-meta .post-ttl-n-meta {
+
+        width: 100%;
+        padding: 150px 10px;
+    }
+
+    /*
+    ____________________________________________________
+
+    single page layout two  style  ends /
+     ____________________________________________________
+     
+    */
+    /*
+    * --------------------------------------------
+    * layout two media query ends here //
+    * --------------------------------------------
+    */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+    *
+    * ================================================================================
+    * ================================================================
+    * Media query for Mobile device max-width 450px ends here
+    * ================================================================
+    * ================================================================================
+    *
+    */
+
+
+/*
+    *
+    * ================================================================================
+    * ================================================================
+    * Media query for Mobile device max-width 768px starts here
+    * ================================================================
+    * ================================================================================
+    *
+    */

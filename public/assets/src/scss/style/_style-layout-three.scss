@@ -1,0 +1,358 @@
+/*
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+# Framework @ Sniper Front-End 3 - https://github.com/h1dd3nsn1p3r/sniper-front-end
+
+# Package @ Optimistic Blog
+
+# Author @ Offshore Themes
+
+# Author Url @ http://offshorethemes.com/
+
+# License GPL
+
+# Since 2017 Dec
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+**/
+
+/*
+****************************************
+Style for layout three header
+****************************************
+*/
+
+.header-layout-three .is-sticky {
+
+    position: relative;
+    z-index: 1000000;
+}
+
+.header-layout-three .is-sticky .fixed-nav {
+
+    background: $white;
+    -webkit-box-shadow: 0px 5px 15px 0px rgba(50, 50, 50, 0.2);
+    -moz-box-shadow: 0px 5px 15px 0px rgba(50, 50, 50, 0.2);
+    box-shadow: 0px 5px 15px 0px rgba(50, 50, 50, 0.2);
+}
+
+
+.header-layout-three .header-top-wrapper {
+
+    margin: 0;
+    padding: 15px 0;
+}
+
+.header-layout-three .general-header-inner .site-info {
+
+    text-align: center; // padding: 10px 0;
+    //margin: 10px 0px 40px 0px;
+    h1 {
+
+        font-family: $special_purpose_font;
+        font-size: 72px;
+    }
+}
+
+.header-layout-three .general-header-inner .social-links {
+
+    text-align: right;
+}
+
+.header-layout-three .general-header-inner nav.layout-three #main-nav ul li ul {
+
+    background-color: $primary_bg_color;
+}
+
+
+.header-layout-three .general-header-inner nav.layout-three #main-nav ul li ul li a {
+
+    color: $white;
+}
+
+.header-layout-three .general-header-inner nav.layout-three #main-nav>ul>li>a:hover {
+
+    color: $secondary_color;
+}
+
+.header-layout-three .general-header-inner nav.layout-three #main-nav>ul>li>a {
+
+    text-transform: uppercase;
+    padding: 10px 15px;
+}
+
+.header-layout-three .general-header-inner nav.layout-three #main-nav>ul {
+
+    text-align: center;
+}
+
+.header-layout-three .under-navigation-layout-three-wrapper {
+
+    padding: 30px 0 40px 0;
+    border-bottom: 1px solid $border_color;
+}
+
+.header-layout-three .under-navigation-layout-three-wrapper .today-date {
+    padding-top: 25px;
+}
+
+.header-layout-three .under-navigation-layout-three-wrapper .social-networks {
+    padding-top: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+/*
+****************************************
+Style for layout three banner area
+****************************************
+*/
+
+.banner-layout-three .banner-row {
+
+    margin-right: -0.5%;
+    margin-left: -0.5%;
+}
+
+.banner-layout-three .banner-row:after {
+
+    display: table;
+    content: '';
+}
+
+.banner-layout-three .container-fluid {
+    padding-right: 0;
+    padding-left: 0;
+    margin-right: auto;
+    margin-left: auto;
+    overflow-x: hidden;
+}
+
+.banner-layout-three .banner-row:before {
+
+    clear: both;
+}
+
+.banner-layout-three {
+
+    img {
+
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+.banner-layout-three .banner-col-six {
+
+    width: 49%;
+    float: left;
+    margin: 0.5%;
+}
+
+.banner-layout-three .banner-col-four {
+
+    width: 32.33%;
+    float: left;
+    margin: 0.5%;
+}
+
+.banner-layout-three .top-banner-items {
+
+    margin-top: 50px;
+}
+
+
+
+
+
+
+
+
+/*
+****************************************
+Style for post area and sidebar for layout three
+****************************************
+*/
+
+.opti-cancellfloat {
+
+    float: none !important;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 -2px;
+}
+
+.grid-layout-starts {
+
+    background: #F1F1F1;
+
+    .sidebar .widget {
+
+        background: $white;
+        box-shadow: 0 3px 5px 0 rgba(0, 1, 1, .1);
+    }
+}
+
+.main-post-area-holder .layout-three-post-details-holder {
+
+    background: $white;
+    box-shadow: 0 3px 5px 0 rgba(0, 1, 1, .1);
+    margin-bottom: 40px;
+}
+
+.main-post-area-holder .layout-three-post-details-holder .post-extra-details {
+
+    padding: 40px 25px 40px 25px;
+}
+
+
+.main-post-area-holder .layout-three-post-details-holder .post-extra-details .post-title h2 {
+
+    padding: 0 0 30px 0;
+    font-size: 22px;
+
+    a {
+
+        color: $primary_color;
+    }
+
+    a:hover,
+    a:focus {
+
+        color: $secondary_color;
+    }
+}
+
+.main-post-area-holder .layout-three-post-details-holder .post-extra-details .post-author img,
+.main-post-area-holder .single-page-other-information-holder .post-author img {
+
+    border-radius: 50%;
+    vertical-align: middle;
+    border: 1px solid $border_color;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.main-post-area-holder .layout-three-post-details-holder .post-extra-details .post-author span {
+
+    display: inline-block;
+
+    a {
+
+        color: $primary_color;
+        font-family: $second_special_purpose_font;
+        font-size: 14px;
+        text-transform: uppercase;
+    }
+
+    a:hover,
+    a:focus {
+
+        color: $secondary_color;
+    }
+}
+
+.main-post-area-holder .layout-three-post-details-holder .post-extra-details .post-meta-views-count {
+
+    text-align: right;
+    padding-top: 5px;
+}
+
+.main-post-area-holder .layout-three-post-details-holder .post-extra-details .post-meta-views-count span {
+
+    display: inline-block;
+    position: relative;
+    padding-left: 20px;
+    font-size: 14px;
+
+    a {
+
+        font-family: $second_special_purpose_font;
+        color: $primary_color;
+    }
+
+    a:hover,
+    a:focus {
+
+        color: $secondary_color;
+    }
+}
+
+.main-post-area-holder .layout-three-post-details-holder .post-extra-details .post-meta-views-count span:before {
+
+    content: '\f06e';
+    font-family: 'fontAwesome';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+.main-post-area-holder .layout-three-post-details-holder .post-extra-details .post-meta-category {
+
+    padding-bottom: 20px;
+}
+
+.main-post-area-holder .layout-three-post-details-holder .post-extra-details .post-meta-category span {
+
+    a {
+
+        font-family: $second_special_purpose_font;
+        text-transform: uppercase;
+        font-size: 14px;
+        color: $primary_color;
+    }
+
+    a:hover,
+    a:focus {
+
+        color: $secondary_color;
+    }
+}
+
+.main-post-area-holder .layout-three-post-details-holder .post-image {
+
+    iframe {
+
+        height: 200px !important;
+        width: 100% !important;
+    }
+}
+
+
+/*
+****************************************
+Style for Single post layout three
+****************************************
+*/
+
+.single-page-layout-three .single-page-wrapper {
+
+    padding-top: 40px;
+} 
+.single-page-layout-three .single-page-wrapper .main-post-area-holder article {
+
+        .posted-category {
+
+            padding-top:20px;
+        }
+
+        .post-title {
+
+            padding: 20px 0 30px 0;
+        }
+
+        .post-image {
+
+            padding-bottom:30px;
+        }
+}
+

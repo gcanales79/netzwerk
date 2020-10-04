@@ -1,0 +1,53 @@
+/*
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+# Framework @ Sniper Front-End 3 - https://github.com/h1dd3nsn1p3r/sniper-front-end
+
+# Package @ Optimistic Blog
+
+# Author @ Offshore Themes
+
+# Author Url @ http://offshorethemes.com/
+
+# License GPL
+
+# Since 2017 Dec
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+**/
+
+// This is overwrite scss file were we set our styles to overwrite the framework styles
+
+
+
+// Might be you wana do something with .container class too
+
+.container {
+
+	max-width: 100%;
+}
+
+
+// Kill framework auto margin and padding
+
+h1,h2,h3,h4,h5,h6,strong,p,form,span,ul,ol,form,input {
+
+	margin:0px;
+	padding:0px;
+}
+
+
+// ancour text decoration on hover
+
+a,a:hover,a:visited, a:focus {
+
+	text-decoration: none !important;
+}
+
+// ul and ol list style
+
+ol,ul {
+
+	list-style: none;
+}

@@ -1,0 +1,215 @@
+/*
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+# Framework @ Sniper Front-End 3 - https://github.com/h1dd3nsn1p3r/sniper-front-end
+
+# Package @ Optimistic Blog
+
+# Author @ Offshore Themes
+
+# Author Url @ http://offshorethemes.com/
+
+# License GPL
+
+# Since 2017 Dec
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+**/
+
+ /*
+    *
+    * ================================================================================
+    * ================================================================
+    * Media query for Mobile device max-width 450px starts here
+    * ================================================================
+    * ================================================================================
+    *
+*/
+ @media only screen and (max-width: 768px) {
+        .general-single-page-layout .breadcrumb {
+            background-attachment: initial !important;
+        }
+ }
+
+ @media only screen and (max-width: 450px) {
+     /*
+    * --------------------------------------------
+    *  layout one media query starts
+    * --------------------------------------------
+*/
+     .header-layout-one .general-header-inner .site-info {
+
+         text-align: center;
+     }
+     .header-layout-one .general-header-inner .site-info h1 {
+
+         font-size: 62px;
+     }
+
+     .banner-layout-one .banner-card .featured-post-image img {
+
+         min-height: 260px;
+     }
+
+     .banner-layout-one .banner-card .featured-posted-date {
+
+         display: none;
+     }
+
+     .general-banner .featured-content-holder .featured-content-meta span {
+
+         padding: 5px 10px;
+         margin: 0;
+         display: inline-block;
+     }
+
+     .banner-layout-one .featured-content-holder {
+
+         bottom: 15%;
+         padding: 20px 10px;
+     }
+
+     .banner-layout-one .swiper-pagination-fraction,
+     .banner-layout-one .swiper-pagination-custom,
+     .banner-layout-one .swiper-container-horizontal>.swiper-pagination-bullets,
+     .banner-layout-two .swiper-pagination-fraction,
+     .banner-layout-two .swiper-pagination-custom,
+     .banner-layout-two .swiper-container-horizontal>.swiper-pagination-bullets {
+
+         bottom: 20px;
+     }
+
+
+     .banner-layout-one .swiper-container-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet,
+     .banner-layout-two .swiper-container-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet {
+
+         margin-right: 8px;
+     }
+
+     .banner-layout-one .swiper-pagination-bullet, 
+     .banner-layout-two .swiper-pagination-bullet {
+
+         height: 15px;
+         width: 15px;
+     }
+
+
+     .main-post-area-layout-one .main-post-area-holder article .layout-one-first-letter p::first-letter {
+
+         float: none;
+         font-size: 16px;
+         position: relative;
+         top: 0;
+         margin-right: 0;
+         margin-top: 0;
+         height: auto;
+         font-family: $primary_font;
+     }
+     .main-post-area-layout-one .main-post-area-holder article {
+
+         padding: 0;
+         text-align: Center;
+     }
+
+
+     .main-post-area-layout-one .main-post-area-holder article .post-title h2 {
+
+         font-size: 24px;
+         padding: 20px 0;
+     }
+
+     .main-post-area-layout-one .main-post-area-holder article .post-the-content p {
+
+         font-family: $primary_font;
+         padding: 0 5px 30px 5px;
+         display: block;
+     }
+
+     .main-post-area-layout-one .main-post-area-holder article .post-title,
+     .main-post-area-layout-one .main-post-area-holder article .post-the-content {
+
+         padding: 0;
+     }
+
+     .main-post-area-layout-one .main-post-area-holder article .post-comment-count {
+
+         text-align: center;
+     }
+
+     .main-post-area-layout-one .main-post-area-holder article .post-share .share,
+     .main-post-area-layout-one .main-post-area-holder article .post-author {
+         text-align: center;
+         padding-bottom: 10px;
+     }
+
+     /*
+    ____________________________________________________
+
+    single page layout one  style  starts /
+     ____________________________________________________
+     
+    */
+     .single-page-layout-one .main-post-area-holder .single-page-other-information-holder {
+        
+         padding: 0 10px;
+
+         .post-title {
+
+             text-align: center;
+
+             h2 {
+
+                 font-size: 24px;
+             }
+         }
+     }
+
+     .main-post-area-holder .single-page-other-information-holder .post-extra-meta span {
+
+
+         display: inline-block;
+         padding: 10px 0 0 0;
+     }
+
+     .main-post-area-holder .single-page-other-information-holder .tags-meta-and-others {
+
+         text-align: center;
+     }
+     .main-post-area-holder .single-page-other-information-holder .tags-meta-and-others .post-tags {
+
+         float: none;
+         padding-bottom: 20px;
+     }
+     .main-post-area-holder .single-page-other-information-holder .tags-meta-and-others .view-count {
+
+         float: none;
+
+         span {
+
+             padding: 0;
+         }
+     }
+
+     /*
+    ____________________________________________________
+
+    single page layout one  style  ends /
+     ____________________________________________________
+     
+    */
+     /*
+    * --------------------------------------------
+    * layout one media query ends
+    * --------------------------------------------
+    */
+ }
+ /*
+    *
+    * ================================================================================
+    * ================================================================
+    * Media query for Mobile device max-width 450px ends here
+    * ================================================================
+    * ================================================================================
+    *
+    */

@@ -1,0 +1,177 @@
+/*
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+# Framework @ Sniper Front-End 3 - https://github.com/h1dd3nsn1p3r/sniper-front-end
+
+# Package @ optimistic 
+
+# Author @ Offshorethemes
+
+# Author url @ https://offshorethemes.com/
+
+# License GPL
+
+# Since 2017 December 
+
+# This is Master Scss file, Roles of this file are :
+    
+    - Master importer for framework ( vendor ) scss files
+    - Master importer for other scss file
+    - Read readme.txt file to discover more
+
+
+# Version 1.1.2 
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+**/
+
+
+/*
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Import browser custom resets
+
+- Go code your own browser resets
+
+- Donot code your pre-defined styles here in this file
+
+- For predefined styles look for either predefined.scss file
+or variable file according to your need.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*/
+
+@import 'tweaks/resets';
+
+
+
+
+
+/*
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Import variables
+
+- Assign your own variables as required
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*/
+
+@import 'tweaks/variables';
+
+
+
+/*
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Import Plugins 
+
+- Check for collection of plugins and include if you need them
+- Put your plugins that you use in your project
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*/
+
+@import 'plugins/animate.min';
+@import 'plugins/stellernav';
+@import 'plugins/swiper';
+@import 'plugins/jssocial';
+@import 'plugins/owl';
+
+
+/*
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Import Vendor frameworks
+
+- Default import are :
+    - Bootstrap 3
+    - or Google Material design bootstrap 3
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*/
+
+@import 'vendor/bootstrap.min';
+
+
+
+/*
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Import Fonts file
+
+- This file includes font icons too
+    - FontAwesome
+    - Icomoon
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*/
+
+@import 'typography/fonts';
+@import 'typography/typography';
+
+
+
+/*
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Import Overwrite file 
+
+- This is file that usually overwrites the framework 
+pre-defined styles
+
+- Define your custom styles that overwrites framework css
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*/
+
+@import 'overwrite/overwrite';
+
+
+
+
+/*
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Import Pre-defines ( easy class )
+
+- This is file where you Define your some classes that you
+will use often in project
+
+- eg like: button, shadow, hover effect, line heights etc
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*/
+
+@import 'predefined/predefined';
+
+
+
+/*
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Import custom stylesheet
+
+- This is file where you code your custom styles
+
+- This is core stylesheet where you code custom styles 
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*/
+
+@import 'style/default-layout-styles';
+
+@import 'style/style-layout-one';
+
+@import 'style/style-layout-two';
+
+@import 'style/style-layout-three';
+
+@import 'style/style-layout-four';
+
+
+
+/*
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Import Media Query
+
+- Here finally we import our media query
+- Donot code your media query anywhere else expect this
+  file.
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*/
+
+@import 'responsive/defaultmedia';
+@import 'responsive/media-layout-one';
+@import 'responsive/media-layout-two';
+@import 'responsive/media-layout-three';
+@import 'responsive/media-layout-four';

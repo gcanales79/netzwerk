@@ -1,0 +1,373 @@
+/*
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+# Framework @ Sniper Front-End 3 - https://github.com/h1dd3nsn1p3r/sniper-front-end
+
+# Package @ Optimistic Blog
+
+# Author @ Offshore Themes
+
+# Author Url @ http://offshorethemes.com/
+
+# License GPL
+
+# Since 2017 Dec
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+**/
+
+
+/*
+    *
+    * ================================================================================
+    * ================================================================
+    * Media query for Mobile device max-width 1024px starts here
+    * ================================================================
+    * ================================================================================
+    *
+*/
+
+@media(max-width:1025px) {
+
+    .swiper-button-prev,
+    .swiper-button-next {
+
+        width: 15px;
+        height: 25px;
+        background-size: 15px 25px;
+    }
+
+    .general-banner .featured-content-holder .featured-content-meta span {
+        padding: 5px 10px;
+        margin-bottom: 20px;
+    }
+}
+
+
+
+
+
+/*
+    *
+    * ================================================================================
+    * ================================================================
+    * Media query for Mobile device max-width 768px starts here
+    * ================================================================
+    * ================================================================================
+    *
+    */
+
+@media only screen and (max-width: 768px) {
+
+    aside.sidebar {
+        margin-top: 40px;
+    }
+    .header-layout-one .general-header-inner nav.layout-one {
+
+        padding: 20px 10px;
+    }
+
+
+    .widget-about-me-profile img {
+
+        width: 100%;
+    }
+
+    .widget-recent-posts .widget-recent-posts .slide-content .post-title h5 a,
+    .widget-popular-post .widget-extra-info-holder .widget-posts .post-title h5,
+    .widget-popular-post .widget-extra-info-holder .widget-posts .post-title h5 a {
+
+        font-size: 16px;
+        line-height: 1.2;
+    }
+
+    .widget-popular-post .widget-extra-info-holder .post-thumb,
+    footer .footer-inner .footer-block .footer-widget-content .widget-content .widget-posts .post-thumb {
+
+        max-width: 160px;
+        margin-right: 30px;
+    }
+    .search {
+
+        margin: 15px 0;
+        text-align: center;
+        width: auto;
+
+        .fa {
+
+            display: none;
+        }
+
+        input {
+
+            width: 150px;
+            border-bottom: 1px solid #d1d1d1;
+            text-align: center;
+        }
+    }
+    footer .footer-inner .copyrights,
+    footer .footer-inner .copyright-and-nav-row ul {
+        text-align: left;
+    }
+
+    footer .footer-inner .copyrights {
+        margin-bottom: 15px;
+    }
+}
+
+
+
+
+
+
+/*
+    *
+    * ================================================================================
+    * ================================================================
+    * Media query for Mobile device max-width 450px starts here
+    * ================================================================
+    * ================================================================================
+    *
+    */
+
+@media only screen and (max-width: 450px) {
+
+
+    /*
+    * --------------------------------------------
+    * Default layout media query starts here //
+    * --------------------------------------------
+    */
+    .search {
+
+        padding: 10px 0;
+        text-align: center;
+        width: auto;
+
+        .fa {
+
+            display: none;
+        }
+
+        input {
+
+            width: 150px;
+            border-bottom: 1px solid #d1d1d1;
+            text-align: center;
+        }
+    }
+
+
+    .stellarnav.mobile .menu-toggle,
+    .stellarnav.mobile .dd-toggle,
+    .stellarnav.mobile .close-menu,
+    .stellarnav.mobile .call-btn-mobile,
+    .stellarnav.mobile .location-btn-mobile {
+
+        font-size: 18px;
+    }
+
+    #main-nav>ul>li>a {
+        text-transform: uppercase;
+        padding: 15px 15px !important;
+    }
+
+    .general-header .header-top-inner .social-networks ul {
+        text-align: center;
+        padding: 20px 0;
+    }
+
+    .main-post-area-wrapper {
+        padding: 40px 0px;
+    }
+
+    .pagination>li>a,
+    .pagination>li>span {
+        padding: 15px 15px;
+    }
+
+    div#instafeed .item span {
+
+        display: block;
+        left: 45%;
+        bottom: 30%;
+        font-size: 72px;
+    }
+
+    .copyrights {
+        padding-bottom: 20px;
+    }
+    footer .footer-inner .copyright-and-nav-row ul {
+        text-align: left;
+    }
+
+    .general-single-page-layout .breadcrumb {
+
+        padding: 80px 10px;
+    }
+
+    .comments .review-box {
+
+        padding-left: 0;
+        text-align: center;
+    }
+
+    .comments .comments__list {
+
+        padding: 30px 10px;
+    }
+
+    .comments .rev-content {
+
+        border-right: 1px solid $border_color;
+        border-left: 1px solid $border_color;
+        border-bottom: 1px solid $border_color;
+        border-top: none !important;
+    }
+
+    .comments .rev-thumb {
+
+        position: relative;
+        width: 100%;
+        height: auto;
+        border-right: 1px solid $border_color;
+        border-left: 1px solid $border_color;
+        border-top: 1px solid $border_color;
+        border-bottom: none !important;
+        padding: 30px 0 10px 0;
+    }
+
+    .comments .rev-thumb img {
+
+        display: inline-block;
+        max-width: 82px;
+        height: auto;
+    }
+
+    .sub-comment-first {
+        margin: 4%;
+    }
+
+    .sub-comment-second {
+        margin: 20px 7%;
+    }
+
+    .comments .rev-reply {
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+
+    .widget-recent-posts .post-title h5 a {
+
+        font-size: 18px;
+    }
+
+    .widget-popular-post .widget-extra-info-holder .widget-posts .post-title,
+    .widget-popular-post .widget-extra-info-holder .widget-posts .post-view-count {
+
+        text-align: center;
+    }
+
+    .widget .widget-extra-info-holder .widget-posts {
+
+        margin-bottom: 40px;
+    }
+
+    .widget-popular-post .widget-extra-info-holder .post-thumb,
+    footer .footer-inner .footer-block .footer-widget-content .widget-content .widget-posts .post-thumb {
+
+        max-width: none;
+        margin-right: 0;
+        float: none;
+        text-align: center;
+    }
+
+    .widget-recent-posts .widget-recent-posts .slide-content .post-title h5 a, .widget-popular-post .widget-extra-info-holder .widget-posts .post-title h5, .widget-popular-post .widget-extra-info-holder .widget-posts .post-title h5 a {
+
+        font-size:18px;
+    }
+
+    .widget-popular-post .widget-extra-info-holder .widget-posts .post-title {
+        h5 {
+
+            font-size: 18px;
+            padding: 20px 0 10px 0;
+        }
+    }
+
+
+
+    /*
+    * --------------------------------------------
+    * Default layout media query ends here //
+    * --------------------------------------------
+    */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+    *
+    * ================================================================================
+    * ================================================================
+    * Media query for Mobile device max-width 768px ends here
+    * ================================================================
+    * ================================================================================
+    *
+    */
+
+
+/*
+    *
+    * ================================================================================
+    * ================================================================
+    * Media query for Mobile device max-width 1024px starts here
+    * ================================================================
+    * ================================================================================
+    *
+    */
+
+@media (max-width: 1025px) {
+
+    .header-layout-one .general-header-inner nav.layout-one #main-nav>ul>li>a {
+
+        padding: 20px 10px;
+    }
+}
+
+
+
+
+
+
+
+
+
+/*
+    *
+    * ================================================================================
+    * ================================================================
+    * Media query for Mobile device max-width 1024px starts here
+    * ================================================================
+    * ================================================================================
+    *
+    */

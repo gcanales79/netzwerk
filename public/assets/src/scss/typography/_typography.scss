@@ -1,0 +1,71 @@
+/*
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+# Framework @ Sniper Front-End 3 - https://github.com/h1dd3nsn1p3r/sniper-front-end
+
+# Package @ optimistic 
+
+# Author @ Sparkle Themes
+
+# Author url @ https://sparklewpthemes.com/
+
+# License GPL-V.2.0
+
+# Since 2017 December 
+
+# Version 1.1.1 
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+**/
+
+
+//  General Typo graphy setup 
+
+h1 {
+
+	font-size: 34px;
+}
+
+h2 {
+
+	font-size:30px;
+}
+
+h3 {
+
+	font-size:26px;
+}
+
+h4 {
+
+	font-size:20px;
+}
+
+h5 {
+
+	font-size:18px;
+}
+
+h6 {
+
+	font-size:16px;
+}
+
+// line-height 
+
+h1,h2,h3,h4,h5,h6, .h1,.h2,.h3,.h4,.h5,.h6  {
+
+
+	line-height:$default-line-height-for-heading;
+	font-family: $primary_font;
+}
+
+
+// Paragraph font size 
+
+p {
+
+	font-size:16px;
+}
+

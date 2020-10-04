@@ -1,0 +1,309 @@
+/*
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+# Framework @ Sniper Front-End 3 - https://github.com/h1dd3nsn1p3r/sniper-front-end
+
+# Package @ Optimistic Blog
+
+# Author @ Offshore Themes
+
+# Author Url @ http://offshorethemes.com/
+
+# License GPL
+
+# Since 2017 Dec
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+**/
+
+@media(max-width:1025px) {
+
+    .banner-layout-three .top-banner-items .featured-content-holder {
+        left: 5%;
+        right: 5%;
+        bottom: 30%;
+    }
+
+    .banner-layout-three .top-banner-items .featured-content-holder .featured-content-title h2 {
+
+        font-size: 22px;
+    }
+
+    .banner-layout-three .bottom-banner-items .featured-content-holder .featured-content-title h2 {
+
+        font-size: 16px;
+    }
+    .banner-layout-three .bottom-banner-items .featured-content-holder {
+
+        left: 5%;
+        right: 5%;
+        bottom: 20%;
+    }
+
+    .banner-layout-three .featured-content-holder .featured-posted-date {
+
+        font-size: 11px;
+    }
+
+    .banner-layout-three .featured-content-holder .featured-content-meta {
+
+        display: none;
+    }
+
+    .main-post-area-holder .layout-three-post-details-holder .post-extra-details .post-author img{
+
+        display: none;
+    }
+
+    .main-post-area-holder .layout-three-post-details-holder .post-extra-details {
+        padding: 20px 25px 20px 25px;
+    }
+}
+
+
+
+
+/*
+    *
+    * ================================================================================
+    * ================================================================
+    * Media query for Mobile device max-width 768px starts here
+    * ================================================================
+    * ================================================================================
+    *
+    */
+
+@media only screen and (max-width: 768px) {
+
+
+    /*
+    * --------------------------------------------
+    * layout three media query starts here //
+    * --------------------------------------------
+    */
+    .stellarnav .menu-toggle,
+    .stellarnav .call-btn-mobile,
+    .stellarnav .location-btn-mobile,
+    .stellarnav .close-menu {
+
+        padding: 0;
+    }
+    .header-layout-three .general-header-inner nav.layout-three #main-nav>ul {
+        text-align: left;
+        z-index: 100;
+    }
+    .header-layout-three .general-header-inner nav.layout-three #main-nav>ul>li>a {
+        text-transform: uppercase;
+        padding: 15px 15px;
+    }
+
+    .header-layout-three .general-header-inner .site-info {
+        text-align: left;
+
+        h1 {
+
+            font-size: 52px;
+        }
+    }
+
+    .header-layout-three .under-navigation-layout-three-wrapper {
+        padding: 20px 0 30px 0;
+    }
+
+    .general-header .header-top-inner .social-networks ul li,
+    .sidebar .sidebar-inner .widget .widget-extra-info-holder .widget-author-social .social-links li,
+    footer .footer-inner .footer-block .footer-widget-content .social-networks .social-links li {
+        display: inline-block;
+        margin-right: 0;
+    }
+
+    .header-layout-three .under-navigation-layout-three-wrapper .social-networks {
+        padding-top: 10px;
+    }
+
+    .banner-layout-three .top-banner-items {
+        margin-top: 40px;
+    }
+
+    .banner-layout-three .banner-col-six,
+    .banner-layout-three .banner-col-four {
+        width: 100%;
+        float: none;
+        margin-bottom: 40px;
+    }
+
+    .banner-layout-three .featured-content-holder {
+        bottom: 35%;
+    }
+
+    .banner-layout-three .featured-content-holder .featured-content-meta {
+
+        display: block;
+    }
+
+    .grid-layout-starts .main-post-area-wrapper {
+        padding: 20px 0 40px 0;
+    }
+
+    .main-post-area-holder .layout-three-post-details-holder .post-extra-details {
+        padding: 40px 20px 40px 20px;
+    }
+
+
+    /*
+    * --------------------------------------------
+    * layout three media query ends here //
+    * --------------------------------------------
+    */
+}
+
+
+
+
+
+
+
+
+
+
+/*
+    *
+    * ================================================================================
+    * ================================================================
+    * Media query for Mobile device max-width 450px starts here
+    * ================================================================
+    * ================================================================================
+    *
+    */
+
+@media only screen and (max-width: 450px) {
+
+
+    /*
+    * --------------------------------------------
+    * layout three media query starts here //
+    * --------------------------------------------
+    */
+    nav.layout-three #main-nav>ul {
+
+        text-align: left !important;
+        z-index: 100;
+    }
+
+    nav.layout-three #main-nav {
+
+        padding: 20px 0;
+    }
+    .header-layout-three .header-top-wrapper {
+
+        padding: 0;
+    }
+
+    .header-layout-three .general-header-inner .site-info {
+
+        text-align: center !important;
+    }
+    .general-header .header-top-wrapper {
+
+        border-top: none;
+    }
+    .header-layout-three .under-navigation-layout-three-wrapper {
+        padding: 10px 0 20px 0;
+        border-bottom: none;
+    }
+
+    .under-navigation-layout-three-wrapper .search {
+        padding: 10px 0 30px 0;
+        text-align: center;
+        width: auto;
+    }
+
+    .banner-layout-three .featured-content-holder {
+        bottom: 10%;
+    }
+
+    .banner-layout-three .banner-col-six,
+    .banner-layout-three .banner-col-four {
+
+        width: 100%;
+        margin: 0;
+        float: none;
+        margin-bottom: 40px;
+    }
+
+    .banner-layout-three .featured-content-title {
+
+        h2 {
+
+            font-size: 24px;
+        }
+    }
+
+    .grid-layout-starts .main-post-area-wrapper {
+
+        padding: 0 0;
+    }
+
+    .banner-layout-three .top-banner-items {
+        margin-top: 40px;
+    }
+
+    /*
+    ____________________________________________________
+
+    single page layout three  style  starts /
+     ____________________________________________________
+     
+    */
+    .single-page-layout-three .main-post-area-holder .post-title h2 {
+
+        font-size: 24px;
+    }
+
+    /*
+    ____________________________________________________
+
+    single page layout three  style  ends /
+     ____________________________________________________
+     
+    */
+    /*
+    * --------------------------------------------
+    * layout three media query starts here //
+    * --------------------------------------------
+    */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+    *
+    * ================================================================================
+    * ================================================================
+    * Media query for Mobile device max-width 768px ends here
+    * ================================================================
+    * ================================================================================
+    *
+    */

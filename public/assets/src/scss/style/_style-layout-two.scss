@@ -1,0 +1,360 @@
+/*
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+# Framework @ Sniper Front-End 3 - https://github.com/h1dd3nsn1p3r/sniper-front-end
+
+# Package @ Optimistic Blog
+
+# Author @ Offshore Themes
+
+# Author Url @ http://offshorethemes.com/
+
+# License GPL
+
+# Since 2017 Dec
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+**/
+
+/*
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+# Framework @ Sniper Front-End 3 - https://github.com/h1dd3nsn1p3r/sniper-front-end
+
+# Package @ optimistic 
+
+# Author @ Sparkle Themes
+
+# Author url @ https://sparklewpthemes.com/
+
+# License GPL-V.2.0
+
+# Since 2017 December 
+
+# Version 1.1.1 
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+**/
+
+
+/*
+****************************************
+Style for header two
+****************************************
+*/
+
+.header-layout-two .header-top-wrapper {
+
+    margin: 0;
+    padding: 15px 0;
+}
+
+.header-layout-two .general-header-inner .site-info {
+
+    text-align: left; // padding: 10px 0;
+    //margin: 10px 0px 40px 0px;
+    h1 {
+
+        font-family: $special_purpose_font;
+        font-size: 72px;
+    }
+}
+
+
+.header-layout-two .general-header-inner nav.layout-two #main-nav ul li ul {
+
+    background-color: $primary_bg_color;
+}
+
+
+.header-layout-two .general-header-inner nav.layout-two #main-nav ul li ul li a {
+
+    color: $white;
+}
+
+.header-layout-two .general-header-inner nav.layout-two #main-nav>ul>li>a:hover {
+
+    color: $secondary_color;
+}
+
+.header-layout-two .general-header-inner nav.layout-two #main-nav>ul>li>a {
+
+    text-transform: uppercase;
+    padding: 10px 15px;
+}
+
+.header-layout-two .general-header-inner nav.layout-two #main-nav>ul {
+
+    text-align: right;
+}
+
+.header-layout-two .general-header-inner nav.layout-two {
+
+    padding-top: 20px;
+}
+
+
+.header-layout-two .navigation-layout-two-wrapper {
+
+    padding: 30px 0 50px 0;
+    border-bottom: 1px solid $border_color;
+}
+
+
+
+
+
+
+
+
+
+
+
+/*
+****************************************
+Style for search page and homepage layput
+****************************************
+*/
+
+.main-post-area-wrapper .layout-two-post-details-holder .post-meta-category {
+
+    padding: 10px 0 10px 0;
+}
+
+.main-post-area-wrapper .layout-two-post-details-holder .post-title,
+.main-post-area-wrapper .layout-two-post-details-holder .post-meta-posted-date {
+    padding-bottom: 10px;
+}
+
+.main-post-area-wrapper .layout-two-post-details-holder .post-title h2 {
+
+    font-size: 22px;
+    padding: 0 !important;
+}
+
+.main-post-area-wrapper .layout-two-post-details-holder .post-meta-category p a,
+.main-post-area-wrapper .layout-two-post-details-holder .post-title h2 a {
+
+    color: $primary_color;
+}
+.main-post-area-wrapper .layout-two-post-details-holder .post-meta-posted-date p a {
+    font-size: 14px;
+    font-weight: 500;
+    color: $secondary_text_color;
+}
+.main-post-area-wrapper .layout-two-post-details-holder .post-meta-category p a:hover,
+.main-post-area-wrapper .layout-two-post-details-holder .post-meta-category p a:focus,
+.main-post-area-wrapper .layout-two-post-details-holder .post-title h2 a:hover,
+.main-post-area-wrapper .layout-two-post-details-holder .post-title h2 a:focus,
+.main-post-area-wrapper .layout-two-post-details-holder .post-meta-posted-date p a:hover,
+.main-post-area-wrapper .layout-two-post-details-holder .post-meta-posted-date p a:focus {
+
+    color: $secondary_color;
+}
+
+.main-post-area-wrapper .layout-two-post-details-holder .post-meta-category p a {
+
+    font-family: $second_special_purpose_font;
+}
+
+.main-post-area-wrapper .layout-two-post-details-holder {
+
+    border-bottom: 1px solid $border_color;
+    padding-bottom: 40px;
+    margin-bottom: 40px;
+}
+
+.main-post-area-wrapper .layout-two-post-details-holder .post-image {
+
+    iframe {
+
+        width: 100% !important;
+        height: 170px !important;
+    }
+}
+
+.main-post-area-wrapper .layout-two-post-details-holder .link-post {
+
+
+    padding: 50px 0 50px 0;
+}
+
+
+
+
+
+
+
+
+
+
+/*
+****************************************
+Style for banner layout two
+****************************************
+*/
+
+.banner-style-two-container {
+
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    list-style: none;
+    padding: 0;
+    z-index: 1;
+
+    img {
+
+        max-width: 100% !important;
+        width: 100%;
+    }
+}
+
+
+.banner-layout-one .banner-card .featured-post-image,
+.layout-two-post-details-holder .gallery-post {
+
+    transform: none !important;
+
+    img {
+
+        transform: none !important;
+    }
+}
+.general-banner.banner-layout-two .featured-content-holder {
+    max-width: 800px;
+    width: 100%;       
+}
+.general-banner.banner-layout-two .featured-content-holder .featured-content-title h2 a {
+    overflow: visible;
+    white-space: normal;
+}
+
+
+
+
+/*
+****************************************
+Style for Singe post layout two
+****************************************
+*/
+
+.single-page-layout-two .single-page-details-holder {
+
+    border: none;
+}
+
+.single-page-layout-two .single-page-layout-two-top-style .single-post-layout-two-fimage-and-few-meta .post-fimage {
+
+    position: relative;
+    background-repeat: no-repeat !important;
+    background-attachment: fixed !important;
+    background-size: cover !important;
+    background-position: center center !important;
+    background-color: #ddd;
+}
+
+
+.single-page-layout-two .single-page-layout-two-top-style .single-post-layout-two-fimage-and-few-meta .post-ttl-n-meta {
+
+    position: relative;
+    padding: 150px 30px;
+    width: 60%;
+    z-index: 5;
+}
+
+.single-page-layout-two .single-page-layout-two-top-style .post-meta-category,
+.single-page-layout-two .single-page-layout-two-top-style .post-title {
+
+    h2 {
+
+        color: $white;
+        font-size: 35px;
+    }
+    span {
+
+        a {
+
+            color: $white;
+        }
+
+        a:hover,
+        a:focus {
+
+            color: $white;
+        }
+    }
+}
+
+.main-post-area-holder .single-page-layout-two-top-style .post-meta-category span:after {
+
+    content: ',';
+    display: inline-block;
+    padding-left: 2px;
+    color: $white;
+}
+
+.main-post-area-holder .single-page-layout-two-top-style .post-meta-category span:last-child:after {
+
+    content: '';
+}
+
+
+.main-post-area-holder .single-page-layout-two-top-style .post-extra-meta span {
+
+
+    position: relative;
+    font-family: $second_special_purpose_font;
+    text-transform: uppercase;
+    padding-right: 30px;
+
+    a,
+    a:focus {
+        color: $white;
+    }
+    a:hover {
+
+        color: $white;
+    }
+}
+
+
+.main-post-area-holder .single-page-layout-two-top-style .post-the-content {
+
+    padding-top: 100px;
+}
+
+.single-page-layout-two .comment-area-wrapper {
+
+    padding-bottom: 100px;
+}
+
+.post-fimage {
+    position: relative !important;
+    z-index: 1;
+    height:auto;
+}
+
+.covervid-wrapper video.covervid-video {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    height:auto;
+    width:auto;
+}
+
+.covervid-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.single-wrapper.main-post-area-wrapper .layout-two-post-details-holder .post-share .share .jssocials-share:first-child {
+    margin-left: 0;
+}

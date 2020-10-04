@@ -1,0 +1,135 @@
+/*
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+# Framework @ Sniper Front-End 3 - https://github.com/h1dd3nsn1p3r/sniper-front-end
+
+# Package @ Optimistic Blog
+
+# Author @ Offshore Themes
+
+# Author Url @ http://offshorethemes.com/
+
+# License GPL
+
+# Since 2017 Dec
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+**/
+
+// Pre-define for typography in project
+
+body {
+
+	font-family: $primary_font;
+
+	line-height:$default-line-height;
+
+	font-weight: $default-font-weight;
+
+	font-size: $default-font-size;
+
+	color:$primary_color;
+
+	
+}
+
+
+// Pre-define for images
+
+img {
+
+	max-width: 100%;
+	vertical-align: middle;	
+}
+
+
+// ancour transation 
+
+a {
+
+	-webkit-transition: all 0.7s ease;
+    -o-transition: all 0.7s ease;
+    transition: all 0.7s ease;
+    text-decoration:none;
+}
+
+a:hover {
+
+	text-decoration:none;
+}
+
+
+
+// predefined call
+
+.mask {
+
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	background-color: rgba(17, 17, 17, 0.5);
+	-webkit-transition-duration: 0.7s;
+    -o-transition-duration: 0.7s;
+    transition-duration: 0.7s;
+    // cursor: pointer;
+}
+
+// footer mask
+
+
+.footer-mask {
+
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    -webkit-transition-duration: 0.7s;
+    -o-transition-duration: 0.7s;
+    transition-duration: 0.7s;
+    // cursor: pointer;
+}
+
+
+// layout one button
+
+.layout-one-btn {
+
+	position: relative;
+    display: inline-block;
+    border: 2px solid $border_color;
+    padding: 5px 30px;
+    text-transform: capitalize;
+    background:none;
+    -webkit-transition-duration: 0.7s;
+    transition-duration: 0.7s;
+}
+
+.layout-one-btn:after {
+
+	content: '\f105';
+    font-family: 'fontAwesome';
+    position: absolute;
+    right: 15px;
+    top: 6px;
+    color: $secondary_color;
+    -webkit-transition-duration: 0.7s;
+    -o-transition-duration: 0.7s;
+    transition-duration: 0.7s;
+}
+
+.layout-one-btn:hover:after {
+    color:$white;
+}
+
+.layout-one-btn:hover {
+
+	background:$secondary_color;
+	color:$white;
+    -webkit-transition-duration: 0.7s;
+    transition-duration: 0.7s;
+}

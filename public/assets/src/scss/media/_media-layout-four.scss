@@ -1,0 +1,128 @@
+/*
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+# Framework @ Sniper Front-End 3 - https://github.com/h1dd3nsn1p3r/sniper-front-end
+
+# Package @ Optimistic Blog
+
+# Author @ Offshore Themes
+
+# Author Url @ http://offshorethemes.com/
+
+# License GPL
+
+# Since 2017 Dec
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+**/
+
+ @media ( max-width: 1025px) {
+
+
+
+     .banner-layout-four .featured-content-holder {
+
+         bottom: 15%;
+     }
+ }
+
+
+ @media only screen and (max-width: 768px) {
+
+
+     /*
+    * --------------------------------------------
+    * layout two media query starts here //
+    * --------------------------------------------
+    */
+     .banner-layout-four .featured-content-holder {
+
+         bottom: 10%;
+     }
+     .header-layout-four .general-header-inner nav.layout-four #main-nav {
+
+         padding: 15px 0;
+     }
+     .header-layout-four .general-header-inner nav.layout-four #main-nav .close-menu {
+
+         color: $white;
+         border-bottom: 1px solid #333;
+     }
+
+
+     .banner-style-four-container .featured-content-title h2 {
+
+        font-size:18px;
+     }
+
+
+
+     /*
+    * --------------------------------------------
+    * layout two media query ends here //
+    * --------------------------------------------
+    */
+ }
+
+
+ @media only screen and (max-width: 450px) {
+
+
+     /*
+    * --------------------------------------------
+    * layout two media query starts here //
+    * --------------------------------------------
+    */
+     .banner-layout-four .owl-carousel .owl-nav button.owl-prev,
+     .banner-layout-four .owl-carousel .owl-nav button.owl-next,
+     .banner-layout-four .owl-carousel button.owl-dot {
+
+         opacity: 0.2;
+         width: 27px;
+         height: 27px;
+         bottom: 10%;
+     }
+
+     .banner-layout-four .owl-carousel .owl-nav button.owl-prev:hover,
+     .banner-layout-four .owl-carousel .owl-nav button.owl-next:hover,
+     .banner-layout-four .owl-carousel button.owl-dot:hover,
+     .banner-layout-four .owl-carousel button.owl-dot:focus {
+
+         opacity: 1;
+         cursor: pointer;
+     }
+
+     .banner-layout-four .featured-content-title h2 {
+
+         font-size: 20px;
+     }
+
+     .banner-layout-four .featured-content-holder {
+
+         bottom: 15%;
+     }
+
+     .masonry-grid .grid-item {
+
+         margin-right: 0;
+         padding: 0 15px 20px 15px;
+         margin: 0 0;
+         width: 100%;
+     }
+
+     .masonry-grid .grid-item .post-details-holder {
+
+         margin-bottom: 0;
+     }
+
+
+
+
+
+     /*
+    * --------------------------------------------
+    * layout two media query ends here //
+    * --------------------------------------------
+    */
+ }
