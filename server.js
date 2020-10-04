@@ -23,6 +23,7 @@ app.use(morgan("dev"))
 app.use(bodyParser.json());
 
 app.use(express.static("public"));
+
 app.use(cookieParser('secret'));
 app.use(session({
   cookie: { maxAge: 86400000 },
