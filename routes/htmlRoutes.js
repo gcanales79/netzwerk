@@ -7,16 +7,16 @@ module.exports = function (app) {
     // Load index page
     app.get("/", function (req, res) {
         res.locals.metaTags = {
-            title: "Bites of the World - Blog About Food and Travel",
-            description: "A lover of food and great places to enjoy with the family",
-            keywords: "food, restaurant, restaurants, place to go, Warsaw, Monterrey, place to eat, place to drink",
+            title: "Netzwerk - Blog Acerca de Liderazgo y Administración",
+            description: "Profesional de la Industria Automotriz que busca compartir sus experiencias",
+            keywords: "liderazgo, crisis, administración, equipo, disciplina, colaboración, persuasión, asertividad, resolución de problemas, confianza, inteligencia emocional, liderazgo participativo",
             cardType: "summary_large_image",
-            site: "@bitesworld_mx",
-            creator: "@bitesworld_mx",
-            url: "https://bitesoftheworld.mx/",
-            twitterTitle: "Blog about food and places to visit.",
-            twitterDescription: "Blog with plenty of ideas of restaurants or places to go mainly of Warsaw and Monterrey.",
-            image: "https://bitesoftheworld.mx/assets/images/Logoblanco.jpg"
+            site: "@netzwerk13",
+            creator: "@netzwerk13",
+            url: "https://netzwerk.mx/",
+            twitterTitle: "Blog acerca de temas de liderazgo y desarrollo de equipos",
+            twitterDescription: "Blog donde quisiera compartir mis experiencias, lo que voy aprendiendo en el camino y me gustaria escuchar de ti.",
+            image: "https://netzwerk.mx/assets/dist/img/Logo_netzwerk.png"
 
         }
         db.Post.findAll({
@@ -35,9 +35,9 @@ module.exports = function (app) {
     // Render 404 page for any unmatched routes
     app.get("*", function (req, res) {
         res.locals.metaTags = {
-            title: "404 Page Ups Something Went Wrong- Bites of the World",
+            title: "404 No se encontro la página - Netzwerk",
             description: "This is a 404 Page, please try again",
-            keywords: "food, restaurant, restaurants, place to go, Warsaw, Konstancin, Monterrey, place to eat, place to drink"
+            keywords: "liderazgo, crisis, administración, equipo, disciplina, colaboración, persuasión, asertividad, resolución de problemas, confianza, inteligencia emocional, liderazgo participativo"
 
         }
         res.render("404");
