@@ -1,0 +1,104 @@
+<div class="general-single-page-layout single-page-layout-one">
+
+    <!-- // breadcrumb-wrapper -->
+    <div class="single-page-wrapper">
+        <div class="single-page-inner">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                        <div class="main-post-area-holder">
+                            <article class="single-page-details-holder">
+                                <div class="post-image">
+                                    <img src={{datos.imagen_post}} alt="....">
+                                </div>
+                                <div class="single-page-other-information-holder">
+                                    <div class="posted-category">
+                                        <div class="post-meta-category">
+                                            <span><a href="#">{{datos.tema}}</a></span>
+                                        </div>
+                                    </div>
+                                    <div class="post-title">
+                                        <h2>{{datos.titulo}}</h2>
+                                    </div>
+                                    <!-- // post-title -->
+                                    <div class="post-extra-meta">
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                <div class="post-author">
+                                                    <span><a href="#">{{datos.autor}}</a></span>
+                                                </div>
+                                            </div>
+                                            <!-- // col -->
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                <div class="posted-date">
+                                                    <span><a href="#">{{formatDate datos.createdAt}}</a></span>
+                                                </div>
+                                            </div>
+                                            <!-- // col -->
+                                        </div>
+                                        <!-- // row -->
+                                    </div>
+                                    <!-- // post-extra-meta -->
+                                    <div class="post-the-content">
+                                        <p>lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                            consequat...
+                                        </p>
+                                        <p>There are many variations of passages of Lorem Ipsum available, but the
+                                            majority have suffered alteration in some form, by injected humour, or
+                                            randomised words which don't look even slightly believable. If you are going
+                                            to use a passage of Lorem Ipsum.
+                                        </p>
+                                        <blockquote>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum
+                                            dolorum debitis, numquam natus vitae mollitia vel fuga quae maiores repellat
+                                            laborum, libero aliquam voluptate omnis, quibusdam, suscipit veritatis
+                                            nesciunt ea. Iusto sit quae repellat nisi!</blockquote>
+                                        <p>You need to be sure there isn't anything embarrassing hidden in the middle of
+                                            text. All the Lorem Ipsum generators on the Internet tend to repeat
+                                            predefined chunks as necessary, making this the first true generator on the
+                                            Internet. It uses a dictionary of over 200 Latin words, combined with a
+                                            handful of model sentence structures, to generate Lorem Ipsum which looks
+                                            reasonable.</p>
+                                    </div>
+                                    <!-- // post-the-content  -->
+                                    <div class="post-share">
+                                        <div class="share"></div>
+                                    </div>
+                                    <div class="tags-meta-and-others clearfix">
+
+                                    </div>
+                                </div>
+                                <!-- // single-page-information-holder -->
+                            </article>
+                            <!-- relatedPost -->
+                            <!-- // related-posts-wrapper -->
+                            <!-- comments -->
+                            <!-- // comment-area-wrapper -->
+                        </div>
+                        <!-- // main-post-area-holder-->
+                    </div>
+                    <!-- // col -->
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <aside class="sidebar">
+                            <div class="sidebar-inner">
+                                {{>aboutMe}}
+                                {{>IamSocial}}
+
+
+                                {{>facebook}}
+                            </div>
+                            <!-- // sidebar-inner -->
+                        </aside>
+                        <!-- // sidebar -->
+                    </div>
+                    <!-- // col -->
+                </div>
+                <!-- // row that divides left and right side-->
+            </div>
+            <!-- // container -->
+        </div>
+        <!-- // single-page-inner -->
+    </div>
+    <!-- // single-page-wrapper -->
+</div>

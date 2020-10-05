@@ -32,6 +32,25 @@ module.exports = function (app) {
        
     });
 
+    //Load Blog Post
+    app.get("/api",(req,res)=>{
+        console.log(req.query.post)
+        db.Post.findOne({
+            where:{
+                url_id: req.query.post
+            }
+        }).then((data)=>{
+            console.log(data.dataValues)
+            res.render("singlePost",{
+                msg:"Welcome!",
+                datos:data.dataValues,
+            })
+            
+        })
+       
+
+    })
+
     // Cookies
     app.get("/cookies", function (req, res) {
         res.locals.metaTags = {
