@@ -32,6 +32,20 @@ module.exports = function (app) {
        
     });
 
+    // Cookies
+    app.get("/cookies", function (req, res) {
+        res.locals.metaTags = {
+            title: "Declaración de Cookies - Netzwerk",
+            description: "Por favor acepta nuestras cookies",
+            keywords: "liderazgo, crisis, administración, equipo, disciplina, colaboración, persuasión, asertividad, resolución de problemas, confianza, inteligencia emocional, liderazgo participativo"
+
+        }
+        res.render("cookies", {
+            msg: "Welcome!",
+        });
+
+    });
+
     // Render 404 page for any unmatched routes
     app.get("*", function (req, res) {
         res.locals.metaTags = {

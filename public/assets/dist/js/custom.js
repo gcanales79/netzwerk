@@ -252,43 +252,7 @@ $(document).ready(function () {
     });
 
 
-    $.get("/post",(data)=>{
-        
-    }).then((data)=>{
-        //console.log(data)
-        for(let i=0;i<data.length;i++){
-            let newArticle=$("<article>");
-            newArticle.attr("class","post-details-holder layout-two-post-details-holder");
-            let div1=$("<div>");
-            div1.attr("class","row");
-            let div2=$("<div>");
-            div2.attr("class","col-lg-5 col-md-5 col-sm-5 col-xs-12");
-            let div3=$("<div>");
-            div3.attr("class","post-image");
-            let postImg=$("<img>");
-            postImg.attr("src",data[i].imagen);
-            let div4=$("<div>");
-            div4.attr("class","col-lg-7 col-md-7 col-sm-7 col-xs-12");
-            let divTitulo=$("<div>");
-            divTitulo.attr("class","post-title")
-            let titulo=$("<h2>");
-            let link=$("<a>");
-            link.attr("href",data[i].url);
-            link.text(data[i].titulo);
-            let divFecha=$("<div>");
-            divFecha.attr("class","post-meta-posted-date");
-            let pFecha=$("<p>");
-            pFecha.text(data[i].createdAt);
-            let div5=$("<div>");
-            div5.attr("class","post-share");
-            let divShare=$("<div>");
-            divShare.attr("class","share")
-
-            // Creacion de los Post
-
-
-        }
-    })
+  
    
 
 });
