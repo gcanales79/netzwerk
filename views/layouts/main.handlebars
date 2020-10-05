@@ -17,17 +17,26 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <meta name="description"
-		content="{{metaTags.description}}">
-	<meta name="keywords" content="{{metaTags.keywords}}">
-	<meta name="robots" content="index,follow">
-	<meta name="twitter:card" content="{{metaTags.cardType}}">
-	<meta name="twitter:site" content="{{metaTags.site}}">
-	<meta name="twitter:creator" content="{{metaTags.creator}}">
-	<meta name="og:url" content="{{metaTags.url}}">
-	<meta name="og:title" content="{{metaTags.twitterTitle}}">
-	<meta name="og:description" content="{{metaTags.twitterDescription}}">
-	<meta name="og:image" content="{{metaTags.image}}">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132709170-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-132709170-1');
+    </script>
+
+    <meta name="description" content="{{metaTags.description}}">
+    <meta name="keywords" content="{{metaTags.keywords}}">
+    <meta name="robots" content="index,follow">
+    <meta name="twitter:card" content="{{metaTags.cardType}}">
+    <meta name="twitter:site" content="{{metaTags.site}}">
+    <meta name="twitter:creator" content="{{metaTags.creator}}">
+    <meta name="og:url" content="{{metaTags.url}}">
+    <meta name="og:title" content="{{metaTags.twitterTitle}}">
+    <meta name="og:description" content="{{metaTags.twitterDescription}}">
+    <meta name="og:image" content="{{metaTags.image}}">
 </head>
 
 <body>
@@ -90,7 +99,7 @@
         <!-- // general-header-inner -->
     </header>
     {{{body}}}
-    <footer class="general-footer" >
+    <footer class="general-footer">
         <div class="footer-mask" style="background-color:#1f1f23"></div>
         <div class="footer-inner">
             <div class="container">
@@ -102,7 +111,7 @@
                                     <h2>About Me</h2>
                                 </div>
                                 <div class="widget-about-site-logo">
-                                    <img src="./assets/dist/img/Logo_netzwerk.png" alt="Netzwerk Logo Negro"/>
+                                    <img src="./assets/dist/img/Logo_netzwerk.png" alt="Netzwerk Logo Negro" />
                                 </div>
                                 <div class="widget-content">
                                     <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
@@ -127,7 +136,7 @@
                                 <div class="widget-content">
                                     <ul class="widget-category-listings">
                                         <li><a href="/">Home</a></li>
-                                        
+
                                     </ul>
                                 </div>
                                 <!-- // widget-content -->
@@ -138,12 +147,12 @@
                     </div>
                     <!-- // col -->
                     <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 footer-block">
-                       {{>tweet}}
+                        {{>tweet}}
                     </div>
                     <!-- // col -->
                 </div>
                 <!-- // row -->
-                
+
                 <!-- // copyright-and-nav-row -->
             </div>
             <!-- // container -->
