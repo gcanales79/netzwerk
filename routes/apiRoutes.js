@@ -65,7 +65,7 @@ module.exports = function (app) {
         url:req.body.url,
         twitterTitle:req.body.twitterTitle,
         twitterDescription:req.body.twitterDescription,
-        image:req.body.imagen,
+        image:req.body.image,
         PostId:req.body.PostId,
       }).then((data)=>{
         res.json(data)
