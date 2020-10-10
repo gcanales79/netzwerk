@@ -41,7 +41,7 @@ module.exports = function (app) {
             },
             include: [db.Tag]
         }).then((data) => {
-            console.log(data.dataValues.Tag.dataValues.site)
+            console.log(data.dataValues)
             res.locals.metaTags = {
                 title: data.dataValues.titulo,
                 description: data.dataValues.description,
