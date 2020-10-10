@@ -9,7 +9,7 @@ module.exports = function (app) {
         res.locals.metaTags = {
             title: "Netzwerk - Blog Acerca de Liderazgo y Administración",
             description: "Profesional de la Industria Automotriz que busca compartir sus experiencias",
-            keywords: "liderazgo, crisis, administración, equipo, disciplina, colaboración, persuasión, asertividad, resolución de problemas, confianza, inteligencia emocional, liderazgo participativo",
+            keywords: "liderazgo, crisis, administración, equipo, disciplina, colaboración, persuasión, asertividad, resolución de problemas, confianza, inteligencia emocional, liderazgo participativo, proactividad",
             cardType: "summary_large_image",
             site: "@netzwerk13",
             creator: "@netzwerk13",
@@ -21,35 +21,50 @@ module.exports = function (app) {
         }
         db.Post.findAll({
             order: [["createdAt", "DESC"]],
-        }).then((data)=>{
+        }).then((data) => {
             //console.log(data)
             res.render("index", {
                 msg: "Welcome!",
-                datos:data.map(data=>data.toJSON())
-                
+                datos: data.map(data => data.toJSON())
+
             });
         })
-       
+
     });
 
     //Load Blog Post
-    app.get("/api",(req,res)=>{
+    app.get("/api", (req, res) => {
         console.log(req.query.post)
         db.Post.findOne({
-            where:{
+            where: {
                 url_id: req.query.post
+            },
+            include: [db.Tag]
+        }).then((data) => {
+            console.log(data.dataValues.Tag.dataValues.site)
+            res.locals.metaTags = {
+                title: data.dataValues.titulo,
+                description: data.dataValues.description,
+                keywords: data.dataValues.keywords,
+                cardType: data.dataValues.Tag.dataValues.cardType,
+                site: data.dataValues.Tag.dataValues.site,
+                creator: data.dataValues.Tag.dataValues.creator,
+                url: data.dataValues.Tag.dataValues.url,
+                twitterTitle: data.dataValues.Tag.dataValues.twitterTitle,
+                twitterDescription: data.dataValues.Tag.dataValues.twitterDescription,
+                image: data.dataValues.Tag.dataValues.image,
             }
-        }).then((data)=>{
-            console.log(data.dataValues)
-            res.render("singlePost",{
-                msg:"Welcome!",
-                datos:data.dataValues,
-            })
-            
+            res.render("singlePost", {
+                msg: "Welcome!",
+                datos: data.dataValues,
+            });
+
+
         })
-       
+
 
     })
+
 
     // Cookies
     app.get("/cookies", function (req, res) {
