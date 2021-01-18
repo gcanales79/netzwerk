@@ -1,4 +1,5 @@
 var db = require("../models");
+var isAuthenticated = require("../config/middleware/isAuthenticated");
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
@@ -25,12 +26,48 @@ module.exports = function (app) {
             //console.log(data)
             res.render("index", {
                 msg: "Welcome!",
+                //Solucion al problema de handlebars
                 datos: data.map(data => data.toJSON())
 
             });
         })
 
     });
+
+    //Admin Page page
+    app.get("/admin",isAuthenticated,(req,res)=>{
+        res.render("admin",{
+            style:"sidemenu.css"
+        })
+    })
+
+    //Login Page
+    app.get("/login",(req,res)=>{
+        let alert=req.flash("error")
+        console.log(alert)
+        res.render("login",{
+            style:"login.css",
+            alerta:alert,
+            title:"Sign in",
+            title2:"Sign up",
+            link:"/signup",
+            buttonTitle:"Login"
+        })
+    })
+
+      //Signup Page
+      app.get("/signup",(req,res)=>{
+        let alert=req.flash("error")
+        console.log(alert)
+        res.render("signup",{
+            style:"login.css",
+            alerta:alert,
+            title:"Sign up",
+            title2:"Sign in",
+            link:"/login", 
+            buttonTitle:"Signup"
+        })
+    })
 
     //Load Blog Post
     app.get("/api", (req, res) => {
@@ -42,18 +79,19 @@ module.exports = function (app) {
             include: [db.Tag]
         }).then((data) => {
             console.log(data.dataValues)
-            res.locals.metaTags = {
-                title: data.dataValues.titulo,
-                description: data.dataValues.description,
-                keywords: data.dataValues.keywords,
-                cardType: data.dataValues.Tag.dataValues.cardType,
-                site: data.dataValues.Tag.dataValues.site,
-                creator: data.dataValues.Tag.dataValues.creator,
-                url: data.dataValues.Tag.dataValues.url,
-                twitterTitle: data.dataValues.Tag.dataValues.twitterTitle,
-                twitterDescription: data.dataValues.Tag.dataValues.twitterDescription,
-                image: data.dataValues.Tag.dataValues.image,
-            }
+                res.locals.metaTags = {
+                    title: data.dataValues.titulo,
+                    description: data.dataValues.description,
+                    keywords: data.dataValues.keywords,
+                    cardType: data.dataValues.Tag.dataValues.cardType,
+                    site: data.dataValues.Tag.dataValues.site,
+                    creator: data.dataValues.Tag.dataValues.creator,
+                    url: data.dataValues.Tag.dataValues.url,
+                    twitterTitle: data.dataValues.Tag.dataValues.twitterTitle,
+                    twitterDescription: data.dataValues.Tag.dataValues.twitterDescription,
+                    image: data.dataValues.Tag.dataValues.image,
+                }
+            
             res.render("singlePost", {
                 msg: "Welcome!",
                 datos: data.dataValues,

@@ -1,0 +1,122 @@
+<div class="wrapper">
+    <!-- Sidebar -->
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <h3>Bootstrap Sidebar</h3>
+        </div>
+
+        <ul class="list-unstyled components">
+            <!--p>Dummy Heading</p-->
+            <!--li class="active">
+                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
+                <ul class="collapse list-unstyled" id="homeSubmenu">
+                    <li>
+                        <a href="#">Home 1</a>
+                    </li>
+                    <li>
+                        <a href="#">Home 2</a>
+                    </li>
+                    <li>
+                        <a href="#">Home 3</a>
+                    </li>
+                </ul>
+            </li-->
+            <li>
+                <a href="/admin">Users</a>
+            </li>
+
+        </ul>
+
+    </nav>
+    <!-- Page Content -->
+    <div id="content">
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+
+                <button type="button" id="sidebarCollapse" class="btn btn-info">
+                    <i class="fas fa-align-left"></i>
+                    <span>Toggle Sidebar</span>
+                </button>
+                <button type="button" id="addUser" class="btn btn-info">
+                    <i class="fas fa-user-plus"></i>
+                    <span>Add User</span>
+                </button>
+                <button type="button" id="logoutButton" class="btn btn-danger" onclick="location.href='/logout'">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </nav>
+        <div class="container">
+            <div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="true" id="activosToggle" checked
+                        data-toggle="toggle" data-on="activos" data-off="inactivos">
+                </div>
+            </div>
+            <table class="table table-striped" id="tablaUsuarios">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Role</th>
+                        <th scope="col" colspan="2">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="bodyTablaUsuarios">
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+<!--Toast-->
+<div role="alert" aria-live="assertive" aria-atomic="true" class="toast" id="myToast" data-autohide="true"
+    data-delay="2000" style="position: absolute; top: 0; right: 0;">
+    <div class="toast-header">
+
+        <strong class="mr-auto">Notification</strong>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="toast-body" id="bodyToast">
+
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fadeIn" id="adminModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="adminModalLongTitle"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="adminModalBody">
+                <div id="modalBodyAlert" style="display:none">
+
+                </div>
+                <div id="userForm" style="display:none">
+                    {{>addUserForm}}
+                    <div id="alertForm">
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" id="modalFooter">
+                <!--button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button-->
+                <!--button type="button" class="btn btn-danger">Borrar</button-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery.js"></script>
+<script src="assets/dist/js/admin.js"></script>

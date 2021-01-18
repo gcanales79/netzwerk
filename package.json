@@ -17,19 +17,26 @@
   },
   "homepage": "https://github.com/gcanales79/netzwerk#readme",
   "dependencies": {
-    "axios": "^0.20.0",
+    "axios": "^0.21.1",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
+    "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-handlebars": "^5.1.0",
     "express-session": "^1.17.1",
+    "express-validator": "^6.9.2",
     "handlebars": "^4.7.6",
+    "jwt-simple": "^0.5.6",
     "memorystore": "^1.6.2",
     "moment-timezone": "^0.5.31",
     "morgan": "^1.10.0",
     "mysql2": "^2.2.5",
+    "nodemon": "^2.0.7",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
     "sequelize": "^6.3.5"
   }
 }

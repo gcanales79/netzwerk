@@ -6,9 +6,12 @@ var cookieParser = require("cookie-parser")
 const exphbs = require('express-handlebars');
 const moment = require('moment-timezone');
 var session = require("express-session");
+// Requiring passport as we've configured it
+var passport = require("./config/passport");
 var db = require("./models");
 var MemoryStore = require("memorystore")(session)
 const morgan=require("morgan")
+var flash = require("connect-flash");
 
 const app = express();
 app.use(compression());
@@ -37,6 +40,11 @@ app.use(session({
   Secure:"true",
   secret: 'secret'
 }));
+
+app.use(flash());
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 //Create a Handlebar function
 var hbs = exphbs.create({
