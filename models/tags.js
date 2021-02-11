@@ -1,6 +1,6 @@
 module.exports = function (sequelize, DataTypes) {
-  var Tag = sequelize.define("Tag", {
-    title: DataTypes.TEXT,
+    var Metatag = sequelize.define("Metatag", {
+        title: DataTypes.TEXT,
     description: DataTypes.TEXT,
     keywords: {
       type: DataTypes.STRING,
@@ -25,16 +25,17 @@ module.exports = function (sequelize, DataTypes) {
     twitterTitle: DataTypes.TEXT,
     twitterDescription: DataTypes.TEXT,
     image: DataTypes.STRING,
-  });
-
-  Tag.associate = function (models) {
-    Tag.belongsTo(models.Post, {
-      onDelete: "cascade",
-      foreignKey: {
-        allowNull: false,
-      },
+       
     });
-  };
 
-  return Tag;
-};
+    Metatag.associate=function(models){
+        Metatag.belongsTo(models.Blog,{
+            onDelete:"cascade",
+            foreignKey:{
+                allowNull:false,
+            }
+        })
+    }
+
+    return Metatag;
+}

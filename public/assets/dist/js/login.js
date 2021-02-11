@@ -30,12 +30,42 @@ $(document).ready(function () {
       password: password,
     }).then((data) => {
       console.log(data);
-      $("#myToast").toast("show");
-      $("#myToast").attr("class", data.alert);
-      $("#bodyToast").text(data.message);
-      localStorage.setItem("ACCESS_TOKEN",data.accessToken);
-      localStorage.setItem("REFRESH_TOKEN",data.refreshToken);
-      window.location.href=("./admin")
+
+      if (data.alert === "Success") {
+        notificationToast(data.alert, data.message);
+        localStorage.setItem("ACCESS_TOKEN", data.accessToken);
+        localStorage.setItem("REFRESH_TOKEN", data.refreshToken);
+        window.location.href = "./admin";
+      } else {
+        notificationToast(data.alert, data.message);
+      }
     });
+  }
+
+  function notificationToast(result, message) {
+    switch (result) {
+      case "Success":
+        $.notify(
+          {
+            icon: "far fa-check-circle",
+            message: message,
+          },
+          {
+            type: "success",
+          }
+        );
+        break;
+      case "Error":
+        $.notify(
+          {
+            icon: "far fa-times-circle",
+            message: message,
+          },
+          {
+            type: "danger",
+          }
+        );
+        break;
+    }
   }
 });

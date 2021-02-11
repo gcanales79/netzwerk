@@ -6,10 +6,10 @@ $(document).ready(function () {
   getUsers(true);
 
   //Toggle de Usuarios Activos
-  $("#activosToggle").on("change", (event) => {
+  $("#activosToggle").on("change", function (event) {
     event.preventDefault();
     let toggleValue = $("#activosToggle").is(":checked") ? true : false;
-    //console.log(toggleValue)
+    console.log(toggleValue);
     getUsers(toggleValue);
   });
 
@@ -31,9 +31,7 @@ $(document).ready(function () {
       data: JSON.stringify(changes),
       success: function (data) {
         console.log(data);
-        $("#myToast").toast("show");
-        $("#myToast").attr("class", data.alert);
-        $("#bodyToast").text(data.message);
+        notificationToast(data.alert, data.message);
         getUsers(toggleValue);
       },
     });
@@ -46,7 +44,7 @@ $(document).ready(function () {
     //console.log(UserId);
     $.get(`/get-user/${userId}`, () => {}).then((data) => {
       const { user } = data;
-      console.log(user);
+      //console.log(user);
       buttonBorrarUsuario(user.id);
       $("#adminModalCenter").modal("show");
       clearUserForm();
@@ -71,15 +69,12 @@ $(document).ready(function () {
     }).then((data) => {
       if (data.alert === "alert alert-success") {
         $("#adminModalCenter").modal("hide");
-        $("#myToast").toast("show");
-        $("#myToast").attr("class", data.alert);
-        $("#bodyToast").text(data.message);
+        notificationToast(data.alert, data.message);
         getUsers(toggleValue);
-      }else{
-
-        let alertDiv=$("<div>");
-        alertDiv.attr("class",data.alert);
-        alertDiv.text(data.message)
+      } else {
+        let alertDiv = $("<div>");
+        alertDiv.attr("class", data.alert);
+        alertDiv.text(data.message);
         $("#alertForm").append(alertDiv);
       }
     });
@@ -96,12 +91,12 @@ $(document).ready(function () {
   });
 
   //Editar Usuario
-  $(document).on("click",".buttonEdit",function(event){
+  $(document).on("click", ".buttonEdit", function (event) {
     event.preventDefault();
-    let userId=$(this).attr("value");
+    let userId = $(this).attr("value");
     //console.log(userId);
-    $.get(`/get-user/${userId}`,()=>{}).then((data)=>{
-      const {user}=data;
+    $.get(`/get-user/${userId}`, () => {}).then((data) => {
+      const { user } = data;
       //console.log(user)
       $("#adminModalCenter").modal("show");
       buttonEditUser(user.id);
@@ -109,21 +104,21 @@ $(document).ready(function () {
       $("#adminModalLongTitle").text("Editar Usuario");
       $("#userForm").css("display", "inline-block");
       $("#passwordUserForm").css("display", "none");
-      $("#inputEmail").val(user.email)
-      $("#selectRole").val(user.role)
-    })
-  })
+      $("#inputEmail").val(user.email);
+      $("#selectRole").val(user.role);
+    });
+  });
 
   //Guardar datos usuario editado
-  $(document).on("click","#buttonEditUser",function(event){
-    let userEmail=$("#inputEmail").val().trim();
-    let userRole=$("#selectRole").val();
+  $(document).on("click", "#buttonEditUser", function (event) {
+    let userEmail = $("#inputEmail").val().trim();
+    let userRole = $("#selectRole").val();
     let toggleValue = $("#activosToggle").is(":checked") ? true : false;
-    let changes={
+    let changes = {
       email: userEmail,
-      role:userRole
-    }
-    let userId=$("#buttonEditUser").val()
+      role: userRole,
+    };
+    let userId = $("#buttonEditUser").val();
     $.ajax({
       url: `/activate-user/${userId}`,
       type: "PUT",
@@ -132,13 +127,11 @@ $(document).ready(function () {
       success: function (data) {
         //console.log(data);
         $("#adminModalCenter").modal("hide");
-        $("#myToast").toast("show");
-        $("#myToast").attr("class", data.alert);
-        $("#bodyToast").text(data.message);
+        notificationToast(data.alert, data.message);
         getUsers(toggleValue);
       },
-    })
-  })
+    });
+  });
 
   //Confirmar Borrar
   $(document).on("click", "#buttonBorrarConfirmar", function (event) {
@@ -152,9 +145,7 @@ $(document).ready(function () {
       success: function (data) {
         //console.log(data)
         $("#adminModalCenter").modal("hide");
-        $("#myToast").toast("show");
-        $("#myToast").attr("class", data.alert);
-        $("#bodyToast").text(data.message);
+        notificationToast(data.alert, data.message);
         console.log("Usuario borrado");
         getUsers(false);
       },
@@ -303,25 +294,25 @@ $(document).ready(function () {
     $("#modalFooter").append(buttonAdd);
   }
 
-    //Crear boton Edit Usuario
-    function buttonEditUser(userId) {
-      $("#modalFooter").empty();
-  
-      //Boton Cerrar
-      let buttonClose = $("<button>");
-      buttonClose.attr("class", "btn btn-secondary");
-      buttonClose.attr("data-dismiss", "modal");
-      buttonClose.text("Cerrar");
-      $("#modalFooter").append(buttonClose);
-  
-      //Boton Borrar
-      let buttonSave = $("<button>");
-      buttonSave.attr("class", "btn btn-info");
-      buttonSave.attr("value",userId)
-      buttonSave.attr("id", "buttonEditUser");
-      buttonSave.text("Guardar");
-      $("#modalFooter").append(buttonSave);
-    }
+  //Crear boton Edit Usuario
+  function buttonEditUser(userId) {
+    $("#modalFooter").empty();
+
+    //Boton Cerrar
+    let buttonClose = $("<button>");
+    buttonClose.attr("class", "btn btn-secondary");
+    buttonClose.attr("data-dismiss", "modal");
+    buttonClose.text("Cerrar");
+    $("#modalFooter").append(buttonClose);
+
+    //Boton Borrar
+    let buttonSave = $("<button>");
+    buttonSave.attr("class", "btn btn-info");
+    buttonSave.attr("value", userId);
+    buttonSave.attr("id", "buttonEditUser");
+    buttonSave.text("Guardar");
+    $("#modalFooter").append(buttonSave);
+  }
 
   //Limpiar Modal Boday Alert
   function clearModalAlert() {
@@ -334,4 +325,352 @@ $(document).ready(function () {
     $("#userForm").css("display", "none");
   }
 
+  paginationBlog(1);
+
+  function paginationBlog(pageNumber) {
+    $("#pagination-container").empty();
+    if ($("#pagination-container").length) {
+      //console.log("Entro")
+      //Pagination
+      $("#pagination-container").pagination({
+        dataSource: function (done) {
+          $.ajax({
+            type: "GET",
+            url: "/get-all-posts",
+            success: function (response) {
+              //console.log(response)
+              done(response.data);
+            },
+          });
+        },
+        pageSize: 10,
+        pageNumber: pageNumber,
+        callback: function (data, pagination) {
+          $("#postList").empty();
+          for (let i = 0; i < data.length; i++) {
+            newItem = $("<li>");
+            newItem.attr(
+              "class",
+              "list-group-item d-flex justify-content-around align-items-start"
+            );
+            divTitle = $("<div>");
+            divTitle.text(data[i].title);
+            divTitle.attr("class", "col");
+            newDiv = $("<div>");
+            newDiv.attr("class", "col");
+            //Button See
+            buttonSee = $("<a>");
+            buttonSee.attr("class", "btn btn-primary");
+            buttonSee.attr("href", data[i].url);
+            buttonSee.attr("role", "button");
+            buttonSee.css("margin", "5px");
+            seeIcon = $("<i>");
+            seeIcon.attr("class", "far fa-eye");
+            buttonSee.append(seeIcon);
+            //Button Edit
+            buttonEdit = $("<button>");
+            buttonEdit.attr("type", "button");
+            buttonEdit.attr("class", "btn btn-primary editPost");
+            buttonEdit.css("margin", "5px");
+            buttonEdit.attr("value", data[i].id);
+            buttonEdit.attr("page", pagination.pageNumber);
+            editIcon = $("<i>");
+            editIcon.attr("class", "fas fa-edit");
+            buttonEdit.append(editIcon);
+            //Button Image
+            buttonImage = $("<button>");
+            buttonImage.attr("type", "button");
+            buttonImage.attr("class", "btn btn-primary imagePost");
+            buttonImage.css("margin", "5px");
+            buttonImage.attr("value", data[i].id);
+            buttonImage.attr("page", pagination.pageNumber);
+            imageIcon = $("<i>");
+            imageIcon.attr("class", "far fa-image");
+            buttonImage.append(imageIcon);
+            //Button Twitter
+            buttonTwitter = $("<button>");
+            buttonTwitter.attr("type", "button");
+            buttonTwitter.attr("class", "btn btn-primary twitterPost");
+            buttonTwitter.css("margin", "5px");
+            buttonTwitter.attr("value", data[i].id);
+            buttonTwitter.attr("page", pagination.pageNumber);
+            twitterIcon = $("<i>");
+            twitterIcon.attr("class", "fab fa-twitter");
+            buttonTwitter.append(twitterIcon);
+            //Button Delete
+            buttonDelete = $("<button>");
+            buttonDelete.attr("type", "button");
+            buttonDelete.attr("class", "btn btn-danger deletePost");
+            buttonDelete.css("margin", "5px");
+            buttonDelete.attr("value", data[i].id);
+            buttonDelete.attr("page", pagination.pageNumber);
+            deleteIcon = $("<i>");
+            deleteIcon.attr("class", "fas fa-trash-alt");
+            buttonDelete.append(deleteIcon);
+            //Append Icons to Div
+            newDiv.append(buttonSee);
+            newDiv.append(buttonEdit);
+            newDiv.append(buttonImage);
+            newDiv.append(buttonTwitter);
+            newDiv.append(buttonDelete);
+            //Append Div to Item
+            newItem.append(divTitle);
+            newItem.append(newDiv);
+            //Append Item to List
+            $("#postList").append(newItem);
+          }
+        },
+      });
+    }
+  }
+
+  //Funcion delete en lista de Post
+
+  $(document).on("click", ".deletePost", function (event) {
+    event.preventDefault();
+    let postId = $(this).attr("value");
+    let pageNum = $(this).attr("page");
+    $.get(`/get-post-id/${postId}`, () => {}).then((data) => {
+      const { post } = data;
+      //console.log(post);
+      buttonBorrarPost(postId, pageNum);
+      $("#adminModalCenter").modal("show");
+      clearUserForm();
+      $("#adminModalLongTitle").text("Borrar Post");
+      $("#modalBodyAlert").css("display", "inline-block");
+      $("#modalBodyAlert").text(
+        `Seguro que quieres borrar el post de ${post.title}`
+      );
+    });
+  });
+
+  //Crear boton Borrar Post
+  function buttonBorrarPost(postId, pageNum) {
+    $("#modalFooter").empty();
+
+    //Boton Cerrar
+    let buttonClose = $("<button>");
+    buttonClose.attr("class", "btn btn-secondary");
+    buttonClose.attr("data-dismiss", "modal");
+    buttonClose.text("Cerrar");
+    $("#modalFooter").append(buttonClose);
+
+    //Boton Borrar
+    let buttonBorrar = $("<button>");
+    buttonBorrar.attr("class", "btn btn-danger");
+    buttonBorrar.attr("id", "buttonBorrarPost");
+    buttonBorrar.text("Eliminar");
+    buttonBorrar.attr("value", postId);
+    buttonBorrar.attr("page", pageNum);
+    $("#modalFooter").append(buttonBorrar);
+  }
+
+  //Funcion borrar Post en Modal
+  $(document).on("click", "#buttonBorrarPost", function (event) {
+    event.preventDefault();
+    let postId = $(this).attr("value");
+    let pageNum = $(this).attr("page");
+    $.ajax({
+      url: `/delete-post/${postId}`,
+      type: "DELETE",
+      contentType: "application/json",
+      success: function (data) {
+        //console.log(data)
+        $("#adminModalCenter").modal("hide");
+        notificationToast(data.alert, data.message);
+        //console.log("Usuario borrado");
+        paginationBlog(pageNum);
+      },
+    });
+  });
+
+  //Modal añadir post
+  $("#addPost").on("click", function (event) {
+    event.preventDefault();
+    $("#modalPostLongTitle").text("Crear Nuevo Post");
+    $("#createPost").text("Crear Post");
+    $("#modalPostCenter").attr("type", "Create");
+    $("#modalPostCenter").modal("show");
+  });
+
+  //TinyMCE
+  tinymce.init({
+    selector: "#descriptionPost",
+    width: "100%",
+    height: 270,
+    plugins: [
+      "advlist autolink lists link image charmap print preview anchor",
+      "searchreplace visualblocks code fullscreen",
+      "insertdatetime media table paste code help wordcount",
+    ],
+    toolbar:
+      "undo redo | formatselect | " +
+      "bold italic backcolor | alignleft aligncenter " +
+      "alignright alignjustify | bullist numlist outdent indent | " +
+      "removeformat | help",
+  });
+
+  $(document).on("focusin", function (e) {
+    if (
+      $(e.target).closest(
+        ".tox-tinymce, .tox-tinymce-aux, .moxman-window, .mce-window, .tam-assetmanager-root"
+      ).length
+    ) {
+      e.stopImmediatePropagation();
+    }
+  });
+
+  //Create Post Function
+
+  $("#createPost").on("click", function (event) {
+    event.preventDefault();
+
+    let title = $("#tituloPost").val().trim();
+    let url = $("#urlPost").val().toLowerCase().trim();
+    let modifyurl = url.replace(/\s/g, "-");
+    let description = tinymce.get("descriptionPost").getContent();
+    let buttonType = $("#modalPostCenter").attr("type");
+    let pageNum = $(this).attr("page");
+    let postId = $(this).attr("postId");
+    if (buttonType == "Create") {
+      $.post("/add-post", {
+        title: title,
+        url: modifyurl,
+        description: description,
+      }).then((data) => {
+        const { post } = data;
+        //console.log(post)
+        //Crear el metatag
+        $.post("/add-metatags", {
+          title: post.title,
+          url: `https://netzwerk.mx/${post.url}`,
+          BlogId: post.id,
+        }).then((tag) => {
+          $("#modalPostCenter").modal("hide");
+          notificationToast(data.alert, data.message);
+          paginationBlog(1);
+        });
+      });
+    } else if (buttonType == "Update") {
+      //console.log(`PageNum: ${pageNum} PostId: ${postId}`);
+      let changes = {
+        title: title,
+        url: modifyurl,
+        description: description,
+      };
+      $.ajax({
+        url: `/update-post/${postId}`,
+        type: "PUT",
+        contentType: "application/json",
+        data: JSON.stringify(changes),
+        success: function (data) {
+          $("#modalPostCenter").modal("hide");
+          notificationToast(data.alert, data.message);
+          //console.log("Usuario borrado");
+          paginationBlog(pageNum);
+        },
+      });
+    }
+  });
+
+  //Edit Post
+  $(document).on("click", ".editPost", function (event) {
+    event.preventDefault();
+    let pageNum = $(this).attr("page");
+    let postId = $(this).attr("value");
+    //console.log(`Page: ${pageNum} PostId: ${postId}`);
+    $.get(`/get-post-id/${postId}`, () => {}).then((data) => {
+      const { post } = data;
+      //console.log(post);
+      $("#modalPostLongTitle").text("Actualizar Nuevo Post");
+      $("#createPost").text("Actualizar Post");
+      $("#createPost").attr("postId", postId);
+      $("#createPost").attr("page", pageNum);
+      $("#modalPostCenter").attr("type", "Update");
+      $("#tituloPost").val(post.title);
+      $("#urlPost").val(post.url);
+      tinymce.get("descriptionPost").insertContent(post.description);
+      $("#modalPostCenter").modal("show");
+    });
+  });
+
+  //Fill Twitter From
+  $(document).on("click", ".twitterPost", function (event) {
+    let postId = $(this).attr("value");
+    let pageNum = $(this).attr("page");
+    //console.log(`Postid: ${postId} PageNum:${pageNum}`);
+    $.get(`/get-metatags/${postId}`, () => {}).then((data) => {
+      const { tag } = data;
+      $("#metatagTitle").val(tag.title);
+      $("#metatagDescription").val(tag.description);
+      $("#metatagKeywords").val(tag.keywords);
+      $("#metatagCardType").val(tag.cardType);
+      $("#metatagSite").val(tag.site);
+      $("#metatagCreator").val(tag.creator);
+      $("#metatagUrl").val(tag.url);
+      $("#metatagTwitterTitle").val(tag.twitterTitle);
+      $("#metatagTwitterDescription").val(tag.twitterDescription);
+      $("#metatagTwitterImage").val(tag.image);
+      $("#modalTwitterCenter").modal("show");
+    });
+  });
+
+  //Upload file
+
+  $("#uploadButton").on("click", function (event) {
+    event.preventDefault();
+    var formData = new FormData();
+    var file = document.getElementById("mainImage").files[0];
+    formData.append("avatar", file);
+    var xhr = new XMLHttpRequest();
+
+    // your url upload
+    xhr.open("post", "/fileupload", true);
+
+    xhr.upload.onprogress = function (e) {
+      if (e.lengthComputable) {
+        var percentage = (e.loaded / e.total) * 100;
+        console.log(percentage + "%");
+      }
+    };
+
+    xhr.onerror = function (e) {
+      console.log("Error");
+      console.log(e);
+    };
+    xhr.onload = function () {
+      console.log(this.statusText);
+    };
+
+    xhr.send(formData);
+  });
+
+  //Notification Function
+
+  function notificationToast(result, message) {
+    switch (result) {
+      case "Success":
+        $.notify(
+          {
+            icon: "far fa-check-circle",
+            message: message,
+          },
+          {
+            type: "success",
+          }
+        );
+        break;
+      case "Error":
+        $.notify(
+          {
+            icon: "far fa-times-circle",
+            message: message,
+          },
+          {
+            type: "danger",
+          }
+        );
+        break;
+    }
+  }
 });
