@@ -8,8 +8,8 @@ var passport = require("../config/passport");
 const jwt = require("../services/jwt");
 var isAuthenticated = require("../config/middleware/isAuthenticated");
 var fs = require("fs");
-var multer  = require('multer')
-var upload = multer({ dest: './public/assets/dist/img' })
+var multer = require("multer");
+var upload = multer({ dest: "./public/assets/dist/img" });
 
 module.exports = function (app) {
   //JWT
@@ -266,11 +266,12 @@ module.exports = function (app) {
 
   //Add Post
   app.post("/add-post", isAuthenticated, (req, res) => {
-    const { title, url, description } = req.body;
+    const { title, url, description,image } = req.body;
     db.Blog.create({
       title: title,
       url: url,
       description: description,
+      image:image
     })
       .then((postStored) => {
         if (!postStored) {
@@ -287,7 +288,7 @@ module.exports = function (app) {
         }
       })
       .catch((err) => {
-        res.send({ message: "Error de servidor", alert: "Error" });
+        res.send({ message: "Error de servidor", alert: "Error", error:err });
       });
   });
 
@@ -353,12 +354,13 @@ module.exports = function (app) {
   //Update Posts
   app.put("/update-post/:id", isAuthenticated, (req, res) => {
     const { id } = req.params;
-    const { title, url, description } = req.body;
+    const { title, url, description,image } = req.body;
     db.Blog.update(
       {
         title: title,
         url: url,
         description: description,
+        image:image
       },
       {
         where: {
@@ -532,28 +534,216 @@ module.exports = function (app) {
       });
   });
 
-  //Upload Image
-  app.post("/fileupload", upload.single("avatar"),function (req, res,next) {
-    //console.log(req.file)
-    let originalName=req.file.originalname;
-    let newName=req.file.filename;
-    let path=req.file.destination;
-    let tempPath=`${path}/${newName}`;
-    let targetPath=`${path}/${originalName}`
-    fs.rename(tempPath,targetPath,function(err){
-      if(err) { 
-        res.send("Error found to upload file "+err);
-        var msg = "Error found to upload file "+err;
-        var type="error"; 
-     } else {
-        //res.send("<b>File uploaded to "+targetPath+" ("+req.files.uploadfile.size +" bytes)</b>");
-        var fileSize = req.file.size/1024;
-        var msg = "File uploaded to "+targetPath+" ("+(fileSize.toFixed(2)) +" kb)";
-        var type="success";
-        res.send(msg);
-     }
+  //Update Metatags
+  app.put("/update-metatags/:id",(req,res)=>{
+    const {id}=req.params
+    db.Metatag.update({
+      title: req.body.title,
+      description: req.body.description,
+      keywords: req.body.keywords,
+      cardType: req.body.cardType,
+      site: req.body.site,
+      creator: req.body.creator,
+      url: req.body.url,
+      twitterTitle: req.body.twitterTitle,
+      twitterDescription: req.body.twitterDescription,
+      image: req.body.image,
+      BlogId: req.body.BlogId,
+    },{
+      where:{
+        BlogId:id
+      }
+    }).then((updateTag) => {
+      if (updateTag[0] === 0) {
+        res.send({
+          message: "No se ha encontrado ningun tag",
+          alert: "Error",
+        });
+      } else {
+        res.send({
+          message: "Tag actualizado correctamente",
+          alert: "Success",
+        });
+      }
     })
-    
+    .catch((err) => {
+      res.send({ message: "Error del servidor", alert: "Error", error:err });
+    });
+  })
+
+
+  //Upload Image
+  app.post(
+    "/fileupload",
+    upload.single("imagenPost"),
+    isAuthenticated,
+    function (req, res, next) {
+      //console.log(req.file)
+      let originalName = req.file.originalname;
+      let newName = req.file.filename;
+      let path = req.file.destination;
+      let tempPath = `${path}/${newName}`;
+      let targetPath = `${path}/netzwerk-${originalName}`;
+      let url = `/assets/dist/img/netzwerk-${originalName}`;
+      let modifyUrl = url.replace(/\s+/g, "-").toLowerCase();
+      let modifyPath = targetPath.replace(/\s+/g, "-").toLowerCase();
+      let fileSplit = originalName.split(".");
+      let fileExt = fileSplit[1];
+      console.log(req.file);
+      if (
+        fileExt !== "png" &&
+        fileExt !== "jpg" &&
+        fileExt !== "JPG" &&
+        fileExt !== "PNG"
+      ) {
+        res.send({
+          message:
+            "La extensión no es valida. Extensiones permtidas: .png y .jpg",
+          alert: "Error",
+        });
+      } else {
+        fs.rename(tempPath.replace(/\/\//g, "/"), modifyPath, function (err) {
+          if (err) {
+            res.send({
+              message: "Error al subir el archivo, intentalo de nuevo",
+              alert: "Error",
+            });
+            var msg = "Error found to upload file " + err;
+            var type = "error";
+          } else {
+            //res.send("<b>File uploaded to "+targetPath+" ("+req.files.uploadfile.size +" bytes)</b>");
+            var fileSize = req.file.size / 1024;
+            var msg =
+              "File uploaded to " +
+              modifyPath +
+              " (" +
+              fileSize.toFixed(2) +
+              " kb)";
+            var type = "success";
+            db.Image.create({
+              imagen_url: modifyUrl,
+            })
+              .then((data) => {
+                if (!data) {
+                  res.send({
+                    message: "El nombre del archivo ya esta dado de alta",
+                    alert: "Error",
+                    
+                  });
+                } else {
+                  res.send({
+                    message: "Imagen guardada correctamente",
+                    alert: "Success",
+                    data:modifyUrl,
+                  });
+                }
+              })
+              .catch((error) => {
+                /* fs.unlink(tempPath.replace(/\\/g, "/"),function(err) {
+                  if(err) {
+                   res.send("Error to delete file: "+err);
+                   } else {
+                    res.send({ message:error.errors[0].message , alert: "Error" });
+                   }
+                })*/
+                if (error.errors[0].message == "imagen_url must be unique") {
+                  res.send({
+                    message: "Ya existe la imagen en la base de datos",
+                    alert: "Error",
+                  });
+                } else {
+                  res.send({
+                    message: error.errors[0].message,
+                    alert: "Error",
+                  });
+                }
+              });
+          }
+        });
+      }
+    }
+  );
+
+  //Get all images
+  app.get("/get-images", (req, res) => {
+    db.Image.findAll({
+      order: [["createdAt", "ASC"]],
+    })
+      .then((imageStored) => {
+        if (!imageStored) {
+          res.send({
+            message: "No se ha encontrado ninguna image",
+            alert: "Error",
+          });
+        } else {
+          res.send({
+            data: imageStored,
+          });
+        }
+      })
+      .catch((err) => {
+        res.send({ message: "Error de servidor", alert: "Error" });
+      });
+  });
+
+  //Delete Image by url
+  app.get("/delete-image/:id", isAuthenticated, (req, res) => {
+    const { id } = req.params;
+    //console.log(imagen_url)
+    db.Image.findOne({
+      where: {
+        id: id,
+      },
+    })
+      .then((imageData) => {
+        //console.log(userDeleted);
+        if (!imageData) {
+          res.send({
+            message: "Imagen no encontrada",
+            alert: "Error",
+          });
+        } else {
+          let targetPath = `./public${imageData.imagen_url}`;
+          fs.unlink(targetPath, function (err) {
+            if (err) {
+              res.send({
+                message: "No se pudo eliminar la imagen seleccionada",
+                alert: "Error",
+              });
+            } else {
+              db.Image.destroy({
+                where: {
+                  id: id,
+                },
+              })
+                .then((imageDeleted) => {
+                  if (!imageDeleted) {
+                    res.send({
+                      message: "No se pudo eliminar la imagen",
+                      alert: "Error",
+                    });
+                  } else {
+                    res.send({
+                      message: "Imagen eliminada correctamente",
+                      alert: "Success",
+                    });
+                  }
+                })
+                .catch((err) => {
+                  res.send({ message: "Error de servidor", err: err });
+                });
+            }
+          });
+          /*res.send({
+            message: "Imagen eliminada correctamente",
+            data:imageDeleted,
+            alert: "Success",
+          });*/
+        }
+      })
+      .catch((err) => {
+        res.send({ message: "Error de servidor", err: err });
+      });
   });
 
   //Test for associates

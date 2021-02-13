@@ -82,6 +82,8 @@ module.exports = function (app) {
     });
   });
 
+
+
   //Login Page
   app.get("/login", (req, res) => {
     let alert = req.flash("error");

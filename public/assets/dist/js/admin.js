@@ -4,6 +4,8 @@ $(document).ready(function () {
   });
 
   getUsers(true);
+  paginationBlog(1);
+  paginationImage(1);
 
   //Toggle de Usuarios Activos
   $("#activosToggle").on("change", function (event) {
@@ -325,8 +327,6 @@ $(document).ready(function () {
     $("#userForm").css("display", "none");
   }
 
-  paginationBlog(1);
-
   function paginationBlog(pageNumber) {
     $("#pagination-container").empty();
     if ($("#pagination-container").length) {
@@ -538,6 +538,7 @@ $(document).ready(function () {
         url: modifyurl,
         description: description,
       }).then((data) => {
+        console.log(data);
         const { post } = data;
         //console.log(post)
         //Crear el metatag
@@ -596,8 +597,11 @@ $(document).ready(function () {
 
   //Fill Twitter From
   $(document).on("click", ".twitterPost", function (event) {
+    event.preventDefault();
     let postId = $(this).attr("value");
     let pageNum = $(this).attr("page");
+    $("#createTwitter").attr("value", postId);
+    $("#createTwitter").attr("page", pageNum);
     //console.log(`Postid: ${postId} PageNum:${pageNum}`);
     $.get(`/get-metatags/${postId}`, () => {}).then((data) => {
       const { tag } = data;
@@ -615,13 +619,58 @@ $(document).ready(function () {
     });
   });
 
+  //Update Metatag Twitter
+  $("#createTwitter").on("click", function (event) {
+    event.preventDefault();
+    let postId = $(this).attr("value");
+    let pageNum = $(this).attr("page");
+
+    let title = $("#metatagTitle").val();
+    let description = $("#metatagDescription").val();
+    let keywords = $("#metatagKeywords").val();
+    let cardType = $("#metatagCardType").val();
+    let site = $("#metatagSite").val();
+    let creator = $("#metatagCreator").val();
+    let url = $("#metatagUrl").val();
+    let twitterTitle = $("#metatagTwitterTitle").val();
+    let twitterDescription = $("#metatagTwitterDescription").val();
+    let twitterImage = $("#metatagTwitterImage").val();
+    let changes = {
+      title: title,
+      description: description,
+      keywords: keywords,
+      cardType: cardType,
+      site: site,
+      creator: creator,
+      url: url,
+      twitterTitle: twitterTitle,
+      twitterDescription: twitterDescription,
+      twitterImage: twitterImage,
+    };
+    $.ajax({
+      url: `/update-metatags/${postId}`,
+      type: "PUT",
+      contentType: "application/json",
+      data: JSON.stringify(changes),
+      success: function (data) {
+        $("#modalTwitterCenter").modal("hide");
+        notificationToast(data.alert, data.message);
+        //console.log("Usuario borrado");
+        paginationBlog(pageNum);
+      },
+    });
+  });
+
   //Upload file
 
-  $("#uploadButton").on("click", function (event) {
+  $("#uploadImage").on("click", function (event) {
     event.preventDefault();
+    let accion = $(this).attr("accion");
+    let postId = $(this).attr("value");
+    let pageNum = $(this).attr("page");
     var formData = new FormData();
     var file = document.getElementById("mainImage").files[0];
-    formData.append("avatar", file);
+    formData.append("imagenPost", file);
     var xhr = new XMLHttpRequest();
 
     // your url upload
@@ -630,7 +679,10 @@ $(document).ready(function () {
     xhr.upload.onprogress = function (e) {
       if (e.lengthComputable) {
         var percentage = (e.loaded / e.total) * 100;
-        console.log(percentage + "%");
+        //console.log(percentage.toFixed(0) + "%");
+        $("#ProgressBar").show();
+        $("#imageProgressBar").css("width", percentage.toFixed(0) + "%");
+        //$("#imageProgressBar").html(percentage.toFixed(0) + "%");
       }
     };
 
@@ -639,15 +691,172 @@ $(document).ready(function () {
       console.log(e);
     };
     xhr.onload = function () {
-      console.log(this.statusText);
+      if (accion === "principal") {
+        var file = JSON.parse(xhr.responseText);
+        console.log(file);
+        $("#modalImageCenter").modal("hide");
+        notificationToast(file.alert, file.message);
+        let postchange = {
+          image: file.data,
+        };
+        let changes = {
+          image: `https://netzwerk.mx${file.data}`,
+        };
+        $.ajax({
+          url: `/update-post/${postId}`,
+          type: "PUT",
+          contentType: "application/json",
+          data: JSON.stringify(postchange),
+          success: function (data) {
+            notificationToast(data.alert, data.message);
+          },
+        });
+        $.ajax({
+          url: `/update-metatags/${postId}`,
+          type: "PUT",
+          contentType: "application/json",
+          data: JSON.stringify(changes),
+          success: function (data) {
+            notificationToast(data.alert, data.message);
+            //console.log("Usuario borrado");
+            paginationBlog(pageNum);
+          },
+        });
+        $("#modalImageCenter").modal("hide");
+      } else {
+        var file = JSON.parse(xhr.responseText);
+        //console.log(file);
+        $("#modalImageCenter").modal("hide");
+        notificationToast(file.alert, file.message);
+        paginationImage(1);
+        //console.log(this.statusText);
+      }
     };
 
     xhr.send(formData);
   });
 
+  //Add Image Button
+  $("#addImage").on("click", function (event) {
+    //console.log("Entro")
+    event.preventDefault();
+    $("#modalImageLongTitle").text("Agregar Imagen");
+    $("#uploadImage").text("Subir Imagen");
+    $("#uploadImage").attr("accion", "secundaria");
+    $("#mainImage").val("");
+    $("#ProgressBar").hide();
+    $("#imageProgressBar").css("width", "0%");
+    $("#modalImageCenter").modal("show");
+  });
+
+  //Pagination of Images
+  function paginationImage(pageNumber) {
+    $("#pagination-image").empty();
+    if ($("#pagination-image").length) {
+      //console.log("Entro pagination Image")
+      //Pagination
+      $("#pagination-image").pagination({
+        dataSource: function (done) {
+          $.ajax({
+            type: "GET",
+            url: "/get-images",
+            success: function (response) {
+              //console.log(response)
+              done(response.data);
+            },
+          });
+        },
+        pageSize: 10,
+        pageNumber: pageNumber,
+        callback: function (data, pagination) {
+          $("#imageList").empty();
+          for (let i = 0; i < data.length; i++) {
+            newItem = $("<li>");
+            newItem.attr(
+              "class",
+              "list-group-item d-flex justify-content-around align-items-start"
+            );
+            divImage = $("<div>");
+            divImage.attr("class", "col image-div");
+            divButton = $("<div>");
+            divButton.attr("class", "col");
+            //images
+            newImage = $("<img>");
+            newImage.attr("class", "img-fluid img-thumbnail h-100");
+            newImage.attr("src", data[i].imagen_url);
+            //Append Image to its Div
+            divImage.append(newImage);
+            //Button Delete
+            buttonDelete = $("<button>");
+            buttonDelete.attr("type", "button");
+            buttonDelete.attr("class", "btn btn-danger deleteImage");
+            buttonDelete.css("margin", "5px");
+            buttonDelete.attr("value", data[i].id);
+            buttonDelete.attr("page", pagination.pageNumber);
+            deleteIcon = $("<i>");
+            deleteIcon.attr("class", "fas fa-trash-alt");
+            buttonDelete.append(deleteIcon);
+            //Append Icons to Button Div
+            divButton.append(buttonDelete);
+            //Append Div to Item
+            newItem.append(divImage);
+            newItem.append(divButton);
+            //Append Item to List
+            $("#imageList").append(newItem);
+          }
+        },
+      });
+    }
+  }
+
+  //Boton Modal Borrar Imagen
+  $(document).on("click", ".deleteImage", function (event) {
+    event.preventDefault();
+    let imageID = $(this).attr("value");
+    let pageNum = $(this).attr("page");
+    $("#confirmDeleteImage").attr("value", imageID);
+    $("#confirmDeleteImage").attr("page", pageNum);
+    $("#modalConfirmDelete").modal("show");
+  });
+
+  //Confirmar Borrar Imagen
+  $("#confirmDeleteImage").on("click", function (event) {
+    event.preventDefault();
+    let imageID = $(this).attr("value");
+    let pageNum = $(this).attr("page");
+    $.ajax({
+      url: `/delete-image/${imageID}`,
+      type: "GET",
+      contentType: "application/json",
+      success: function (data) {
+        $("#modalConfirmDelete").modal("hide");
+        notificationToast(data.alert, data.message);
+        //console.log("Usuario borrado");
+        paginationImage(pageNum);
+      },
+    });
+  });
+
+  //Añadir Imagen Principal del Post
+  $(document).on("click", ".imagePost", function (event) {
+    event.preventDefault();
+    let postId = $(this).attr("value");
+    let pageNum = $(this).attr("page");
+    $("#uploadImage").attr("value", postId);
+    $("#uploadImage").attr("page", pageNum);
+    $("#modalImageLongTitle").text("Subir Imagen Principal del Post");
+    $("#uploadImage").text("Subir Imagen");
+    $("#uploadImage").attr("accion", "principal");
+    $("#mainImage").val("");
+    $("#ProgressBar").hide();
+    $("#imageProgressBar").css("width", "0%");
+    $("#modalImageCenter").modal("show");
+  });
+
   //Notification Function
 
   function notificationToast(result, message) {
+    //console.log("Entro")
     switch (result) {
       case "Success":
         $.notify(
@@ -661,6 +870,7 @@ $(document).ready(function () {
         );
         break;
       case "Error":
+        //console.log("Error")
         $.notify(
           {
             icon: "far fa-times-circle",
