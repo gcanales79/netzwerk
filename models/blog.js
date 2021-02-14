@@ -11,6 +11,10 @@ module.exports = function (sequelize, DataTypes) {
         tema:{
             type:DataTypes.STRING,
             defaultValue:"Liderazgo"
+        },
+        active:{
+            type:DataTypes.BOOLEAN,
+            defaultValue:false,
         }
     
     });

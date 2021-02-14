@@ -327,6 +327,7 @@ $(document).ready(function () {
     $("#userForm").css("display", "none");
   }
 
+  //Listado de Blogs
   function paginationBlog(pageNumber) {
     $("#pagination-container").empty();
     if ($("#pagination-container").length) {
@@ -397,6 +398,19 @@ $(document).ready(function () {
             twitterIcon = $("<i>");
             twitterIcon.attr("class", "fab fa-twitter");
             buttonTwitter.append(twitterIcon);
+            //Button ON
+            buttonOn = $("<button>");
+            buttonOn.attr("type", "button");
+            let classOn = data[i].active
+              ? "btn btn-success activePost"
+              : "btn btn-danger activePost";
+            buttonOn.attr("class", classOn);
+            buttonOn.css("margin", "5px");
+            buttonOn.attr("value", data[i].id);
+            buttonOn.attr("page", pagination.pageNumber);
+            OnIcon = $("<i>");
+            OnIcon.attr("class", "fas fa-power-off");
+            buttonOn.append(OnIcon);
             //Button Delete
             buttonDelete = $("<button>");
             buttonDelete.attr("type", "button");
@@ -412,6 +426,7 @@ $(document).ready(function () {
             newDiv.append(buttonEdit);
             newDiv.append(buttonImage);
             newDiv.append(buttonTwitter);
+            newDiv.append(buttonOn);
             newDiv.append(buttonDelete);
             //Append Div to Item
             newItem.append(divTitle);
@@ -530,7 +545,7 @@ $(document).ready(function () {
     let modifyurl = url.replace(/\s/g, "-");
     let description = tinymce.get("descriptionPost").getContent();
     let buttonType = $("#modalPostCenter").attr("type");
-    let tema=$("#temaPost").val().trim();
+    let tema = $("#temaPost").val().trim();
     let pageNum = $(this).attr("page");
     let postId = $(this).attr("postId");
     if (buttonType == "Create") {
@@ -538,7 +553,7 @@ $(document).ready(function () {
         title: title,
         url: modifyurl,
         description: description,
-        tema:tema,
+        tema: tema,
       }).then((data) => {
         console.log(data);
         const { post } = data;
@@ -560,7 +575,7 @@ $(document).ready(function () {
         title: title,
         url: modifyurl,
         description: description,
-        tema:tema,
+        tema: tema,
       };
       $.ajax({
         url: `/update-post/${postId}`,
@@ -593,9 +608,32 @@ $(document).ready(function () {
       $("#modalPostCenter").attr("type", "Update");
       $("#tituloPost").val(post.title);
       $("#urlPost").val(post.url);
-      $("#temaPost").val(post.tema)
+      $("#temaPost").val(post.tema);
       tinymce.get("descriptionPost").insertContent(post.description);
       $("#modalPostCenter").modal("show");
+    });
+  });
+
+  //Activate Post
+  $(document).on("click", ".activePost", function (event) {
+    event.preventDefault();
+    let postId = $(this).attr("value");
+    let pageNum = $(this).attr("page");
+    let classId = $(this).attr("class");
+    let active = classId == "btn btn-success activePost" ? false : true;
+    //console.log(active)
+    let changes = {
+      active: active,
+    };
+    $.ajax({
+      url: `/update-post/${postId}`,
+      type: "PUT",
+      contentType: "application/json",
+      data: JSON.stringify(changes),
+      success: function (data) {
+        notificationToast(data.alert, data.message);
+        paginationBlog(pageNum);
+      },
     });
   });
 
@@ -672,11 +710,11 @@ $(document).ready(function () {
     let accion = $(this).attr("accion");
     let postId = $(this).attr("value");
     let pageNum = $(this).attr("page");
-    let imagen_alt=$("#imageAlt").val();
+    let imagen_alt = $("#imageAlt").val();
     var formData = new FormData();
     var file = document.getElementById("mainImage").files[0];
     formData.append("imagenPost", file);
-    formData.append("imagen_alt",imagen_alt);
+    formData.append("imagen_alt", imagen_alt);
     var xhr = new XMLHttpRequest();
 
     // your url upload
@@ -704,11 +742,10 @@ $(document).ready(function () {
         notificationToast(file.alert, file.message);
         let postchange = {
           image: file.data,
-          image_alt:file.image_alt
+          image_alt: file.image_alt,
         };
         let changes = {
           image: `https://netzwerk.mx${file.data}`,
-          
         };
         $.ajax({
           url: `/update-post/${postId}`,

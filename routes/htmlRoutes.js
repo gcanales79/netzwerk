@@ -5,7 +5,7 @@ const Op = Sequelize.Op;
 const queryString = require("query-string");
 
 module.exports = function (app) {
-  // Load index page
+  // Load index page main page with list of all posts
   app.get("/", function (req, res) {
     res.locals.metaTags = {
       title: "Netzwerk - Blog Acerca de Liderazgo y Administración",
@@ -22,6 +22,9 @@ module.exports = function (app) {
       image: "https://netzwerk.mx/assets/dist/img/Logo_netzwerk.png",
     };
     db.Blog.findAll({
+      where:{
+        active:true,
+      },
       order: [["createdAt", "DESC"]],
       include: [db.Metatag],
     }).then((data) => {
@@ -116,7 +119,8 @@ module.exports = function (app) {
     const { url } = req.params;
     db.Blog.findOne({
       where: {
-        url: url
+        url: url,
+        active:true
       },
       include: [db.Metatag],
     }).then((data) => {
@@ -141,6 +145,8 @@ module.exports = function (app) {
         datos: data.dataValues,
         metaTag:data.dataValues.Metatag.dataValues,
       });
+    }).catch((err)=>{
+      res.render("404")
     });
   });
 

@@ -355,15 +355,24 @@ module.exports = function (app) {
   //Update Posts
   app.put("/update-post/:id", isAuthenticated, (req, res) => {
     const { id } = req.params;
-    const { title, url, description, image, image_alt, tema } = req.body;
+    const {
+      title,
+      url,
+      description,
+      image,
+      image_alt,
+      tema,
+      active,
+    } = req.body;
     db.Blog.update(
       {
         title: title,
         url: url,
         description: description,
         image: image,
-        image_alt:image_alt,
+        image_alt: image_alt,
         tema: tema,
+        active: active,
       },
       {
         where: {
@@ -642,7 +651,7 @@ module.exports = function (app) {
                     message: "Imagen guardada correctamente",
                     alert: "Success",
                     data: modifyUrl,
-                    image_alt:imagen_alt,
+                    image_alt: imagen_alt,
                   });
                 }
               })
