@@ -26,17 +26,11 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link href="/assets/dist/css/style.min.css" rel="stylesheet">
+
     <link href="/assets/dist/css/{{style}}" rel="stylesheet">
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://cdn.tiny.cloud/1/q2wc0wvoeizxrqmq7o9ev0r9zms41ac4rb5eihoawlsh3na0/tinymce/5/tinymce.min.js"
         referrerpolicy="origin"></script>
- 
-
-
-
-
-
-
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 
     <!--[if lt IE 9]>
@@ -52,6 +46,25 @@
 
         gtag('config', 'UA-132709170-1');
     </script>
+    <script>
+        /**
+        *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+        *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+
+        var disqus_config = function () {
+            this.page.url = "{{metaTags.url}}";
+            this.page.identifier = "{{metaTags.pageIdentifier}}""; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+    * /
+            (function () { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+                s.src = 'https://https-netzwerk-mx.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
 
     <meta name="description" content="{{metaTags.description}}">
     <meta name="keywords" content="{{metaTags.keywords}}">
@@ -106,7 +119,7 @@
                         <!-- // col -->
                         <div class="col-lg-9 col-md-9 col-sm-6 col-xs-4 position_static">
                             <nav class="main-nav layout-two">
-                                <div id="main-nav" <!--class="stellarnav" -->>
+                                <div id="main-nav" ><!-- class=stellarnav -->
                                     <ul>
                                         <li><a href="/">Home</a></li>
                                     </ul>
@@ -185,7 +198,6 @@
         <!-- // footer inner -->
     </footer>
     <!-- jQuery CDN - Slim version (=without AJAX) -->
-
 
 
     <script type="text/javascript" src="/assets/dist/js/bundle.min.js"></script>

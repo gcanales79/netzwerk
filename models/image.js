@@ -5,6 +5,9 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: false,
       unique: true,
     },
+    imagen_alt:{
+      type: DataTypes.STRING,
+    }
   });
 
   return Image;

@@ -8,8 +8,8 @@
                     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                         <div class="main-post-area-holder">
                             <article class="single-page-details-holder">
-                                <div class="post-image ">
-                                    <img src={{datos.imagen_post}} alt={{datos.imagen_post_alt}}>
+                                <div class="post-image rounded mx-auto d-block" style="width:400px">
+                                    <img src={{datos.image}} alt="{{{datos.image_alt}}}"> 
                                 </div>
                                 <div class="single-page-other-information-holder">
                                     <div class="posted-category">
@@ -18,14 +18,14 @@
                                         </div>
                                     </div>
                                     <div class="post-title">
-                                        <h2>{{datos.titulo}}</h2>
+                                        <h1>{{datos.title}}</h1>
                                     </div>
                                     <!-- // post-title -->
                                     <div class="post-extra-meta">
                                         <div class="row">
                                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                 <div class="post-author">
-                                                    <span><a href="#">{{datos.autor}}</a></span>
+                                                    <span><a href="#">{{metaTag.creator}}</a></span>
                                                 </div>
                                             </div>
                                             <!-- // col -->
@@ -40,7 +40,7 @@
                                     </div>
                                     <!-- // post-extra-meta -->
                                     <div class="post-the-content">
-                                        {{{datos.post}}}
+                                        {{{datos.description}}}
                                     </div>
                                     <!-- // post-the-content  -->
                                     <div class="post-share">
@@ -80,6 +80,8 @@
             <!-- // container -->
         </div>
         <!-- // single-page-inner -->
+        <div id="disqus_thread"></div>
     </div>
     <!-- // single-page-wrapper -->
 </div>
+

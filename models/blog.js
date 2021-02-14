@@ -7,6 +7,11 @@ module.exports = function (sequelize, DataTypes) {
         },
         description: DataTypes.TEXT,
         image:DataTypes.STRING,
+        image_alt:DataTypes.STRING,
+        tema:{
+            type:DataTypes.STRING,
+            defaultValue:"Liderazgo"
+        }
     
     });
 

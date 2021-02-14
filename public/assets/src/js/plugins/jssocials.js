@@ -243,13 +243,13 @@ function(a, b, c) {
         },
         twitter: {
             label: "Tweet",
-            logo: "fa fa-twitter",
+            logo: "fab fa-twitter",
             shareUrl: "https://twitter.com/share?url={url}&text={text}&via={via}&hashtags={hashtags}",
             countUrl: ""
         },
         facebook: {
             label: "Like",
-            logo: "fa fa-facebook",
+            logo: "fab fa-facebook",
             shareUrl: "https://facebook.com/sharer/sharer.php?u={url}",
             countUrl: "https://graph.facebook.com/?id={url}",
             getCount: function(a) {
@@ -258,7 +258,7 @@ function(a, b, c) {
         },
         vkontakte: {
             label: "Like",
-            logo: "fa fa-vk",
+            logo: "fab fa-vk",
             shareUrl: "https://vk.com/share.php?url={url}&title={title}&description={text}",
             countUrl: "https://vk.com/share.php?act=count&index=1&url={url}",
             getCount: function(a) {
@@ -267,13 +267,13 @@ function(a, b, c) {
         },
         googleplus: {
             label: "+1",
-            logo: "fa fa-google",
+            logo: "fab fa-google-plus-g",
             shareUrl: "https://plus.google.com/share?url={url}",
             countUrl: ""
         },
         linkedin: {
             label: "Share",
-            logo: "fa fa-linkedin",
+            logo: "fab fa-linkedin",
             shareUrl: "https://www.linkedin.com/shareArticle?mini=true&url={url}",
             countUrl: "https://www.linkedin.com/countserv/count/share?format=jsonp&url={url}&callback=?",
             getCount: function(a) {
@@ -282,7 +282,7 @@ function(a, b, c) {
         },
         pinterest: {
             label: "Pin it",
-            logo: "fa fa-pinterest",
+            logo: "fab fa-pinterest",
             shareUrl: "https://pinterest.com/pin/create/bookmarklet/?media={media}&url={url}&description={text}",
             countUrl: "https://api.pinterest.com/v1/urls/count.json?&url={url}&callback=?",
             getCount: function(a) {
@@ -291,7 +291,7 @@ function(a, b, c) {
         },
         stumbleupon: {
             label: "Share",
-            logo: "fa fa-stumbleupon",
+            logo: "fab fa-stumbleupon",
             shareUrl: "http://www.stumbleupon.com/submit?url={url}&title={title}",
             countUrl: "https://cors-anywhere.herokuapp.com/https://www.stumbleupon.com/services/1.01/badge.getinfo?url={url}",
             getCount: function(a) {
@@ -300,40 +300,40 @@ function(a, b, c) {
         },
         telegram: {
             label: "Telegram",
-            logo: "fa fa-paper-plane",
+            logo: "fab fa-telegram",
             shareUrl: "tg://msg?text={url} {text}",
             countUrl: "",
             shareIn: "self"
         },
         whatsapp: {
             label: "WhatsApp",
-            logo: "fa fa-whatsapp",
+            logo: "fab fa-whatsapp",
             shareUrl: "whatsapp://send?text={url} {text}",
             countUrl: "",
             shareIn: "self"
         },
         line: {
             label: "LINE",
-            logo: "fa fa-comment",
+            logo: "fab fa-line",
             shareUrl: "http://line.me/R/msg/text/?{text} {url}",
             countUrl: ""
         },
         viber: {
             label: "Viber",
-            logo: "fa fa-volume-control-phone",
+            logo: "fab fa-viber",
             shareUrl: "viber://forward?text={url} {text}",
             countUrl: "",
             shareIn: "self"
         },
         pocket: {
             label: "Pocket",
-            logo: "fa fa-get-pocket",
+            logo: "fab fa-get-pocket",
             shareUrl: "https://getpocket.com/save?url={url}&title={title}",
             countUrl: ""
         },
         messenger: {
             label: "Share",
-            logo: "fa fa-commenting",
+            logo: "far fa-comment-alt",
             shareUrl: "fb-messenger://share?link={url}",
             countUrl: "",
             shareIn: "self"

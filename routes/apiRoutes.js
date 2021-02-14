@@ -266,12 +266,13 @@ module.exports = function (app) {
 
   //Add Post
   app.post("/add-post", isAuthenticated, (req, res) => {
-    const { title, url, description,image } = req.body;
+    const { title, url, description, image, tema } = req.body;
     db.Blog.create({
       title: title,
       url: url,
       description: description,
-      image:image
+      image: image,
+      tema: tema,
     })
       .then((postStored) => {
         if (!postStored) {
@@ -288,7 +289,7 @@ module.exports = function (app) {
         }
       })
       .catch((err) => {
-        res.send({ message: "Error de servidor", alert: "Error", error:err });
+        res.send({ message: "Error de servidor", alert: "Error", error: err });
       });
   });
 
@@ -354,13 +355,15 @@ module.exports = function (app) {
   //Update Posts
   app.put("/update-post/:id", isAuthenticated, (req, res) => {
     const { id } = req.params;
-    const { title, url, description,image } = req.body;
+    const { title, url, description, image, image_alt, tema } = req.body;
     db.Blog.update(
       {
         title: title,
         url: url,
         description: description,
-        image:image
+        image: image,
+        image_alt:image_alt,
+        tema: tema,
       },
       {
         where: {
@@ -535,42 +538,45 @@ module.exports = function (app) {
   });
 
   //Update Metatags
-  app.put("/update-metatags/:id",(req,res)=>{
-    const {id}=req.params
-    db.Metatag.update({
-      title: req.body.title,
-      description: req.body.description,
-      keywords: req.body.keywords,
-      cardType: req.body.cardType,
-      site: req.body.site,
-      creator: req.body.creator,
-      url: req.body.url,
-      twitterTitle: req.body.twitterTitle,
-      twitterDescription: req.body.twitterDescription,
-      image: req.body.image,
-      BlogId: req.body.BlogId,
-    },{
-      where:{
-        BlogId:id
+  app.put("/update-metatags/:id", (req, res) => {
+    const { id } = req.params;
+    db.Metatag.update(
+      {
+        title: req.body.title,
+        description: req.body.description,
+        keywords: req.body.keywords,
+        cardType: req.body.cardType,
+        site: req.body.site,
+        creator: req.body.creator,
+        url: req.body.url,
+        twitterTitle: req.body.twitterTitle,
+        twitterDescription: req.body.twitterDescription,
+        image: req.body.image,
+        BlogId: req.body.BlogId,
+      },
+      {
+        where: {
+          BlogId: id,
+        },
       }
-    }).then((updateTag) => {
-      if (updateTag[0] === 0) {
-        res.send({
-          message: "No se ha encontrado ningun tag",
-          alert: "Error",
-        });
-      } else {
-        res.send({
-          message: "Tag actualizado correctamente",
-          alert: "Success",
-        });
-      }
-    })
-    .catch((err) => {
-      res.send({ message: "Error del servidor", alert: "Error", error:err });
-    });
-  })
-
+    )
+      .then((updateTag) => {
+        if (updateTag[0] === 0) {
+          res.send({
+            message: "No se ha encontrado ningun tag",
+            alert: "Error",
+          });
+        } else {
+          res.send({
+            message: "Tag actualizado correctamente",
+            alert: "Success",
+          });
+        }
+      })
+      .catch((err) => {
+        res.send({ message: "Error del servidor", alert: "Error", error: err });
+      });
+  });
 
   //Upload Image
   app.post(
@@ -590,6 +596,7 @@ module.exports = function (app) {
       let fileSplit = originalName.split(".");
       let fileExt = fileSplit[1];
       console.log(req.file);
+      const { imagen_alt } = req.body;
       if (
         fileExt !== "png" &&
         fileExt !== "jpg" &&
@@ -622,19 +629,20 @@ module.exports = function (app) {
             var type = "success";
             db.Image.create({
               imagen_url: modifyUrl,
+              imagen_alt: imagen_alt,
             })
               .then((data) => {
                 if (!data) {
                   res.send({
                     message: "El nombre del archivo ya esta dado de alta",
                     alert: "Error",
-                    
                   });
                 } else {
                   res.send({
                     message: "Imagen guardada correctamente",
                     alert: "Success",
-                    data:modifyUrl,
+                    data: modifyUrl,
+                    image_alt:imagen_alt,
                   });
                 }
               })

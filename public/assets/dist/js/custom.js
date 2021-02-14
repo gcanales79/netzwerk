@@ -136,11 +136,20 @@ $(document).ready(function () {
     // init social sharing network 
 
     $(".share").jsSocials({
-        shares: ["facebook", "twitter", "email", "pinterest", "pocket", "googleplus", "linkedin"],
+        shares: ["facebook", "twitter", "email", "pinterest", "pocket", "googleplus", "linkedin","whatsapp","messenger"],
         showLabel: false,
         showCount: false,
         shareIn: "popup",
     });
+
+    $(".share").jsSocials("shareOption","facebook","logo","fab fa-facebook")
+    $(".share").jsSocials("shareOption","twitter","logo","fab fa-twitter")
+    $(".share").jsSocials("shareOption","pinterest","logo","fab fa-pinterest")
+    $(".share").jsSocials("shareOption","pocket","logo","fab fa-get-pocket")
+    $(".share").jsSocials("shareOption","googleplus","logo","fab fa-google-plus-g")
+    $(".share").jsSocials("shareOption","linkedin","logo","fab fa-linkedin")
+    $(".share").jsSocials("shareOption","whatsapp","logo","fab fa-whatsapp")
+    $(".share").jsSocials("shareOption","messenger","logo","far fa-comment-alt")
 
 
     // Init masonary for home layout four

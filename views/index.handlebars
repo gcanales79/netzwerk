@@ -12,9 +12,9 @@
                             <article class="post-details-holder layout-two-post-details-holder">
                                 <div class="row">
                                     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
-                                        <div class="post-image">
-                                           <a href={{this.url}}>
-                                               <img src={{this.imagen}} alt="{{this.imagen_alt}}">
+                                        <div class="post-image" style="width:200px">
+                                           <a href="blog/{{this.url}}">
+                                               <img src={{this.image}} alt="{{{this.image_alt}}}">
                                            </a>
                                         </div>
                                         <!-- // post image -->
@@ -25,13 +25,16 @@
                                             <p><a href={{this.url}}>{{this.tema}}</a></p>
                                         </div>
                                         <div class="post-title">
-                                            <h2><a href={{this.url}}>{{this.titulo}}</a></h2>
+                                            <h2><a href="blog/{{this.url}}">{{this.title}}</a></h2>
                                         </div>
                                         <div class="post-meta-posted-date">
                                             <p><a href={{this.url}}>{{formatDate this.createdAt}}</a></p>
                                         </div>
-                                        <div class="post-share">
+                                        <!--div class="post-share">
                                             <div class="share"></div>
+                                        </div--->
+                                        <div>
+                                            {{this.Metatag.description}}
                                         </div>
                                     </div>
                                     <!-- // col -->

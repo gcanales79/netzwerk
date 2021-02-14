@@ -9,8 +9,7 @@ module.exports = function (app) {
   app.get("/", function (req, res) {
     res.locals.metaTags = {
       title: "Netzwerk - Blog Acerca de Liderazgo y Administración",
-      description:
-        "Profesional de la Industria Automotriz que busca compartir sus experiencias",
+      description: "Blog donde hablo de liderazgo y trabajo en equipo.",
       keywords:
         "liderazgo, crisis, administración, equipo, disciplina, colaboración, persuasión, asertividad, resolución de problemas, confianza, inteligencia emocional, liderazgo participativo, proactividad",
       cardType: "summary_large_image",
@@ -22,10 +21,12 @@ module.exports = function (app) {
         "Blog donde quisiera compartir mis experiencias, lo que voy aprendiendo en el camino y me gustaria escuchar de ti.",
       image: "https://netzwerk.mx/assets/dist/img/Logo_netzwerk.png",
     };
-    db.Post.findAll({
+    db.Blog.findAll({
       order: [["createdAt", "DESC"]],
+      include: [db.Metatag],
     }).then((data) => {
-      //console.log(data)
+      let datos=data.map((data) => data.toJSON())
+      console.log(datos)
       res.render("index", {
         msg: "Welcome!",
         //Solucion al problema de handlebars
@@ -82,8 +83,6 @@ module.exports = function (app) {
     });
   });
 
-
-
   //Login Page
   app.get("/login", (req, res) => {
     let alert = req.flash("error");
@@ -113,31 +112,34 @@ module.exports = function (app) {
   });
 
   //Load Blog Post
-  app.get("/api", (req, res) => {
-    console.log(req.query.post);
-    db.Post.findOne({
+  app.get("/blog/:url", (req, res) => {
+    const { url } = req.params;
+    db.Blog.findOne({
       where: {
-        url_id: req.query.post,
+        url: url
       },
-      include: [db.Tag],
+      include: [db.Metatag],
     }).then((data) => {
+      console.log(data.dataValues.Metatag.dataValues);
       console.log(data.dataValues);
       res.locals.metaTags = {
-        title: data.dataValues.titulo,
+        title: data.dataValues.title,
         description: data.dataValues.description,
-        keywords: data.dataValues.keywords,
-        cardType: data.dataValues.Tag.dataValues.cardType,
-        site: data.dataValues.Tag.dataValues.site,
-        creator: data.dataValues.Tag.dataValues.creator,
-        url: data.dataValues.Tag.dataValues.url,
-        twitterTitle: data.dataValues.Tag.dataValues.twitterTitle,
-        twitterDescription: data.dataValues.Tag.dataValues.twitterDescription,
-        image: data.dataValues.Tag.dataValues.image,
+        keywords: data.dataValues.Metatag.dataValues.keywords,
+        cardType: data.dataValues.Metatag.dataValues.cardType,
+        site: data.dataValues.Metatag.dataValues.site,
+        creator: data.dataValues.Metatag.dataValues.creator,
+        url: data.dataValues.Metatag.dataValues.url,
+        twitterTitle: data.dataValues.Metatag.dataValues.twitterTitle,
+        twitterDescription: data.dataValues.Metatag.dataValues.twitterDescription,
+        image: data.dataValues.image,
+        pageIdentifier:data.dataValues.url
       };
 
       res.render("singlePost", {
         msg: "Welcome!",
         datos: data.dataValues,
+        metaTag:data.dataValues.Metatag.dataValues,
       });
     });
   });
