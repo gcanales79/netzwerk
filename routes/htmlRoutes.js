@@ -124,7 +124,7 @@ module.exports = function (app) {
       console.log(data.dataValues);
       res.locals.metaTags = {
         title: data.dataValues.title,
-        description: data.dataValues.Metatag.dataValue.description,
+        description: data.dataValues.Metatag.dataValues.description,
         keywords: data.dataValues.Metatag.dataValues.keywords,
         cardType: data.dataValues.Metatag.dataValues.cardType,
         site: data.dataValues.Metatag.dataValues.site,
@@ -132,7 +132,7 @@ module.exports = function (app) {
         url: data.dataValues.Metatag.dataValues.url,
         twitterTitle: data.dataValues.Metatag.dataValues.twitterTitle,
         twitterDescription: data.dataValues.Metatag.dataValues.twitterDescription,
-        image: data.dataValues.Metatag.datavalues.image,
+        image: data.dataValues.Metatag.dataValues.image,
         pageIdentifier:data.dataValues.url
       };
 
