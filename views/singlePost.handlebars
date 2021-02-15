@@ -9,7 +9,7 @@
                         <div class="main-post-area-holder">
                             <article class="single-page-details-holder">
                                 <div class="post-image rounded mx-auto d-block" style="width:400px">
-                                    <img src={{datos.image}} alt="{{{datos.image_alt}}}"> 
+                                    <img src={{datos.image}} alt="{{{datos.image_alt}}}">
                                 </div>
                                 <div class="single-page-other-information-holder">
                                     <div class="posted-category">
@@ -81,8 +81,9 @@
         </div>
         <!-- // single-page-inner -->
         <div id="disqus_thread"></div>
-        <div class="fb-comments row justify-content-center" data-href="{{metaTag.url}}" data-width="80%" data-numposts="10"></div>
+        <div class="row justify-content-center">
+            <div class="fb-comments" data-href="{{metaTag.url}}" data-width="80%" data-numposts="10"></div>
+        </div>
     </div>
     <!-- // single-page-wrapper -->
 </div>
-
