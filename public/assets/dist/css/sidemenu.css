@@ -15,12 +15,17 @@
   background: dodgerblue;
   color: white;
   min-width: 50px;
-  text-align: center
+  text-align: center;
+  max-height:35px;
+  border-radius:5px;
 }
 
 .tinyArea{
+  margin-top:20px;
   margin-bottom:20px;
 }
+
+
 
 .alert-minimalist {
 	background-color: rgb(241, 242, 240);

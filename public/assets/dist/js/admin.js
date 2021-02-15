@@ -535,60 +535,69 @@ $(document).ready(function () {
     }
   });
 
-  //Create Post Function
+  //Create Post Function #createPost
 
-  $("#createPost").on("click", function (event) {
+  $("#postBlogMain").submit(function (event) {
     event.preventDefault();
-
+    //console.log($("#postBlogMain").validate())
+    //$("#postBlogMain").submit()
     let title = $("#tituloPost").val().trim();
     let url = $("#urlPost").val().toLowerCase().trim();
     let modifyurl = url.replace(/\s/g, "-");
     let description = tinymce.get("descriptionPost").getContent();
     let buttonType = $("#modalPostCenter").attr("type");
     let tema = $("#temaPost").val().trim();
-    let pageNum = $(this).attr("page");
-    let postId = $(this).attr("postId");
-    if (buttonType == "Create") {
-      $.post("/add-post", {
-        title: title,
-        url: modifyurl,
-        description: description,
-        tema: tema,
-      }).then((data) => {
-        console.log(data);
-        const { post } = data;
-        //console.log(post)
-        //Crear el metatag
-        $.post("/add-metatags", {
-          title: post.title,
-          url: `https://netzwerk.mx/blog/${post.url}`,
-          BlogId: post.id,
-        }).then((tag) => {
-          $("#modalPostCenter").modal("hide");
-          notificationToast(data.alert, data.message);
-          paginationBlog(1);
+    let pageNum = $(this).find("#createPost").attr("page");
+    let postId = $(this).find("#createPost").attr("postid");
+    console.log(pageNum);
+    console.log(postId);
+    if (title.length !== 0 && url.length !== 0 && tema.length !== 0) {
+      if (buttonType == "Create") {
+        $.post("/add-post", {
+          title: title,
+          url: modifyurl,
+          description: description,
+          tema: tema,
+        }).then((data) => {
+          console.log(data);
+          const { post } = data;
+          //console.log(post)
+          //Crear el metatag
+          $.post("/add-metatags", {
+            title: post.title,
+            url: `https://netzwerk.mx/blog/${post.url}`,
+            BlogId: post.id,
+          }).then((tag) => {
+            $("#modalPostCenter").modal("hide");
+            $("#postBlogMain").removeClass("was-validated");
+            notificationToast(data.alert, data.message);
+            paginationBlog(1);
+          });
         });
-      });
-    } else if (buttonType == "Update") {
-      //console.log(`PageNum: ${pageNum} PostId: ${postId}`);
-      let changes = {
-        title: title,
-        url: modifyurl,
-        description: description,
-        tema: tema,
-      };
-      $.ajax({
-        url: `/update-post/${postId}`,
-        type: "PUT",
-        contentType: "application/json",
-        data: JSON.stringify(changes),
-        success: function (data) {
-          $("#modalPostCenter").modal("hide");
-          notificationToast(data.alert, data.message);
-          //console.log("Usuario borrado");
-          paginationBlog(pageNum);
-        },
-      });
+      } else if (buttonType == "Update") {
+        //console.log(`PageNum: ${pageNum} PostId: ${postId}`);
+        let changes = {
+          title: title,
+          url: modifyurl,
+          description: description,
+          tema: tema,
+        };
+        $.ajax({
+          url: `/update-post/${postId}`,
+          type: "PUT",
+          contentType: "application/json",
+          data: JSON.stringify(changes),
+          success: function (data) {
+            $("#modalPostCenter").modal("hide");
+            $("#postBlogMain").removeClass("was-validated");
+            notificationToast(data.alert, data.message);
+            //console.log("Usuario borrado");
+            paginationBlog(pageNum);
+          },
+        });
+      }
+    } else {
+      console.log("No valida");
     }
   });
 
@@ -928,4 +937,29 @@ $(document).ready(function () {
         break;
     }
   }
+
+  //Validation of Forms
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+  (function () {
+    "use strict";
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll(".needs-validation");
+
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms).forEach(function (form) {
+      form.addEventListener(
+        "submit",
+        function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+
+          form.classList.add("was-validated");
+        },
+        false
+      );
+    });
+  })();
 });

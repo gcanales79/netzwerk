@@ -9,40 +9,52 @@
                 </button>
             </div>
             <div class="modal-body" id="modalPostBody">
-                <form id="postBlogMain">
-                    <div class="form-row">
-                        <div class="col input-container">
-                            <div class="input-icon">
-                                <i class="fas fa-pencil-alt"></i>
-                            </div>
-                            <input type="text" class="form-control" id="tituloPost" placeholder="Titulo">
+                <form role="form" class="needs-validation" id="postBlogMain" novalidate>
+                    <div class="row g-3">
+                        <div class="col-sm-4 d-inline-flex">
+                            <div class="input-icon float-right"><i class="fas fa-heading"></i></div>
+                            <div class="input-group">
 
+
+                                <input type="text" class="form-control" id="tituloPost" placeholder="Titulo" required>
+
+                                <div class="invalid-feedback">
+                                    Falta Título
+                                </div>
+
+                            </div>
                         </div>
-                        <div class="col input-container">
-                            <div class="input-icon">
-                                <i class="fas fa-link"></i>
-                            </div>
-                            <input type="text" class="form-control" id="urlPost" placeholder="url">
 
+                        <div class="col-sm-4 d-inline-flex">
+                            <div class="input-icon"><i class="fas fa-link"></i></div>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="urlPost" placeholder="url" required>
+
+                                <div class="invalid-feedback">
+                                    Falta Url
+                                </div>
+                            </div>
                         </div>
-                        <div class="col input-container">
-                            <div class="input-icon">
-                                <i class="fas fa-heading"></i>
-                            </div>
-                            <input type="text" class="form-control" id="temaPost" placeholder="tema">
+                        <div class="col-sm-4 d-inline-flex">
+                            <div class="input-icon"><i class="fas fa-bookmark"></i></div>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="temaPost" placeholder="Tema" required>
 
+                                <div class="invalid-feedback">
+                                    Falta Tema
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <div class="tinyArea">
+                        <textarea name=content id="descriptionPost"></textarea>
+                    </div>
+                    <div class="col">
+                        <button type="submit" style="width: 100%" id="createPost" class="btn btn-primary"></button>
+                    </div>
                 </form>
-                <div class="tinyArea">
-                    <textarea name=content id="descriptionPost"></textarea>
-                </div>
 
-            </div>
-            <div class="row modal-footer" id="modalFooter">
-                <div class="col">
-                    <button type="button" style="width: 100%" id="createPost" class="btn btn-primary"></button>
-                </div>
+
             </div>
         </div>
     </div>
