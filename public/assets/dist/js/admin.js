@@ -516,14 +516,15 @@ $(document).ready(function () {
     plugins: [
       "advlist autolink lists link image charmap print preview anchor",
       "searchreplace visualblocks code fullscreen",
-      "insertdatetime media table paste code help wordcount tinymcespellchecker",
+      "insertdatetime media table paste code help wordcount tinymcespellchecker autosave",
     ],
-    spellchecker_language: 'es',
+    spellchecker_language: "es",
     toolbar:
       "undo redo | formatselect | " +
       "bold italic backcolor | alignleft aligncenter " +
       "alignright alignjustify | bullist numlist outdent indent | " +
-      "removeformat | help",
+      "removeformat | help | restoredraft",
+      autosave_interval:"60s"
   });
 
   $(document).on("focusin", function (e) {
