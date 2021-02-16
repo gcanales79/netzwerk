@@ -150,6 +150,41 @@ module.exports = function (app) {
     });
   });
 
+    //Preview Post Test
+    app.get("/admin/:url",isAuthenticated, (req, res) => {
+      const { url } = req.params;
+      db.Blog.findOne({
+        where: {
+          url: url,
+        },
+        include: [db.Metatag],
+      }).then((data) => {
+        console.log(data.dataValues.Metatag.dataValues);
+        console.log(data.dataValues);
+        res.locals.metaTags = {
+          title: data.dataValues.title,
+          description: data.dataValues.Metatag.dataValues.description,
+          keywords: data.dataValues.Metatag.dataValues.keywords,
+          cardType: data.dataValues.Metatag.dataValues.cardType,
+          site: data.dataValues.Metatag.dataValues.site,
+          creator: data.dataValues.Metatag.dataValues.creator,
+          url: data.dataValues.Metatag.dataValues.url,
+          twitterTitle: data.dataValues.Metatag.dataValues.twitterTitle,
+          twitterDescription: data.dataValues.Metatag.dataValues.twitterDescription,
+          image: data.dataValues.Metatag.dataValues.image,
+          pageIdentifier:data.dataValues.url
+        };
+  
+        res.render("singlePost", {
+          msg: "Welcome!",
+          datos: data.dataValues,
+          metaTag:data.dataValues.Metatag.dataValues,
+        });
+      }).catch((err)=>{
+        res.render("404")
+      });
+    });
+
   // Cookies
   app.get("/cookies", function (req, res) {
     res.locals.metaTags = {
