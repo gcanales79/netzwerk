@@ -146,15 +146,16 @@ module.exports = function (app) {
       },
       attributes: ["id", "email", "role", "active"],
     })
-  }).then((users) => {
-    if (users.length == 0) {
-      res.send({ message: "No se han encontrado ningun usuario" });
-    } else {
-      res.send({ users });
-    }
-  })
-  .catch((err) => {
-    res.send(err);
+      .then((users) => {
+        if (users.length == 0) {
+          res.send({ message: "No se han encontrado ningun usuario" });
+        } else {
+          res.send({ users });
+        }
+      })
+      .catch((err) => {
+        res.send(err);
+      });
   });
 
   //Activate User
