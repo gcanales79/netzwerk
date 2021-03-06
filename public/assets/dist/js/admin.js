@@ -796,6 +796,7 @@ $(document).ready(function () {
   $("#addImage").on("click", function (event) {
     //console.log("Entro")
     event.preventDefault();
+    $("#imageAlt").empty();
     $("#modalImageLongTitle").text("Agregar Imagen");
     $("#uploadImage").text("Subir Imagen");
     $("#uploadImage").attr("accion", "secundaria");

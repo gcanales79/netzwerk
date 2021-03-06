@@ -2,7 +2,8 @@
     <!-- Sidebar -->
     <nav id="sidebar">
         <div class="sidebar-header">
-            <h3>Bootstrap Sidebar</h3>
+            <h3>Netzwerk</h3>
+            <strong><i class="fas fa-bars"></i></strong>
         </div>
 
         <ul class="list-unstyled components">
@@ -22,13 +23,22 @@
                 </ul>
             </li-->
             <li {{#if userAdmin}}class="active" {{/if}}>
-                <a href="/admin">Users</a>
+                <a href="/admin">
+                    <i class="fas fa-users"></i>
+                     Users
+                    </a>
             </li>
             <li {{#if postAdmin}}class="active" {{/if}}>
-                <a href="/admin/blog">Blog</a>
+                <a href="/admin/blog">
+                <i class="fas fa-keyboard"></i>
+                 Blog
+                </a>
             </li>
             <li {{#if imageAdmin}}class="active" {{/if}}>
-                <a href="/admin/images">Images</a>
+                <a href="/admin/images">
+                <i class="fas fa-camera-retro"></i>
+                Images
+                </a>
             </li>
 
         </ul>
@@ -89,8 +99,8 @@
 {{>modalImage}}
 {{>modalConfirmDelete}}
 
-<script src="https://code.jquery.com/jquery.js"></script>
+<!--script src="https://code.jquery.com/jquery.js"></script>
 <script src="/assets/dist/js/pagination.js"></script>
 <script src="/assets/dist/js/bootstrap-notify.js"></script>
 <script src="/assets/dist/js/admin.js"></script>
-<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script-->

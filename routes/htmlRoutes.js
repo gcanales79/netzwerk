@@ -9,7 +9,8 @@ module.exports = function (app) {
   app.get("/", function (req, res) {
     res.locals.metaTags = {
       title: "Netzwerk - Blog Acerca de Liderazgo y Administración",
-      description: "Blog donde hablo de liderazgo y trabajo en equipo.",
+      description:
+        "Blog donde hablo de liderazgo y trabajo en equipo. Si quieres mejorar el desempeño de tu equipo de trabajo o si buscas mejorar en tu trabajo te recomiendo que me visites regularmente.",
       keywords:
         "liderazgo, crisis, administración, equipo, disciplina, colaboración, persuasión, asertividad, resolución de problemas, confianza, inteligencia emocional, liderazgo participativo, proactividad",
       cardType: "summary_large_image",
@@ -22,16 +23,17 @@ module.exports = function (app) {
       image: "https://netzwerk.mx/assets/dist/img/Logo_netzwerk.png",
     };
     db.Blog.findAll({
-      where:{
-        active:true,
+      where: {
+        active: true,
       },
       order: [["createdAt", "DESC"]],
       include: [db.Metatag],
     }).then((data) => {
-      let datos=data.map((data) => data.toJSON())
-      console.log(datos)
+      let datos = data.map((data) => data.toJSON());
+      console.log(datos);
       res.render("index", {
         msg: "Welcome!",
+        jsfile: "index.js",
         //Solucion al problema de handlebars
         datos: data.map((data) => data.toJSON()),
       });
@@ -43,6 +45,7 @@ module.exports = function (app) {
     res.render("admin", {
       style: "sidemenu.css",
       userAdmin: true,
+      jsfile: "admin.js",
     });
   });
 
@@ -73,6 +76,7 @@ module.exports = function (app) {
         limit: limit,
         total: postStored.count,
         data: datos,
+        jsfile: "admin.js",
       });
     });
   });
@@ -83,6 +87,7 @@ module.exports = function (app) {
     res.render("admin", {
       style: "sidemenu.css",
       imageAdmin: true,
+      jsfile: "admin.js",
     });
   });
 
@@ -97,6 +102,7 @@ module.exports = function (app) {
       title2: "Sign up",
       link: "/signup",
       buttonTitle: "Login",
+      jsfile: "login.js",
     });
   });
 
@@ -111,6 +117,7 @@ module.exports = function (app) {
       title2: "Sign in",
       link: "/login",
       buttonTitle: "Signup",
+      jsfile: "login.js",
     });
   });
 
@@ -120,45 +127,11 @@ module.exports = function (app) {
     db.Blog.findOne({
       where: {
         url: url,
-        active:true
+        active: true,
       },
       include: [db.Metatag],
-    }).then((data) => {
-      console.log(data.dataValues.Metatag.dataValues);
-      console.log(data.dataValues);
-      res.locals.metaTags = {
-        title: data.dataValues.title,
-        description: data.dataValues.Metatag.dataValues.description,
-        keywords: data.dataValues.Metatag.dataValues.keywords,
-        cardType: data.dataValues.Metatag.dataValues.cardType,
-        site: data.dataValues.Metatag.dataValues.site,
-        creator: data.dataValues.Metatag.dataValues.creator,
-        url: data.dataValues.Metatag.dataValues.url,
-        twitterTitle: data.dataValues.Metatag.dataValues.twitterTitle,
-        twitterDescription: data.dataValues.Metatag.dataValues.twitterDescription,
-        image: data.dataValues.Metatag.dataValues.image,
-        pageIdentifier:data.dataValues.url
-      };
-
-      res.render("singlePost", {
-        msg: "Welcome!",
-        datos: data.dataValues,
-        metaTag:data.dataValues.Metatag.dataValues,
-      });
-    }).catch((err)=>{
-      res.render("404")
-    });
-  });
-
-    //Preview Post Test
-    app.get("/admin/:url",isAuthenticated, (req, res) => {
-      const { url } = req.params;
-      db.Blog.findOne({
-        where: {
-          url: url,
-        },
-        include: [db.Metatag],
-      }).then((data) => {
+    })
+      .then((data) => {
         console.log(data.dataValues.Metatag.dataValues);
         console.log(data.dataValues);
         res.locals.metaTags = {
@@ -170,20 +143,66 @@ module.exports = function (app) {
           creator: data.dataValues.Metatag.dataValues.creator,
           url: data.dataValues.Metatag.dataValues.url,
           twitterTitle: data.dataValues.Metatag.dataValues.twitterTitle,
-          twitterDescription: data.dataValues.Metatag.dataValues.twitterDescription,
+          twitterDescription:
+            data.dataValues.Metatag.dataValues.twitterDescription,
           image: data.dataValues.Metatag.dataValues.image,
-          pageIdentifier:data.dataValues.url
+          pageIdentifier: data.dataValues.url,
         };
-  
+
         res.render("singlePost", {
           msg: "Welcome!",
           datos: data.dataValues,
-          metaTag:data.dataValues.Metatag.dataValues,
+          metaTag: data.dataValues.Metatag.dataValues,
+          jsfile: "blog.js",
         });
-      }).catch((err)=>{
-        res.render("404")
+      })
+      .catch((err) => {
+        res.render("404", {
+          jsfile: "404.js",
+        });
       });
-    });
+  });
+
+  //Preview Post Test
+  app.get("/admin/:url", isAuthenticated, (req, res) => {
+    const { url } = req.params;
+    db.Blog.findOne({
+      where: {
+        url: url,
+      },
+      include: [db.Metatag],
+    })
+      .then((data) => {
+        console.log(data.dataValues.Metatag.dataValues);
+        console.log(data.dataValues);
+        res.locals.metaTags = {
+          title: data.dataValues.title,
+          description: data.dataValues.Metatag.dataValues.description,
+          keywords: data.dataValues.Metatag.dataValues.keywords,
+          cardType: data.dataValues.Metatag.dataValues.cardType,
+          site: data.dataValues.Metatag.dataValues.site,
+          creator: data.dataValues.Metatag.dataValues.creator,
+          url: data.dataValues.Metatag.dataValues.url,
+          twitterTitle: data.dataValues.Metatag.dataValues.twitterTitle,
+          twitterDescription:
+            data.dataValues.Metatag.dataValues.twitterDescription,
+          image: data.dataValues.Metatag.dataValues.image,
+          pageIdentifier: data.dataValues.url,
+        };
+
+        res.render("singlePost", {
+          msg: "Welcome!",
+          datos: data.dataValues,
+          metaTag: data.dataValues.Metatag.dataValues,
+          jsfile: "admin.js",
+        });
+      })
+      .catch((err) => {
+        res.render("404", {
+          jsfile: "404.js",
+        });
+      });
+  });
 
   // Cookies
   app.get("/cookies", function (req, res) {
@@ -206,6 +225,8 @@ module.exports = function (app) {
       keywords:
         "liderazgo, crisis, administración, equipo, disciplina, colaboración, persuasión, asertividad, resolución de problemas, confianza, inteligencia emocional, liderazgo participativo",
     };
-    res.render("404");
+    res.render("404", {
+      jsfile: "404.js",
+    });
   });
 };
