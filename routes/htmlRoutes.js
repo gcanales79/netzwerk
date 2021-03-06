@@ -34,6 +34,7 @@ module.exports = function (app) {
       res.render("index", {
         msg: "Welcome!",
         jsfile: "index.js",
+        url:"/",
         //Solucion al problema de handlebars
         datos: data.map((data) => data.toJSON()),
       });
@@ -46,6 +47,7 @@ module.exports = function (app) {
       style: "sidemenu.css",
       userAdmin: true,
       jsfile: "admin.js",
+      url:"/admin"
     });
   });
 
@@ -77,6 +79,7 @@ module.exports = function (app) {
         total: postStored.count,
         data: datos,
         jsfile: "admin.js",
+        url:"/admin/blog"
       });
     });
   });
@@ -103,6 +106,7 @@ module.exports = function (app) {
       link: "/signup",
       buttonTitle: "Login",
       jsfile: "login.js",
+      url:"/admin/images"
     });
   });
 
@@ -118,6 +122,7 @@ module.exports = function (app) {
       link: "/login",
       buttonTitle: "Signup",
       jsfile: "login.js",
+      url:"/signup"
     });
   });
 
@@ -154,11 +159,13 @@ module.exports = function (app) {
           datos: data.dataValues,
           metaTag: data.dataValues.Metatag.dataValues,
           jsfile: "blog.js",
+          url:`/blog/${url}`
         });
       })
       .catch((err) => {
         res.render("404", {
           jsfile: "404.js",
+          url:`/${url}`
         });
       });
   });
@@ -195,11 +202,13 @@ module.exports = function (app) {
           datos: data.dataValues,
           metaTag: data.dataValues.Metatag.dataValues,
           jsfile: "admin.js",
+          url:`/admin/${url}`
         });
       })
       .catch((err) => {
         res.render("404", {
           jsfile: "404.js",
+          url:"`/${url}`"
         });
       });
   });
@@ -227,6 +236,7 @@ module.exports = function (app) {
     };
     res.render("404", {
       jsfile: "404.js",
+      url:`/${url}`
     });
   });
 };
