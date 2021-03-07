@@ -35,6 +35,7 @@ module.exports = function (app) {
         msg: "Welcome!",
         jsfile: "index.js",
         url:"/",
+        style:"main.css",
         //Solucion al problema de handlebars
         datos: data.map((data) => data.toJSON()),
       });
@@ -165,7 +166,6 @@ module.exports = function (app) {
       .catch((err) => {
         res.render("404", {
           jsfile: "404.js",
-          url:`/${url}`
         });
       });
   });
@@ -208,7 +208,6 @@ module.exports = function (app) {
       .catch((err) => {
         res.render("404", {
           jsfile: "404.js",
-          url:"`/${url}`"
         });
       });
   });
@@ -236,7 +235,6 @@ module.exports = function (app) {
     };
     res.render("404", {
       jsfile: "404.js",
-      url:`/${url}`
     });
   });
 };
