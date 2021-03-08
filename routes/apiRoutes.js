@@ -65,7 +65,7 @@ module.exports = function (app) {
     //console.log(secret_key)
     axios.post(url,{
     }).then(function (response) {
-      //console.log(response.data)
+      console.log(response.data)
       if(response.data.success){
         passport.authenticate("local", function (err, user, info) {
           if (err) {
