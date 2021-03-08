@@ -31,11 +31,12 @@ module.exports = function (app) {
     }).then((data) => {
       let datos = data.map((data) => data.toJSON());
       console.log(datos);
+      let jsfile = [{ jsfile: "/assets/dist/js/index.js" }];
       res.render("index", {
         msg: "Welcome!",
-        jsfile: "index.js",
-        url:"/",
-        style:"main.css",
+        jsfile: jsfile,
+        url: "/",
+        style: "main.css",
         //Solucion al problema de handlebars
         datos: data.map((data) => data.toJSON()),
       });
@@ -44,11 +45,12 @@ module.exports = function (app) {
 
   //Admin Page page
   app.get("/admin", isAuthenticated, (req, res) => {
+    let jsfile = [{ jsfile: "/assets/dist/js/admin.js" }];
     res.render("admin", {
       style: "sidemenu.css",
       userAdmin: true,
-      jsfile: "admin.js",
-      url:"/admin"
+      jsfile: jsfile,
+      url: "/admin",
     });
   });
 
@@ -72,6 +74,7 @@ module.exports = function (app) {
       let datos = data.map((data) => data.toJSON());
       //console.log(datos)
       console.log(page);
+      let jsfile = [{ jsfile: "/assets/dist/js/admin.js" }];
       res.render("admin", {
         style: "sidemenu.css",
         postAdmin: true,
@@ -79,8 +82,8 @@ module.exports = function (app) {
         limit: limit,
         total: postStored.count,
         data: datos,
-        jsfile: "admin.js",
-        url:"/admin/blog"
+        jsfile: jsfile,
+        url: "/admin/blog",
       });
     });
   });
@@ -88,16 +91,24 @@ module.exports = function (app) {
   //Image Upload Page
 
   app.get("/admin/images", isAuthenticated, (req, res) => {
+    let jsfile = [{ jsfile: "/assets/dist/js/admin.js" }];
     res.render("admin", {
       style: "sidemenu.css",
       imageAdmin: true,
-      jsfile: "admin.js",
+      jsfile: jsfile,
     });
   });
 
   //Login Page
   app.get("/login", (req, res) => {
     let alert = req.flash("error");
+    let jsfile = [
+      { jsfile: "/assets/dist/js/login.js" },
+      {
+        jsfile:
+          "https://www.google.com/recaptcha/api.js?render=6LcP6XYaAAAAAB0SXo9Dmt7n2xuuB1VJaD6QJ2Hf",
+      },
+    ];
     console.log(alert);
     res.render("login", {
       style: "login.css",
@@ -106,8 +117,8 @@ module.exports = function (app) {
       title2: "Sign up",
       link: "/signup",
       buttonTitle: "Login",
-      jsfile: "login.js",
-      url:"/admin/images"
+      jsfile: jsfile,
+      url: "/admin/images",
     });
   });
 
@@ -115,6 +126,7 @@ module.exports = function (app) {
   app.get("/signup", (req, res) => {
     let alert = req.flash("error");
     console.log(alert);
+    let jsfile = [{ jsfile: "/assets/dist/js/login.js" }];
     res.render("signup", {
       style: "login.css",
       alerta: alert,
@@ -122,8 +134,8 @@ module.exports = function (app) {
       title2: "Sign in",
       link: "/login",
       buttonTitle: "Signup",
-      jsfile: "login.js",
-      url:"/signup"
+      jsfile: jsfile,
+      url: "/signup",
     });
   });
 
@@ -154,13 +166,14 @@ module.exports = function (app) {
           image: data.dataValues.Metatag.dataValues.image,
           pageIdentifier: data.dataValues.url,
         };
+        let jsfile = [{ jsfile: "/assets/dist/js/blog.js" }];
 
         res.render("singlePost", {
           msg: "Welcome!",
           datos: data.dataValues,
           metaTag: data.dataValues.Metatag.dataValues,
-          jsfile: "blog.js",
-          url:`/blog/${url}`
+          jsfile: jsfile,
+          url: `/blog/${url}`,
         });
       })
       .catch((err) => {
@@ -196,13 +209,13 @@ module.exports = function (app) {
           image: data.dataValues.Metatag.dataValues.image,
           pageIdentifier: data.dataValues.url,
         };
-
+        let jsfile = [{ jsfile: "/assets/dist/js/admin.js" }];
         res.render("singlePost", {
           msg: "Welcome!",
           datos: data.dataValues,
           metaTag: data.dataValues.Metatag.dataValues,
-          jsfile: "admin.js",
-          url:`/admin/${url}`
+          jsfile: jsfile,
+          url: `/admin/${url}`,
         });
       })
       .catch((err) => {
@@ -227,6 +240,7 @@ module.exports = function (app) {
 
   // Render 404 page for any unmatched routes
   app.get("*", function (req, res) {
+    let jsfile = [{ jsfile: "/assets/dist/js/404.js" }];
     res.locals.metaTags = {
       title: "404 No se encontro la página - Netzwerk",
       description: "This is a 404 Page, please try again",
@@ -234,7 +248,7 @@ module.exports = function (app) {
         "liderazgo, crisis, administración, equipo, disciplina, colaboración, persuasión, asertividad, resolución de problemas, confianza, inteligencia emocional, liderazgo participativo",
     };
     res.render("404", {
-      jsfile: "404.js",
+      jsfile: jsfile,
     });
   });
 };

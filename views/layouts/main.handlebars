@@ -199,7 +199,9 @@
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <script src="/assets/dist/js/pagination.js"></script>
     <script src="/assets/dist/js/bootstrap-notify.js"></script>
-    <script src="/assets/dist/js/{{jsfile}}"></script>
+    {{#each jsfile}}
+    <script src="{{jsfile}}"></script>
+    {{/each}}
 
 
 </body>

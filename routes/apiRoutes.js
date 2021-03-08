@@ -10,6 +10,7 @@ var isAuthenticated = require("../config/middleware/isAuthenticated");
 var fs = require("fs");
 var multer = require("multer");
 var upload = multer({ dest: "./public/assets/dist/img" });
+const axios = require('axios').default;
 
 module.exports = function (app) {
   //JWT
@@ -56,28 +57,48 @@ module.exports = function (app) {
 
   //Login
   app.get("/signin", function (req, res, next) {
-    passport.authenticate("local", function (err, user, info) {
-      if (err) {
-        res.send({ message: "Error de servidor", alert: "Error" });
-      }
-      if (!user) {
-        res.send({ message: info.message, alert: "Error" });
-      }
-      req.logIn(user, function (err) {
-        if (err) {
-          res.send({
-            message: "Error de servidor",
-            alert: "Error",
+    const{token}=req.query;
+    //console.log(token)
+    const secret_key = process.env.SECRET_KEY_RECAPTCHA;
+    const url = `https://www.google.com/recaptcha/api/siteverify?secret=${secret_key}&response=${token}`;
+    //console.log(token)
+    //console.log(secret_key)
+    axios.post(url,{
+    }).then(function (response) {
+      //console.log(response.data)
+      if(response.data.success){
+        passport.authenticate("local", function (err, user, info) {
+          if (err) {
+            res.send({ message: "Error de servidor", alert: "Error" });
+          }
+          if (!user) {
+            res.send({ message: info.message, alert: "Error" });
+          }
+          req.logIn(user, function (err) {
+            if (err) {
+              res.send({
+                message: "Error de servidor",
+                alert: "Error",
+              });
+            }
+            res.send({
+              message: "Usuario correcto",
+              alert: "Success",
+              accessToken: jwt.createAccessToken(user),
+              refreshToken: jwt.createRefreshToken(user),
+            });
           });
-        }
-        res.send({
-          message: "Usuario correcto",
-          alert: "Success",
-          accessToken: jwt.createAccessToken(user),
-          refreshToken: jwt.createRefreshToken(user),
-        });
-      });
-    })(req, res, next);
+        })(req, res, next);
+      }else{
+        res.send({message:"No eres humano",alert:"Error"})
+      }
+    }).catch((error)=>{
+      console.log(error)
+    })
+
+    
+
+   
   });
 
   //Logout
