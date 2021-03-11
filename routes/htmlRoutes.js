@@ -141,10 +141,12 @@ module.exports = function (app) {
 
   //Reset Password
   app.get("/recover-password/:token",(req,res)=>{
+    const {token}=req.params;
     let jsfile=[{jsfile:"/assets/dist/js/reset.js"}]
     res.render("reset",{
       style:"reset.css",
       jsfile:jsfile,
+      token:token
     })
   })
 

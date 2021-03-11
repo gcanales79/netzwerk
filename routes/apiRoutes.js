@@ -15,6 +15,8 @@ const crypto = require("crypto");
 var async = require("async");
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 module.exports = function (app) {
   //JWT
@@ -121,7 +123,7 @@ module.exports = function (app) {
             done(err, token);
           });
         },
-        function (token,done) {
+        function (token, done) {
           db.User.findOne({
             where: {
               email: email,
@@ -154,7 +156,8 @@ module.exports = function (app) {
                 });
             }
           });
-        },function(token,data,done){
+        },
+        function (token, data, done) {
           const msg = {
             to: data.email, // Change to your recipient
             from: "netzwerk.mty@gmail.com", // Change to your verified sender
@@ -163,7 +166,7 @@ module.exports = function (app) {
             //html: '<strong>and easy to do anywhere, even with Node.js</strong>',
             template_id: "d-7bb2f1084d154cecb824ff2ef1632ffe",
             dynamic_template_data: {
-              user:data.email,
+              user: data.email,
               link: `http://${req.headers.host}/recover-password/${token}`,
             },
           };
@@ -176,14 +179,118 @@ module.exports = function (app) {
             .catch((err) => {
               console.log(err);
             });
-        }
+        },
       ],
       function (err, result) {
         if (err) {
-          res.send({ message: "Error al tratar de restablecer la contraseña",alert:"Error" });
+          res.send({
+            message: "Error al tratar de restablecer la contraseña",
+            alert: "Error",
+          });
         }
         if (result === "done") {
-          res.send({message:"Email enviado para restablecer contraseña",alert:"Success"})
+          res.send({
+            message: "Email enviado para restablecer contraseña",
+            alert: "Success",
+          });
+        }
+      }
+    );
+  });
+
+  //Change password
+  app.post("/reset/:token", (req, res) => {
+    const { token } = req.params;
+    const { password, confirm } = req.body;
+    async.waterfall(
+      [
+        function (done) {
+          db.User.findOne({
+            where: {
+              resetPasswordToken: token,
+              resetPasswordExpire: {
+                [Op.gt]: Date.now(),
+              },
+            },
+          }).then((user) => {
+            console.log(user)
+            if (!user) {
+              /*req.flash(
+              "error",
+              "El token para restablecer la contraseña ha expirado"
+            );*/
+              res.send({
+                message: "El token para restablecer la contraseña ha expirado",
+                alert: "Error",
+              });
+            }
+            if (password.length > 4) {
+              if (password === confirm) {
+                db.User.update(
+                  {
+                    resetPasswordToken: null,
+                    resetPasswordExpire: null,
+                    password: password,
+                  },
+                  {
+                    where: {
+                      resetPasswordToken: token,
+                    },
+                    individualHooks: true,
+                  }
+                ).then((data, err) => {
+                  done(err, user);
+                });
+              } else {
+                /*req.flash("error","Las contraseñas no coinciden")*/
+                res.send({
+                  message: "Las contraseñas no coinciden",
+                  alert: "Error",
+                });
+              }
+            } else {
+              /*req.flash("error","La contraseña debe tener minimo 5 caracteres")*/
+              res.send({
+                message: "La contraseña debe tener mínimo 5 caracteres",
+                alert:"Error"
+              });
+            }
+          }).catch((err)=>{
+            console.log(err)
+          });
+        },
+        function (user, done) {
+          const msg = {
+            to: user.email, // Change to your recipient
+            from: "netzwerk.mty@gmail.com", // Change to your verified sender
+            //subject: 'Sending with SendGrid is Fun',
+            //text: 'and easy to do anywhere, even with Node.js',
+            //html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+            template_id: "d-6bd06e5664bb44e08e7862e9dfe50ba0",
+            dynamic_template_data: {
+              user: user.email,
+            },
+          };
+          sgMail
+            .send(msg)
+            .then((email, err) => {
+              console.log("Email sent");
+              done(err, "done");
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        },
+      ],
+      function (err, result) {
+        if (err) {
+          res.send({ message: "Error de servidor", alert: "Error" });
+        }
+        if (result === "done") {
+          res.send({
+            message: "Contraseña restablecida correctamente",
+            alert: "Success",
+          });
         }
       }
     );
@@ -715,7 +822,7 @@ module.exports = function (app) {
         fileExt !== "JPG" &&
         fileExt !== "PNG" &&
         fileExt !== "JPEG" &&
-        fileExt !== "jpeg" 
+        fileExt !== "jpeg"
       ) {
         res.send({
           message:
