@@ -139,6 +139,15 @@ module.exports = function (app) {
     });
   });
 
+  //Reset Password
+  app.get("/recover-password/:token",(req,res)=>{
+    let jsfile=[{jsfile:"/assets/dist/js/reset.js"}]
+    res.render("reset",{
+      style:"reset.css",
+      jsfile:jsfile,
+    })
+  })
+
   //Load Blog Post
   app.get("/blog/:url", (req, res) => {
     const { url } = req.params;

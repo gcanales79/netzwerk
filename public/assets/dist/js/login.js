@@ -56,6 +56,33 @@ $(document).ready(function () {
     });
   }
 
+  $("#resetPwd").on("click",function(event){
+    event.preventDefault();
+    $("#alertZone").empty();
+    $("#alertZone").removeClass("alert alert-danger")
+    $("#forgotEmail").val("");
+    $("#modalForgotCenter").modal("show");
+  })
+
+  $("#resetForm").submit(function(event){
+    event.preventDefault();
+    let email=$("#forgotEmail").val().trim().toLowerCase();
+    if (email.length!=0){
+      $.post("/forgot",{
+        email:email
+      }).then((data)=>{
+        if(data.alert==="Error"){
+          $("#alertZone").addClass("alert alert-danger")
+          $("#alertZone").text(data.message)
+        }
+        if(data.alert==="Success"){
+          $("#modalForgotCenter").modal("hide");
+          notificationToast(data.alert, data.message)
+        }
+      })
+    }
+  })
+
   function notificationToast(result, message) {
     switch (result) {
       case "Success":
@@ -82,4 +109,29 @@ $(document).ready(function () {
         break;
     }
   }
+
+   //Validation of Forms
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+  (function () {
+    "use strict";
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll(".needs-validation");
+
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms).forEach(function (form) {
+      form.addEventListener(
+        "submit",
+        function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+
+          form.classList.add("was-validated");
+        },
+        false
+      );
+    });
+  })();
 });

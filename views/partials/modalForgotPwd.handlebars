@@ -1,0 +1,37 @@
+<div class="modal fadeIn" id="modalForgotCenter" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" id="modalForgotDialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalForgotLongTitle">Recuperar Contraseña</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modalForgotBody">
+                <form role="form" class="needs-validation" id="resetForm" novalidate>
+                    <div class="col d-inline-flex">
+                        <div class="input-group">
+                            <input type="email" class="form-control" id="forgotEmail" placeholder="Email" required>
+
+                            <div class="invalid-feedback">
+                                Por favor poner un correo
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <button type="submit" style="width: 100%" id="forgotPwd" class="btn btn-primary">Restablecer
+                            Contraseña</button>
+                    </div>
+                </form>
+    
+                    <div class="col md-6" style="margin-top:15px" id="alertZone">
+
+                    </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>

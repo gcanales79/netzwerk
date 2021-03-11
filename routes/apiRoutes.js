@@ -10,7 +10,11 @@ var isAuthenticated = require("../config/middleware/isAuthenticated");
 var fs = require("fs");
 var multer = require("multer");
 var upload = multer({ dest: "./public/assets/dist/img" });
-const axios = require('axios').default;
+const axios = require("axios").default;
+const crypto = require("crypto");
+var async = require("async");
+const sgMail = require("@sendgrid/mail");
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 module.exports = function (app) {
   //JWT
@@ -57,54 +61,132 @@ module.exports = function (app) {
 
   //Login
   app.get("/signin", function (req, res, next) {
-    const{token}=req.query;
+    const { token } = req.query;
     //console.log(token)
     const secret_key = process.env.SECRET_KEY_RECAPTCHA;
     const url = `https://www.google.com/recaptcha/api/siteverify?secret=${secret_key}&response=${token}`;
     //console.log(token)
     //console.log(secret_key)
-    axios.post(url,{
-    }).then(function (response) {
-      console.log(response.data)
-      if(response.data.success){
-        passport.authenticate("local", function (err, user, info) {
-          if (err) {
-            res.send({ message: "Error de servidor", alert: "Error" });
-          }
-          if (!user) {
-            res.send({ message: info.message, alert: "Error" });
-          }
-          req.logIn(user, function (err) {
+    axios
+      .post(url, {})
+      .then(function (response) {
+        console.log(response.data);
+        if (response.data.success) {
+          passport.authenticate("local", function (err, user, info) {
             if (err) {
-              res.send({
-                message: "Error de servidor",
-                alert: "Error",
-              });
+              res.send({ message: "Error de servidor", alert: "Error" });
             }
-            res.send({
-              message: "Usuario correcto",
-              alert: "Success",
-              accessToken: jwt.createAccessToken(user),
-              refreshToken: jwt.createRefreshToken(user),
+            if (!user) {
+              res.send({ message: info.message, alert: "Error" });
+            }
+            req.logIn(user, function (err) {
+              if (err) {
+                res.send({
+                  message: "Error de servidor",
+                  alert: "Error",
+                });
+              }
+              res.send({
+                message: "Usuario correcto",
+                alert: "Success",
+                accessToken: jwt.createAccessToken(user),
+                refreshToken: jwt.createRefreshToken(user),
+              });
             });
-          });
-        })(req, res, next);
-      }else{
-        res.send({message:"No eres humano",alert:"Error"})
-      }
-    }).catch((error)=>{
-      console.log(error)
-    })
-
-    
-
-   
+          })(req, res, next);
+        } else {
+          res.send({ message: "No eres humano", alert: "Error" });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   });
 
   //Logout
   app.get("/logout", function (req, res) {
     req.logout();
     res.redirect("/");
+  });
+
+  //Forgot
+  app.post("/forgot", function (req, res) {
+    const { email } = req.body;
+    async.waterfall(
+      [
+        function (done) {
+          crypto.randomBytes(20, function (err, buf) {
+            var token = buf.toString("hex");
+            //console.log("El token es " + token)
+            done(err, token);
+          });
+        },
+        function (token,done) {
+          db.User.findOne({
+            where: {
+              email: email,
+            },
+          }).then((data) => {
+            if (!data) {
+              res.send({ message: "Usuario no dado de alta", alert: "Error" });
+            } else {
+              db.User.update(
+                {
+                  resetPasswordToken: token,
+                  resetPasswordExpire: Date.now() + 3600000, //+1 hora
+                },
+                {
+                  where: {
+                    email: email,
+                  },
+                }
+              )
+                .then((user, err) => {
+                  /*res.send({
+                    message: `Correo enviado a ${data.email}`,
+                    alert: "Success",
+                  });*/
+                  done(err, token, data);
+                  //done(err, "done");
+                })
+                .catch((error) => {
+                  console.log(error);
+                });
+            }
+          });
+        },function(token,data,done){
+          const msg = {
+            to: data.email, // Change to your recipient
+            from: "netzwerk.mty@gmail.com", // Change to your verified sender
+            //subject: 'Sending with SendGrid is Fun',
+            //text: 'and easy to do anywhere, even with Node.js',
+            //html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+            template_id: "d-7bb2f1084d154cecb824ff2ef1632ffe",
+            dynamic_template_data: {
+              user:data.email,
+              link: `http://${req.headers.host}/recover-password/${token}`,
+            },
+          };
+          sgMail
+            .send(msg)
+            .then((email, err) => {
+              console.log("Email sent");
+              done(err, "done");
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+      ],
+      function (err, result) {
+        if (err) {
+          res.send({ message: "Error al tratar de restablecer la contraseña",alert:"Error" });
+        }
+        if (result === "done") {
+          res.send({message:"Email enviado para restablecer contraseña",alert:"Success"})
+        }
+      }
+    );
   });
 
   //User Signup

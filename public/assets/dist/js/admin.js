@@ -516,15 +516,17 @@ $(document).ready(function () {
     plugins: [
       "advlist autolink lists link image charmap print preview anchor",
       "searchreplace visualblocks code fullscreen",
-      "insertdatetime media table paste code help wordcount tinymcespellchecker autosave",
+      "insertdatetime media table paste code help wordcount autosave",
     ],
+    browser_spellcheck: true,
+    contextmenu: false,
     spellchecker_language: "es",
     toolbar:
       "undo redo | formatselect | " +
       "bold italic backcolor | alignleft aligncenter " +
       "alignright alignjustify | bullist numlist outdent indent | " +
       "removeformat | help | restoredraft",
-      autosave_interval:"60s"
+    autosave_interval: "60s",
   });
 
   $(document).on("focusin", function (e) {
@@ -537,6 +539,29 @@ $(document).ready(function () {
     }
   });
 
+  //Froala
+  /* var editor=new FroalaEditor("#descriptionPost",{
+    width:"100%",
+    height:"270",
+    spellcheck:true,
+    toolbarButtons: {
+      'moreText': {
+        'buttons': ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'fontFamily', 'fontSize', 'textColor', 'backgroundColor', 'inlineClass', 'inlineStyle', 'clearFormatting']
+      },
+      'moreParagraph': {
+        'buttons': ['alignLeft', 'alignCenter', 'formatOLSimple', 'alignRight', 'alignJustify', 'formatOL', 'formatUL', 'paragraphFormat', 'paragraphStyle', 'lineHeight', 'outdent', 'indent', 'quote']
+      },
+      'moreRich': {
+        'buttons': ['insertLink', 'insertImage', 'insertVideo', 'insertTable', 'emoticons', 'fontAwesome', 'specialCharacters', 'embedly', 'insertFile', 'insertHR']
+      },
+      'moreMisc': {
+        'buttons': ['undo', 'redo', 'fullscreen', 'print', 'getPDF', 'spellChecker', 'selectAll', 'html', 'help'],
+        'align': 'right',
+        'buttonsVisible': 2
+      }
+    }
+  })*/
+
   //Create Post Function #createPost
 
   $("#postBlogMain").submit(function (event) {
@@ -547,6 +572,8 @@ $(document).ready(function () {
     let url = $("#urlPost").val().toLowerCase().trim();
     let modifyurl = url.replace(/\s/g, "-");
     let description = tinymce.get("descriptionPost").getContent();
+    //Froala
+    //let description=editor.html.get()
     let buttonType = $("#modalPostCenter").attr("type");
     let tema = $("#temaPost").val().trim();
     let pageNum = $(this).find("#createPost").attr("page");
@@ -609,9 +636,12 @@ $(document).ready(function () {
     let pageNum = $(this).attr("page");
     let postId = $(this).attr("value");
     //console.log(`Page: ${pageNum} PostId: ${postId}`);
+    tinymce.get("descriptionPost").setContent("");
+    //Froala
+    //editor.html.set("");
     $.get(`/get-post-id/${postId}`, () => {}).then((data) => {
       const { post } = data;
-      //console.log(post);
+      console.log(post);
       $("#modalPostLongTitle").text("Actualizar Nuevo Post");
       $("#createPost").text("Actualizar Post");
       $("#createPost").attr("postId", postId);
@@ -621,6 +651,9 @@ $(document).ready(function () {
       $("#urlPost").val(post.url);
       $("#temaPost").val(post.tema);
       tinymce.get("descriptionPost").insertContent(post.description);
+      //Froala
+      //editor.html.set(post.description);
+
       $("#modalPostCenter").modal("show");
     });
   });
