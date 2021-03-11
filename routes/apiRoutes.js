@@ -713,7 +713,9 @@ module.exports = function (app) {
         fileExt !== "png" &&
         fileExt !== "jpg" &&
         fileExt !== "JPG" &&
-        fileExt !== "PNG"
+        fileExt !== "PNG" &&
+        fileExt !== "JPEG" &&
+        fileExt !== "jpeg" 
       ) {
         res.send({
           message:
