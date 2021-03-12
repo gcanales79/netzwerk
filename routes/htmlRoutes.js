@@ -45,16 +45,41 @@ module.exports = function (app) {
 
   //Admin Page page
   app.get("/admin", isAuthenticated, (req, res) => {
-    let jsfile = [{ jsfile: "/assets/dist/js/admin.js" }];
+    let jsarchivo = [
+      {
+        jsfile:
+          "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js",
+        integrity:
+          "sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut",
+        crossorigin: "anonymous",
+      },
+      {
+        jsfile:
+        "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js",
+        integrity:
+        "sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k",
+        crossorigin: "anonymous",
+      },
+    ];
+    let jsfile = [
+      {
+        jsfile:
+          "https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js",
+      },
+      { jsfile: "/assets/dist/js/admin.js" },
+      { jsfile: "/assets/dist/js/pagination.js" },
+      { jsfile: "/assets/dist/js/bootstrap-notify.js" },
+    ];
     res.render("admin", {
       style: "sidemenu.css",
       userAdmin: true,
       jsfile: jsfile,
+      jsarchivo:jsarchivo,
       url: "/admin",
     });
   });
 
-  //Blog Page
+  //Blog Creation Page
   app.get("/admin/blog", isAuthenticated, (req, res) => {
     let page = 1;
     if (req.query.page) {
@@ -74,7 +99,32 @@ module.exports = function (app) {
       let datos = data.map((data) => data.toJSON());
       //console.log(datos)
       console.log(page);
-      let jsfile = [{ jsfile: "/assets/dist/js/admin.js" }];
+      let jsarchivo = [
+        {
+          jsfile:
+            "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js",
+          integrity:
+            "sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut",
+          crossorigin: "anonymous",
+        },
+        {
+          jsfile:
+          "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js",
+          integrity:
+          "sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k",
+          crossorigin: "anonymous",
+        },
+      ];
+      let jsfile = [
+        { jsfile: "/assets/dist/js/pagination.js" },
+        { jsfile: "/assets/dist/js/bootstrap-notify.js" },
+        { jsfile: "/assets/dist/js/spellchecker.js" },
+        {
+          jsfile:
+            "https://svc.webspellchecker.net/spellcheck31/wscbundle/wscbundle.js",
+        },
+        { jsfile: "/assets/dist/js/admin.js" },
+      ];
       res.render("admin", {
         style: "sidemenu.css",
         postAdmin: true,
@@ -83,6 +133,7 @@ module.exports = function (app) {
         total: postStored.count,
         data: datos,
         jsfile: jsfile,
+        jsarchivo:jsarchivo,
         url: "/admin/blog",
       });
     });
@@ -91,7 +142,27 @@ module.exports = function (app) {
   //Image Upload Page
 
   app.get("/admin/images", isAuthenticated, (req, res) => {
-    let jsfile = [{ jsfile: "/assets/dist/js/admin.js" }];
+    let jsarchivo = [
+      {
+        jsfile:
+          "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js",
+        integrity:
+          "sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut",
+        crossorigin: "anonymous",
+      },
+      {
+        jsfile:
+        "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js",
+        integrity:
+        "sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k",
+        crossorigin: "anonymous",
+      },
+    ];
+    let jsfile = [
+      { jsfile: "/assets/dist/js/pagination.js" },
+      { jsfile: "/assets/dist/js/bootstrap-notify.js" },
+      { jsfile: "/assets/dist/js/admin.js" },
+    ];
     res.render("admin", {
       style: "sidemenu.css",
       imageAdmin: true,
@@ -102,12 +173,31 @@ module.exports = function (app) {
   //Login Page
   app.get("/login", (req, res) => {
     let alert = req.flash("error");
+    let jsarchivo = [
+      {
+        jsfile:
+          "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js",
+        integrity:
+          "sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut",
+        crossorigin: "anonymous",
+      },
+      {
+        jsfile:
+        "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js",
+        integrity:
+        "sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k",
+        crossorigin: "anonymous",
+      },
+    ];
     let jsfile = [
-      { jsfile: "/assets/dist/js/login.js" },
+      {
+        jsfile: "/assets/dist/js/bootstrap-notify.js",
+      },
       {
         jsfile:
           "https://www.google.com/recaptcha/api.js?render=6LcP6XYaAAAAAB0SXo9Dmt7n2xuuB1VJaD6QJ2Hf",
       },
+      { jsfile: "/assets/dist/js/login.js" },
     ];
     console.log(alert);
     res.render("login", {
@@ -118,6 +208,7 @@ module.exports = function (app) {
       link: "/signup",
       buttonTitle: "Login",
       jsfile: jsfile,
+      jsarchivo:jsarchivo,
       url: "/admin/images",
     });
   });
@@ -126,7 +217,26 @@ module.exports = function (app) {
   app.get("/signup", (req, res) => {
     let alert = req.flash("error");
     console.log(alert);
-    let jsfile = [{ jsfile: "/assets/dist/js/login.js" }];
+    let jsarchivo = [
+      {
+        jsfile:
+          "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js",
+        integrity:
+          "sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut",
+        crossorigin: "anonymous",
+      },
+      {
+        jsfile:
+        "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js",
+        integrity:
+        "sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k",
+        crossorigin: "anonymous",
+      },
+    ];
+    let jsfile = [
+      { jsfile: "/assets/dist/js/login.js" },
+      { jsfile: "/assets/dist/js/bootstrap-notify.js" },
+    ];
     res.render("signup", {
       style: "login.css",
       alerta: alert,
@@ -135,20 +245,24 @@ module.exports = function (app) {
       link: "/login",
       buttonTitle: "Signup",
       jsfile: jsfile,
+      jsarchivo:jsarchivo,
       url: "/signup",
     });
   });
 
   //Reset Password
-  app.get("/recover-password/:token",(req,res)=>{
-    const {token}=req.params;
-    let jsfile=[{jsfile:"/assets/dist/js/reset.js"}]
-    res.render("reset",{
-      style:"reset.css",
-      jsfile:jsfile,
-      token:token
-    })
-  })
+  app.get("/recover-password/:token", (req, res) => {
+    const { token } = req.params;
+    let jsfile = [
+      { jsfile: "/assets/dist/js/reset.js" },
+      { jsfile: "/assets/dist/js/bootstrap-notify.js" },
+    ];
+    res.render("reset", {
+      style: "reset.css",
+      jsfile: jsfile,
+      token: token,
+    });
+  });
 
   //Load Blog Post
   app.get("/blog/:url", (req, res) => {
@@ -177,14 +291,16 @@ module.exports = function (app) {
           image: data.dataValues.Metatag.dataValues.image,
           pageIdentifier: data.dataValues.url,
         };
+        
         let jsfile = [{ jsfile: "/assets/dist/js/blog.js" }];
 
         res.render("singlePost", {
           msg: "Welcome!",
-          style:"blog.css",
+          style: "blog.css",
           datos: data.dataValues,
           metaTag: data.dataValues.Metatag.dataValues,
           jsfile: jsfile,
+
           url: `/blog/${url}`,
         });
       })
@@ -224,7 +340,7 @@ module.exports = function (app) {
         let jsfile = [{ jsfile: "/assets/dist/js/admin.js" }];
         res.render("singlePost", {
           msg: "Welcome!",
-          style:"blog.css",
+          style: "blog.css",
           datos: data.dataValues,
           metaTag: data.dataValues.Metatag.dataValues,
           jsfile: jsfile,
