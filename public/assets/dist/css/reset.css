@@ -23,3 +23,9 @@
 .pass_show .ptxt:hover {
   color: #333333;
 }
+
+.card {
+  margin-top:20px;
+  margin-bottom:20px;
+
+}

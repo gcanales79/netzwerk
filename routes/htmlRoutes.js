@@ -181,6 +181,7 @@ module.exports = function (app) {
 
         res.render("singlePost", {
           msg: "Welcome!",
+          style:"blog.css",
           datos: data.dataValues,
           metaTag: data.dataValues.Metatag.dataValues,
           jsfile: jsfile,
@@ -223,6 +224,7 @@ module.exports = function (app) {
         let jsfile = [{ jsfile: "/assets/dist/js/admin.js" }];
         res.render("singlePost", {
           msg: "Welcome!",
+          style:"blog.css",
           datos: data.dataValues,
           metaTag: data.dataValues.Metatag.dataValues,
           jsfile: jsfile,
