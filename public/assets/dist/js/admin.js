@@ -872,7 +872,7 @@ $(document).ready(function () {
             divButton.attr("class", "col");
             //images
             newImage = $("<img>");
-            newImage.attr("class", "img-fluid img-thumbnail h-100");
+            newImage.attr("class", "img-fluid img-thumbnail mh-100");
             newImage.attr("src", data[i].imagen_url);
             //Append Image to its Div
             divImage.append(newImage);
