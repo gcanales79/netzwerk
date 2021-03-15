@@ -101,7 +101,7 @@
                     <div class="row">
                         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-8">
                             <div class="site-info">
-                                <img src="/assets/dist/img/netzwerk_blanco.jpg" alt="Netzwerk Logo Blanco">
+                                <img src="/assets/dist/img/netzwerk_blanco.jpg" class="lazyload" alt="Netzwerk Logo Blanco">
                             </div>
                             <!-- // site-info -->
                         </div>
@@ -194,6 +194,7 @@
         src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v9.0&appId=212194213188545&autoLogAppEvents=1"
         nonce="dUlskvyb"></script>
     <!--script src="https://code.jquery.com/jquery.js"></script-->
+    <script src="/assets/dist/js/lazysizes.min.js" async=""></script>
     {{#each scriptInicial}}
     <script src="{{jsfile}}"></script>
     {{/each}}

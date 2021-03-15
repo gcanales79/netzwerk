@@ -45,6 +45,10 @@ module.exports = function (app) {
 
   //Admin Page page
   app.get("/admin", isAuthenticated, (req, res) => {
+    let tiny =[{ 
+      src:"https://cdn.tiny.cloud/1/q2wc0wvoeizxrqmq7o9ev0r9zms41ac4rb5eihoawlsh3na0/tinymce/5/tinymce.min.js",
+      referrerpolicy:"origin"
+    }];
     let scriptInicial=[{
       jsfile:"https://code.jquery.com/jquery.js"
     }
@@ -81,7 +85,8 @@ module.exports = function (app) {
       jsfile: jsfile,
       jsarchivo:jsarchivo,
       url: "/admin",
-      scriptInicial:scriptInicial
+      scriptInicial:scriptInicial,
+      tiny:tiny
     });
   });
 
@@ -158,6 +163,10 @@ module.exports = function (app) {
   //Image Upload Page
 
   app.get("/admin/images", isAuthenticated, (req, res) => {
+    let tiny =[{ 
+      src:"https://cdn.tiny.cloud/1/q2wc0wvoeizxrqmq7o9ev0r9zms41ac4rb5eihoawlsh3na0/tinymce/5/tinymce.min.js",
+      referrerpolicy:"origin"
+    }];
     let scriptInicial=[{
       jsfile:"https://code.jquery.com/jquery.js"
     }
@@ -188,7 +197,8 @@ module.exports = function (app) {
       imageAdmin: true,
       jsfile: jsfile,
       jsarchivo: jsarchivo,
-      scriptInicial: scriptInicial
+      scriptInicial: scriptInicial,
+      tiny:tiny
     });
   });
 
