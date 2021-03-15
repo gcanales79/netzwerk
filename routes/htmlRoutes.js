@@ -45,6 +45,11 @@ module.exports = function (app) {
 
   //Admin Page page
   app.get("/admin", isAuthenticated, (req, res) => {
+    let scriptInicial=[{
+      jsfile:"https://code.jquery.com/jquery.js"
+    }
+    ]
+  
     let jsarchivo = [
       {
         jsfile:
@@ -76,6 +81,7 @@ module.exports = function (app) {
       jsfile: jsfile,
       jsarchivo:jsarchivo,
       url: "/admin",
+      scriptInicial:scriptInicial
     });
   });
 
@@ -99,6 +105,14 @@ module.exports = function (app) {
       let datos = data.map((data) => data.toJSON());
       //console.log(datos)
       console.log(page);
+      let scriptInicial=[{
+        jsfile:"https://code.jquery.com/jquery.js"
+      }
+      ]
+      let tiny =[{ 
+        src:"https://cdn.tiny.cloud/1/q2wc0wvoeizxrqmq7o9ev0r9zms41ac4rb5eihoawlsh3na0/tinymce/5/tinymce.min.js",
+        referrerpolicy:"origin"
+      }];
       let jsarchivo = [
         {
           jsfile:
@@ -135,6 +149,8 @@ module.exports = function (app) {
         jsfile: jsfile,
         jsarchivo:jsarchivo,
         url: "/admin/blog",
+        tiny:tiny,
+        scriptInicial: scriptInicial,
       });
     });
   });
@@ -142,6 +158,10 @@ module.exports = function (app) {
   //Image Upload Page
 
   app.get("/admin/images", isAuthenticated, (req, res) => {
+    let scriptInicial=[{
+      jsfile:"https://code.jquery.com/jquery.js"
+    }
+    ]
     let jsarchivo = [
       {
         jsfile:
@@ -167,12 +187,18 @@ module.exports = function (app) {
       style: "sidemenu.css",
       imageAdmin: true,
       jsfile: jsfile,
+      jsarchivo: jsarchivo,
+      scriptInicial: scriptInicial
     });
   });
 
   //Login Page
   app.get("/login", (req, res) => {
     let alert = req.flash("error");
+    let scriptInicial=[{
+      jsfile:"https://code.jquery.com/jquery.js"
+    }
+    ]
     let jsarchivo = [
       {
         jsfile:
@@ -210,6 +236,7 @@ module.exports = function (app) {
       jsfile: jsfile,
       jsarchivo:jsarchivo,
       url: "/admin/images",
+      scriptInicial: scriptInicial
     });
   });
 
@@ -217,6 +244,10 @@ module.exports = function (app) {
   app.get("/signup", (req, res) => {
     let alert = req.flash("error");
     console.log(alert);
+    let scriptInicial=[{
+      jsfile:"https://code.jquery.com/jquery.js"
+    }
+    ]
     let jsarchivo = [
       {
         jsfile:
@@ -247,12 +278,17 @@ module.exports = function (app) {
       jsfile: jsfile,
       jsarchivo:jsarchivo,
       url: "/signup",
+      scriptInicial: scriptInicial
     });
   });
 
   //Reset Password
   app.get("/recover-password/:token", (req, res) => {
     const { token } = req.params;
+    let scriptInicial=[{
+      jsfile:"https://code.jquery.com/jquery.js"
+    }
+    ]
     let jsfile = [
       { jsfile: "/assets/dist/js/reset.js" },
       { jsfile: "/assets/dist/js/bootstrap-notify.js" },
@@ -261,6 +297,7 @@ module.exports = function (app) {
       style: "reset.css",
       jsfile: jsfile,
       token: token,
+      scriptInicial: scriptInicial
     });
   });
 

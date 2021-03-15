@@ -27,8 +27,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link href="/assets/dist/css/style.min.css" rel="stylesheet">
 
-    <script src="https://cdn.tiny.cloud/1/q2wc0wvoeizxrqmq7o9ev0r9zms41ac4rb5eihoawlsh3na0/tinymce/5/tinymce.min.js"
-        referrerpolicy="origin"></script>
+   
+        {{#each tiny}}
+    <script src="{{src}}" referrerpolicy="{{referrerpolicy}}"></script>
+        {{/each}}
     <!--link href="https://cdn.jsdelivr.net/npm/froala-editor@3.1.0/css/froala_editor.pkgd.min.css" rel="stylesheet"
         type="text/css" /-->
 
@@ -192,6 +194,9 @@
         src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v9.0&appId=212194213188545&autoLogAppEvents=1"
         nonce="dUlskvyb"></script>
     <script src="https://code.jquery.com/jquery.js"></script>
+    {{#each scriptInicial}}
+    <script src="{{jsfile}}"></script>
+    {{/each}}
     <script type="text/javascript" src="/assets/dist/js/bundle.min.js"></script>
     <script type="text/javascript" src="/assets/dist/js/custom.js"></script>
 
