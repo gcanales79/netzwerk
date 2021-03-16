@@ -46,6 +46,7 @@ module.exports = function (app) {
 
   //Admin Page page
   app.get("/admin", isAuthenticated, (req, res) => {
+    let bootStyle=[{ href:"https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"}]
     let style = [
       {
         style:
@@ -102,6 +103,7 @@ module.exports = function (app) {
       jsarchivo: jsarchivo,
       url: "/admin",
       scriptInicial: scriptInicial,
+      bootStyle:bootStyle,
       tiny: tiny,
     });
   });
@@ -126,6 +128,7 @@ module.exports = function (app) {
       let datos = data.map((data) => data.toJSON());
       //console.log(datos)
       //console.log(page);
+      let bootStyle=[{ href:"https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"}]
       let style = [
         {
           style:
@@ -183,6 +186,7 @@ module.exports = function (app) {
         url: "/admin/blog",
         tiny: tiny,
         scriptInicial: scriptInicial,
+        bootStyle: bootStyle,
       });
     });
   });
@@ -190,6 +194,7 @@ module.exports = function (app) {
   //Image Upload Page
 
   app.get("/admin/images", isAuthenticated, (req, res) => {
+    let bootStyle=[{ href:"https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"}]
     let style = [
       {
         style:
@@ -237,12 +242,14 @@ module.exports = function (app) {
       jsarchivo: jsarchivo,
       scriptInicial: scriptInicial,
       tiny: tiny,
+      bootStyle: bootStyle,
     });
   });
 
   //Login Page
   app.get("/login", (req, res) => {
     let alert = req.flash("error");
+    let bootStyle=[{ href:"https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"}]
     let style = [
       {
         style:
@@ -293,6 +300,7 @@ module.exports = function (app) {
       jsarchivo: jsarchivo,
       url: "/admin/images",
       scriptInicial: scriptInicial,
+      bootStyle: bootStyle,
     });
   });
 
@@ -300,6 +308,7 @@ module.exports = function (app) {
   app.get("/signup", (req, res) => {
     let alert = req.flash("error");
     //console.log(alert);
+    let bootStyle=[{ href:"https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"}]
     let style = [
       {
         style:
@@ -343,12 +352,14 @@ module.exports = function (app) {
       jsarchivo: jsarchivo,
       url: "/signup",
       scriptInicial: scriptInicial,
+      bootStyle: bootStyle,
     });
   });
 
   //Reset Password
   app.get("/recover-password/:token", (req, res) => {
     const { token } = req.params;
+    let bootStyle=[{ href:"https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"}]
     let style = [
       {
         style:
@@ -370,6 +381,7 @@ module.exports = function (app) {
       jsfile: jsfile,
       token: token,
       scriptInicial: scriptInicial,
+      bootStyle: bootStyle,
     });
   });
 
@@ -417,7 +429,7 @@ module.exports = function (app) {
           metaTag: data.dataValues.Metatag.dataValues,
           jsfile: jsfile,
           ampDatos: ampDatos,
-
+      
           url: `/blog/${url}`,
         });
       })
