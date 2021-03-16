@@ -32,11 +32,12 @@ module.exports = function (app) {
       let datos = data.map((data) => data.toJSON());
       console.log(datos);
       let jsfile = [{ jsfile: "/assets/dist/js/index.js" }];
+      let style = [{ style: "/assets/dist/css/main.css" }];
       res.render("index", {
         msg: "Welcome!",
         jsfile: jsfile,
         url: "/",
-        style: "main.css",
+        style: style,
         //Solucion al problema de handlebars
         datos: data.map((data) => data.toJSON()),
       });
@@ -45,15 +46,30 @@ module.exports = function (app) {
 
   //Admin Page page
   app.get("/admin", isAuthenticated, (req, res) => {
-    let tiny =[{ 
-      src:"https://cdn.tiny.cloud/1/q2wc0wvoeizxrqmq7o9ev0r9zms41ac4rb5eihoawlsh3na0/tinymce/5/tinymce.min.js",
-      referrerpolicy:"origin"
-    }];
-    let scriptInicial=[{
-      jsfile:"https://code.jquery.com/jquery.js"
-    }
-    ]
-  
+    let style = [
+      {
+        style:
+          "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css",
+      },
+      {
+        style:
+          "https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css",
+      },
+      { style: "/assets/dist/css/sidemenu.css" },
+    ];
+    let tiny = [
+      {
+        src:
+          "https://cdn.tiny.cloud/1/q2wc0wvoeizxrqmq7o9ev0r9zms41ac4rb5eihoawlsh3na0/tinymce/5/tinymce.min.js",
+        referrerpolicy: "origin",
+      },
+    ];
+    let scriptInicial = [
+      {
+        jsfile: "https://code.jquery.com/jquery.js",
+      },
+    ];
+
     let jsarchivo = [
       {
         jsfile:
@@ -64,9 +80,9 @@ module.exports = function (app) {
       },
       {
         jsfile:
-        "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js",
+          "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js",
         integrity:
-        "sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k",
+          "sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k",
         crossorigin: "anonymous",
       },
     ];
@@ -80,13 +96,13 @@ module.exports = function (app) {
       { jsfile: "/assets/dist/js/bootstrap-notify.js" },
     ];
     res.render("admin", {
-      style: "sidemenu.css",
+      style: style,
       userAdmin: true,
       jsfile: jsfile,
-      jsarchivo:jsarchivo,
+      jsarchivo: jsarchivo,
       url: "/admin",
-      scriptInicial:scriptInicial,
-      tiny:tiny
+      scriptInicial: scriptInicial,
+      tiny: tiny,
     });
   });
 
@@ -109,15 +125,26 @@ module.exports = function (app) {
       let data = postStored.rows;
       let datos = data.map((data) => data.toJSON());
       //console.log(datos)
-      console.log(page);
-      let scriptInicial=[{
-        jsfile:"https://code.jquery.com/jquery.js"
-      }
-      ]
-      let tiny =[{ 
-        src:"https://cdn.tiny.cloud/1/q2wc0wvoeizxrqmq7o9ev0r9zms41ac4rb5eihoawlsh3na0/tinymce/5/tinymce.min.js",
-        referrerpolicy:"origin"
-      }];
+      //console.log(page);
+      let style = [
+        {
+          style:
+            "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css",
+        },
+        { style: "/assets/dist/css/sidemenu.css" },
+      ];
+      let scriptInicial = [
+        {
+          jsfile: "https://code.jquery.com/jquery.js",
+        },
+      ];
+      let tiny = [
+        {
+          src:
+            "https://cdn.tiny.cloud/1/q2wc0wvoeizxrqmq7o9ev0r9zms41ac4rb5eihoawlsh3na0/tinymce/5/tinymce.min.js",
+          referrerpolicy: "origin",
+        },
+      ];
       let jsarchivo = [
         {
           jsfile:
@@ -128,9 +155,9 @@ module.exports = function (app) {
         },
         {
           jsfile:
-          "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js",
+            "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js",
           integrity:
-          "sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k",
+            "sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k",
           crossorigin: "anonymous",
         },
       ];
@@ -145,16 +172,16 @@ module.exports = function (app) {
         { jsfile: "/assets/dist/js/admin.js" },
       ];
       res.render("admin", {
-        style: "sidemenu.css",
+        style: style,
         postAdmin: true,
         page: page,
         limit: limit,
         total: postStored.count,
         data: datos,
         jsfile: jsfile,
-        jsarchivo:jsarchivo,
+        jsarchivo: jsarchivo,
         url: "/admin/blog",
-        tiny:tiny,
+        tiny: tiny,
         scriptInicial: scriptInicial,
       });
     });
@@ -163,14 +190,25 @@ module.exports = function (app) {
   //Image Upload Page
 
   app.get("/admin/images", isAuthenticated, (req, res) => {
-    let tiny =[{ 
-      src:"https://cdn.tiny.cloud/1/q2wc0wvoeizxrqmq7o9ev0r9zms41ac4rb5eihoawlsh3na0/tinymce/5/tinymce.min.js",
-      referrerpolicy:"origin"
-    }];
-    let scriptInicial=[{
-      jsfile:"https://code.jquery.com/jquery.js"
-    }
-    ]
+    let style = [
+      {
+        style:
+          "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css",
+      },
+      { style: "/assets/dist/css/sidemenu.css" },
+    ];
+    let tiny = [
+      {
+        src:
+          "https://cdn.tiny.cloud/1/q2wc0wvoeizxrqmq7o9ev0r9zms41ac4rb5eihoawlsh3na0/tinymce/5/tinymce.min.js",
+        referrerpolicy: "origin",
+      },
+    ];
+    let scriptInicial = [
+      {
+        jsfile: "https://code.jquery.com/jquery.js",
+      },
+    ];
     let jsarchivo = [
       {
         jsfile:
@@ -181,9 +219,9 @@ module.exports = function (app) {
       },
       {
         jsfile:
-        "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js",
+          "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js",
         integrity:
-        "sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k",
+          "sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k",
         crossorigin: "anonymous",
       },
     ];
@@ -193,22 +231,30 @@ module.exports = function (app) {
       { jsfile: "/assets/dist/js/admin.js" },
     ];
     res.render("admin", {
-      style: "sidemenu.css",
+      style: style,
       imageAdmin: true,
       jsfile: jsfile,
       jsarchivo: jsarchivo,
       scriptInicial: scriptInicial,
-      tiny:tiny
+      tiny: tiny,
     });
   });
 
   //Login Page
   app.get("/login", (req, res) => {
     let alert = req.flash("error");
-    let scriptInicial=[{
-      jsfile:"https://code.jquery.com/jquery.js"
-    }
-    ]
+    let style = [
+      {
+        style:
+          "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css",
+      },
+      { style: "/assets/dist/css/login.css" },
+    ];
+    let scriptInicial = [
+      {
+        jsfile: "https://code.jquery.com/jquery.js",
+      },
+    ];
     let jsarchivo = [
       {
         jsfile:
@@ -219,9 +265,9 @@ module.exports = function (app) {
       },
       {
         jsfile:
-        "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js",
+          "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js",
         integrity:
-        "sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k",
+          "sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k",
         crossorigin: "anonymous",
       },
     ];
@@ -237,27 +283,35 @@ module.exports = function (app) {
     ];
     console.log(alert);
     res.render("login", {
-      style: "login.css",
+      style: style,
       alerta: alert,
       title: "Sign in",
       title2: "Sign up",
       link: "/signup",
       buttonTitle: "Login",
       jsfile: jsfile,
-      jsarchivo:jsarchivo,
+      jsarchivo: jsarchivo,
       url: "/admin/images",
-      scriptInicial: scriptInicial
+      scriptInicial: scriptInicial,
     });
   });
 
   //Signup Page
   app.get("/signup", (req, res) => {
     let alert = req.flash("error");
-    console.log(alert);
-    let scriptInicial=[{
-      jsfile:"https://code.jquery.com/jquery.js"
-    }
-    ]
+    //console.log(alert);
+    let style = [
+      {
+        style:
+          "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css",
+      },
+      { style: "/assets/dist/css/login.css" },
+    ];
+    let scriptInicial = [
+      {
+        jsfile: "https://code.jquery.com/jquery.js",
+      },
+    ];
     let jsarchivo = [
       {
         jsfile:
@@ -268,9 +322,9 @@ module.exports = function (app) {
       },
       {
         jsfile:
-        "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js",
+          "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js",
         integrity:
-        "sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k",
+          "sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k",
         crossorigin: "anonymous",
       },
     ];
@@ -279,35 +333,43 @@ module.exports = function (app) {
       { jsfile: "/assets/dist/js/bootstrap-notify.js" },
     ];
     res.render("signup", {
-      style: "login.css",
+      style: style,
       alerta: alert,
       title: "Sign up",
       title2: "Sign in",
       link: "/login",
       buttonTitle: "Signup",
       jsfile: jsfile,
-      jsarchivo:jsarchivo,
+      jsarchivo: jsarchivo,
       url: "/signup",
-      scriptInicial: scriptInicial
+      scriptInicial: scriptInicial,
     });
   });
 
   //Reset Password
   app.get("/recover-password/:token", (req, res) => {
     const { token } = req.params;
-    let scriptInicial=[{
-      jsfile:"https://code.jquery.com/jquery.js"
-    }
-    ]
+    let style = [
+      {
+        style:
+          "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css",
+      },
+      { style: "/assets/dist/css/reset.css" },
+    ];
+    let scriptInicial = [
+      {
+        jsfile: "https://code.jquery.com/jquery.js",
+      },
+    ];
     let jsfile = [
       { jsfile: "/assets/dist/js/reset.js" },
       { jsfile: "/assets/dist/js/bootstrap-notify.js" },
     ];
     res.render("reset", {
-      style: "reset.css",
+      style: style,
       jsfile: jsfile,
       token: token,
-      scriptInicial: scriptInicial
+      scriptInicial: scriptInicial,
     });
   });
 
@@ -338,22 +400,23 @@ module.exports = function (app) {
           image: data.dataValues.Metatag.dataValues.image,
           pageIdentifier: data.dataValues.url,
         };
-        
+        let style = [{ style: "/assets/dist/css/blog.css" }];
         let jsfile = [{ jsfile: "/assets/dist/js/blog.js" }];
-        let ampDatos=[{
-          headline:data.dataValues.Metatag.dataValues.twitterTitle,
-          image:data.dataValues.Metatag.dataValues.image,
-          datePublished:data.dataValues.createdAt
-
-        }]
+        let ampDatos = [
+          {
+            headline: data.dataValues.Metatag.dataValues.twitterTitle,
+            image: data.dataValues.Metatag.dataValues.image,
+            datePublished: data.dataValues.createdAt,
+          },
+        ];
 
         res.render("singlePost", {
           msg: "Welcome!",
-          style: "blog.css",
+          style: style,
           datos: data.dataValues,
           metaTag: data.dataValues.Metatag.dataValues,
           jsfile: jsfile,
-          ampDatos:ampDatos,
+          ampDatos: ampDatos,
 
           url: `/blog/${url}`,
         });
@@ -391,10 +454,11 @@ module.exports = function (app) {
           image: data.dataValues.Metatag.dataValues.image,
           pageIdentifier: data.dataValues.url,
         };
+        let style = [{ style: "/assets/dist/css/blog.css" }];
         let jsfile = [{ jsfile: "/assets/dist/js/admin.js" }];
         res.render("singlePost", {
           msg: "Welcome!",
-          style: "blog.css",
+          style: style,
           datos: data.dataValues,
           metaTag: data.dataValues.Metatag.dataValues,
           jsfile: jsfile,
