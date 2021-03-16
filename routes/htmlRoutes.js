@@ -322,8 +322,8 @@ module.exports = function (app) {
       include: [db.Metatag],
     })
       .then((data) => {
-        console.log(data.dataValues.Metatag.dataValues);
-        console.log(data.dataValues);
+        //console.log(data.dataValues.Metatag.dataValues);
+        //console.log(data.dataValues);
         res.locals.metaTags = {
           title: data.dataValues.title,
           description: data.dataValues.Metatag.dataValues.description,
@@ -340,6 +340,12 @@ module.exports = function (app) {
         };
         
         let jsfile = [{ jsfile: "/assets/dist/js/blog.js" }];
+        let ampDatos=[{
+          headline:data.dataValues.Metatag.dataValues.twitterTitle,
+          image:data.dataValues.Metatag.dataValues.image,
+          datePublished:data.dataValues.createdAt
+
+        }]
 
         res.render("singlePost", {
           msg: "Welcome!",
@@ -347,6 +353,7 @@ module.exports = function (app) {
           datos: data.dataValues,
           metaTag: data.dataValues.Metatag.dataValues,
           jsfile: jsfile,
+          ampDatos:ampDatos,
 
           url: `/blog/${url}`,
         });
