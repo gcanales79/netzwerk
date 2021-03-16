@@ -412,6 +412,7 @@ module.exports = function (app) {
           image: data.dataValues.Metatag.dataValues.image,
           pageIdentifier: data.dataValues.url,
         };
+        let bootStyle=[{ href:"https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"}]
         let style = [{ style: "/assets/dist/css/blog.css" }];
         let jsfile = [{ jsfile: "/assets/dist/js/blog.js" }];
         let ampDatos = [
@@ -429,7 +430,7 @@ module.exports = function (app) {
           metaTag: data.dataValues.Metatag.dataValues,
           jsfile: jsfile,
           ampDatos: ampDatos,
-      
+          bootStyle: bootStyle,
           url: `/blog/${url}`,
         });
       })
@@ -466,6 +467,7 @@ module.exports = function (app) {
           image: data.dataValues.Metatag.dataValues.image,
           pageIdentifier: data.dataValues.url,
         };
+        let bootStyle=[{ href:"https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"}]
         let style = [{ style: "/assets/dist/css/blog.css" }];
         let jsfile = [{ jsfile: "/assets/dist/js/admin.js" }];
         res.render("singlePost", {
@@ -474,6 +476,7 @@ module.exports = function (app) {
           datos: data.dataValues,
           metaTag: data.dataValues.Metatag.dataValues,
           jsfile: jsfile,
+          bootStyle: bootStyle,
           url: `/admin/${url}`,
         });
       })

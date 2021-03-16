@@ -29,7 +29,7 @@ var Jimp = require("jimp");
 const imagemin = require('imagemin');
 const imageminWebp = require('imagemin-webp');
 
-imagemin(['./public/assets/dist/img/*.{jpg,png}'], {
+imagemin(['./public/assets/dist/img/*.{jpg,png,jpeg}'], {
   destination: './public/assets/dist/img',
   plugins: [imageminWebp({quality: 50})]
 }).then(() => {
