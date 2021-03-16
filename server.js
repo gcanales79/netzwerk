@@ -56,6 +56,9 @@ var hbs = exphbs.create({
         var fechaCreacion = moment(property).tz("America/Monterrey").locale("es").format("DD MMMM YYYY");
         return fechaCreacion;
       },
+      json:function(content){
+        return JSON.stringify(content)
+      }
       
     }
   })
