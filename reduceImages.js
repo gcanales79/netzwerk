@@ -2,7 +2,7 @@ const testFolder = "./public/assets/dist/img";
 const fs = require("fs");
 var Jimp = require("jimp");
 
-fs.readdir(testFolder, (err, files) => {
+/*fs.readdir(testFolder, (err, files) => {
   files.forEach((file) => {
     fileExt = file.split(".")[1];
     //console.log(fileExt)
@@ -24,6 +24,16 @@ fs.readdir(testFolder, (err, files) => {
   
     }
   });
+});*/
+
+const imagemin = require('imagemin');
+const imageminWebp = require('imagemin-webp');
+
+imagemin(['./public/assets/dist/img/*.{jpg,png}'], {
+  destination: './public/assets/dist/img',
+  plugins: [imageminWebp({quality: 50})]
+}).then(() => {
+  console.log('Done!');
 });
 
 /*const imagemin = require('imagemin');
