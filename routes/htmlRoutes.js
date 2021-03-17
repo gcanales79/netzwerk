@@ -31,6 +31,11 @@ module.exports = function (app) {
     }).then((data) => {
       let datos = data.map((data) => data.toJSON());
       console.log(datos);
+      let scriptInicial = [
+        {
+          jsfile: "https://code.jquery.com/jquery.js",
+        },
+      ];
       let jsfile = [{ jsfile: "/assets/dist/js/index.js" }];
       let style = [{ style: "/assets/dist/css/main.css" }];
       res.render("index", {
@@ -38,6 +43,7 @@ module.exports = function (app) {
         jsfile: jsfile,
         url: "/",
         style: style,
+        scriptInicial: scriptInicial,
         //Solucion al problema de handlebars
         datos: data.map((data) => data.toJSON()),
       });
