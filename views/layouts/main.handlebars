@@ -205,7 +205,7 @@
     <!-- jQuery CDN - Slim version (=without AJAX) -->
 
     <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
+    <script defer crossorigin="anonymous"
         src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v9.0&appId=212194213188545&autoLogAppEvents=1"
         nonce="dUlskvyb"></script>
     <!--script src="https://code.jquery.com/jquery.js"></script-->
@@ -213,8 +213,8 @@
     {{#each scriptInicial}}
     <script src="{{jsfile}}"></script>
     {{/each}}
-    <script type="text/javascript" src="/assets/dist/js/bundle.min.js"></script>
-    <script type="text/javascript" src="/assets/dist/js/custom.js"></script>
+    <script defer type="text/javascript" src="/assets/dist/js/bundle.min.js"></script>
+    <script defer type="text/javascript" src="/assets/dist/js/custom.js"></script>
 
     {{#each jsarchivo}}
     <script src="{{jsfile}}" integrity="{{integrity}}" crossorigin="{{crossorigin}}"></script>
