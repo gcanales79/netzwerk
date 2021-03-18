@@ -17,6 +17,8 @@ const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
+const imagemin = require('imagemin');
+const imageminWebp = require('imagemin-webp');
 
 module.exports = function (app) {
   //JWT
@@ -814,7 +816,10 @@ module.exports = function (app) {
       let modifyPath = targetPath.replace(/\s+/g, "-").toLowerCase();
       let fileSplit = originalName.split(".");
       let fileExt = fileSplit[1];
-      console.log(req.file);
+      let modifyUrlSplit=modifyUrl.split(".")
+      let webpFile=`${modifyUrlSplit[0]}.webp`;
+      //console.log(req.file);
+      console.log(webpFile)
       const { imagen_alt } = req.body;
       if (
         fileExt !== "png" &&
@@ -848,45 +853,54 @@ module.exports = function (app) {
               fileSize.toFixed(2) +
               " kb)";
             var type = "success";
-            db.Image.create({
-              imagen_url: modifyUrl,
-              imagen_alt: imagen_alt,
-            })
-              .then((data) => {
-                if (!data) {
-                  res.send({
-                    message: "El nombre del archivo ya esta dado de alta",
-                    alert: "Error",
-                  });
-                } else {
-                  res.send({
-                    message: "Imagen guardada correctamente",
-                    alert: "Success",
-                    data: modifyUrl,
-                    image_alt: imagen_alt,
-                  });
-                }
+
+            imagemin([`${modifyPath}`], {
+              destination: './public/assets/dist/img',
+              plugins: [imageminWebp({quality: 50})]
+            }).then(() => {
+              console.log('Done!');
+              db.Image.create({
+                imagen_url: webpFile,
+                imagen_alt: imagen_alt,
               })
-              .catch((error) => {
-                /* fs.unlink(tempPath.replace(/\\/g, "/"),function(err) {
-                  if(err) {
-                   res.send("Error to delete file: "+err);
-                   } else {
-                    res.send({ message:error.errors[0].message , alert: "Error" });
-                   }
-                })*/
-                if (error.errors[0].message == "imagen_url must be unique") {
-                  res.send({
-                    message: "Ya existe la imagen en la base de datos",
-                    alert: "Error",
-                  });
-                } else {
-                  res.send({
-                    message: error.errors[0].message,
-                    alert: "Error",
-                  });
-                }
-              });
+                .then((data) => {
+                  if (!data) {
+                    res.send({
+                      message: "El nombre del archivo ya esta dado de alta",
+                      alert: "Error",
+                    });
+                  } else {
+                    res.send({
+                      message: "Imagen guardada correctamente",
+                      alert: "Success",
+                      data: modifyUrl,
+                      image_alt: imagen_alt,
+                    });
+                  }
+                })
+                .catch((error) => {
+                  /* fs.unlink(tempPath.replace(/\\/g, "/"),function(err) {
+                    if(err) {
+                     res.send("Error to delete file: "+err);
+                     } else {
+                      res.send({ message:error.errors[0].message , alert: "Error" });
+                     }
+                  })*/
+                  if (error.errors[0].message == "imagen_url must be unique") {
+                    res.send({
+                      message: "Ya existe la imagen en la base de datos",
+                      alert: "Error",
+                    });
+                  } else {
+                    res.send({
+                      message: error.errors[0].message,
+                      alert: "Error",
+                    });
+                  }
+                });
+            });
+
+            
           }
         });
       }

@@ -784,8 +784,9 @@ $(document).ready(function () {
         console.log(file);
         $("#modalImageCenter").modal("hide");
         notificationToast(file.alert, file.message);
+        let fileName=file.data.split(".")
         let postchange = {
-          image: file.data,
+          image: `${fileName[0]}.webp`,
           image_alt: file.image_alt,
         };
         let changes = {
