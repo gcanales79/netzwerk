@@ -52,7 +52,12 @@ module.exports = function (app) {
 
   //Admin Page page
   app.get("/admin", isAuthenticated, (req, res) => {
-    let bootStyle=[{ href:"https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"}]
+    let bootStyle = [
+      {
+        href:
+          "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css",
+      },
+    ];
     let style = [
       {
         style:
@@ -109,7 +114,7 @@ module.exports = function (app) {
       jsarchivo: jsarchivo,
       url: "/admin",
       scriptInicial: scriptInicial,
-      bootStyle:bootStyle,
+      bootStyle: bootStyle,
       tiny: tiny,
     });
   });
@@ -134,7 +139,12 @@ module.exports = function (app) {
       let datos = data.map((data) => data.toJSON());
       //console.log(datos)
       //console.log(page);
-      let bootStyle=[{ href:"https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"}]
+      let bootStyle = [
+        {
+          href:
+            "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css",
+        },
+      ];
       let style = [
         {
           style:
@@ -173,11 +183,6 @@ module.exports = function (app) {
       let jsfile = [
         { jsfile: "/assets/dist/js/pagination.js" },
         { jsfile: "/assets/dist/js/bootstrap-notify.js" },
-        { jsfile: "/assets/dist/js/spellchecker.js" },
-        {
-          jsfile:
-            "https://svc.webspellchecker.net/spellcheck31/wscbundle/wscbundle.js",
-        },
         { jsfile: "/assets/dist/js/admin.js" },
       ];
       res.render("admin", {
@@ -200,7 +205,12 @@ module.exports = function (app) {
   //Image Upload Page
 
   app.get("/admin/images", isAuthenticated, (req, res) => {
-    let bootStyle=[{ href:"https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"}]
+    let bootStyle = [
+      {
+        href:
+          "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css",
+      },
+    ];
     let style = [
       {
         style:
@@ -255,7 +265,12 @@ module.exports = function (app) {
   //Login Page
   app.get("/login", (req, res) => {
     let alert = req.flash("error");
-    let bootStyle=[{ href:"https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"}]
+    let bootStyle = [
+      {
+        href:
+          "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css",
+      },
+    ];
     let style = [
       {
         style:
@@ -314,7 +329,12 @@ module.exports = function (app) {
   app.get("/signup", (req, res) => {
     let alert = req.flash("error");
     //console.log(alert);
-    let bootStyle=[{ href:"https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"}]
+    let bootStyle = [
+      {
+        href:
+          "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css",
+      },
+    ];
     let style = [
       {
         style:
@@ -365,7 +385,12 @@ module.exports = function (app) {
   //Reset Password
   app.get("/recover-password/:token", (req, res) => {
     const { token } = req.params;
-    let bootStyle=[{ href:"https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"}]
+    let bootStyle = [
+      {
+        href:
+          "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css",
+      },
+    ];
     let style = [
       {
         style:
@@ -418,7 +443,12 @@ module.exports = function (app) {
           image: data.dataValues.Metatag.dataValues.image,
           pageIdentifier: data.dataValues.url,
         };
-        let bootStyle=[{ href:"https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"}]
+        let bootStyle = [
+          {
+            href:
+              "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css",
+          },
+        ];
         let style = [{ style: "/assets/dist/css/blog.css" }];
         let jsfile = [{ jsfile: "/assets/dist/js/blog.js" }];
         let ampDatos = [
@@ -473,7 +503,12 @@ module.exports = function (app) {
           image: data.dataValues.Metatag.dataValues.image,
           pageIdentifier: data.dataValues.url,
         };
-        let bootStyle=[{ href:"https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"}]
+        let bootStyle = [
+          {
+            href:
+              "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css",
+          },
+        ];
         let style = [{ style: "/assets/dist/css/blog.css" }];
         let jsfile = [{ jsfile: "/assets/dist/js/admin.js" }];
         res.render("singlePost", {
