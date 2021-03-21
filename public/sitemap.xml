@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-
-
 <url>
   <loc>https://netzwerk.mx/</loc>
   <lastmod>2020-10-10</lastmod>
@@ -26,6 +24,11 @@
 <url>
   <loc>https://netzwerk.mx/blog/puntos-claves-para-mejorar-el-desempeno-de-los-equipos-de-trabajo-que-nos-dicen-los-datos</loc>
   <lastmod>2021-03-12</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://netzwerk.mx/blog/diez-maneras-de-obtener-lo-mejor-de-tu-equipo-de-trabajo</loc>
+  <lastmod>2021-03-18</lastmod>
   <priority>0.80</priority>
 </url>
 
