@@ -148,7 +148,7 @@ span {
 #sidebar.active ul li a {
     padding: 20px 10px;
     text-align: center;
-    font-size: 1.2em;
+    font-size: 0.8em; /*Este es el font del side Menu*/
 }
 
 #sidebar.active ul li a i {
@@ -264,7 +264,7 @@ a.article:hover {
     MEDIAQUERIES
 ----------------------------------------------------- */
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     #sidebar {
         min-width: 80px;
         max-width: 80px;
