@@ -8,7 +8,7 @@ axios
     params: {
       a: "BTC",
       api_key: process.env.GLASSNODE_API_KEY,
-      s:moment().subtract(10,"days").unix(),
+      s:moment().subtract(15,"days").unix(),
       timestamp_format:"humanized"
     },
   })
@@ -30,7 +30,7 @@ axios
     params: {
       a: "BTC",
       api_key: process.env.GLASSNODE_API_KEY,
-      s:moment().subtract(10,"days").unix(),
+      s:moment().subtract(15,"days").unix(),
       timestamp_format:"humanized"
     },
   })
