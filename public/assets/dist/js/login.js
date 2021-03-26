@@ -30,8 +30,8 @@ $(document).ready(function () {
 
           // If we have an email and password we run the loginUser function and clear the form
           loginUser(userData.email, userData.password, userData.token);
-          emailInput.val("");
-          passwordInput.val("");
+          //emailInput.val("");
+          //passwordInput.val("");
         });
     });
   });

@@ -630,6 +630,15 @@ $(document).ready(function () {
     }
   });
 
+  //Change Post Url as you write spaces for "-"
+  $("#urlPost").keyup(function(event) {
+    event.preventDefault();
+    //console.log($(this).val())
+    let url=$(this).val().toLowerCase();
+    let modifyurl = url.replace(/\s/g, "-");
+    $("#urlPost").val(modifyurl);
+  })
+
   //Edit Post
   $(document).on("click", ".editPost", function (event) {
     event.preventDefault();
@@ -943,6 +952,8 @@ $(document).ready(function () {
     $("#imageProgressBar").css("width", "0%");
     $("#modalImageCenter").modal("show");
   });
+
+  
 
   //Notification Function
 
