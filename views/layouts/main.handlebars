@@ -23,10 +23,7 @@
     <title>{{metaTags.title}}</title>
     
     <script defer src="https://kit.fontawesome.com/28f98ade22.js" crossorigin="anonymous"></script>
-    {{#each bootStyle}}
-    <link rel="stylesheet" href="{{href}}"
-        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    {{/each}}
+   
     <link
         href="https://fonts.googleapis.com/css?family=Raleway:300,400,400i,500,600,700,700i&amp;subset=cyrillic,greek-ext,latin-ext"
         rel="stylesheet">
@@ -34,6 +31,11 @@
     <link href="https://fonts.googleapis.com/css?family=Spectral+SC:400,600,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700" rel="stylesheet">
     
+     {{#each bootStyle}}
+    <link rel="stylesheet" href="{{href}}"
+        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    {{/each}}
+
     <link rel="preload" href="/assets/dist/css/style.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
 
    
@@ -47,6 +49,8 @@
     <!--link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
     <link href="/assets/dist/css/{{style}}" rel="stylesheet"-->
+
+    
     
     <link rel="canonical" href="https://netzwerk.mx{{url}}" />
 

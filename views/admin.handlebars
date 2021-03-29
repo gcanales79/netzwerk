@@ -25,37 +25,38 @@
             <li {{#if userAdmin}}class="active" {{/if}}>
                 <a href="/admin">
                     <i class="fas fa-users"></i>
-                     Users
-                    </a>
+                    Users
+                </a>
             </li>
             <li {{#if postAdmin}}class="active" {{/if}}>
                 <a href="/admin/blog">
-                <i class="fas fa-keyboard"></i>
-                 Blog
+                    <i class="fas fa-keyboard"></i>
+                    Blog
                 </a>
             </li>
             <li {{#if imageAdmin}}class="active" {{/if}}>
                 <a href="/admin/images">
-                <i class="fas fa-camera-retro"></i>
-                Images
+                    <i class="fas fa-camera-retro"></i>
+                    Images
                 </a>
             </li>
 
         </ul>
 
     </nav>
-    <!-- Page Content -->
-    {{#if userAdmin}}
-    {{>userAdmin}}
-    {{/if}}
+    
+        <!-- Page Content -->
+        {{#if userAdmin}}
+        {{>userAdmin}}
+        {{/if}}
 
-    {{#if postAdmin}}
-    {{>postAdmin}}
-    {{/if}}
+        {{#if postAdmin}}
+        {{>postAdmin}}
+        {{/if}}
 
-    {{#if imageAdmin}}
-    {{>imageAdmin}}
-    {{/if}}
+        {{#if imageAdmin}}
+        {{>imageAdmin}}
+        {{/if}}
 
 </div>
 
