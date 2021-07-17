@@ -89,6 +89,7 @@ module.exports = function (app) {
         jsfile: jsfile,
         url: "/",
         style: style,
+        btnMas:"display: none",
         scriptInicial: scriptInicial,
         //Solucion al problema de handlebars
         datos: data.map((data) => data.toJSON()),
