@@ -5,8 +5,54 @@ const Op = Sequelize.Op;
 const queryString = require("query-string");
 
 module.exports = function (app) {
-  // Load index page main page with list of all posts
+  // Load index page main page with list of limited post
   app.get("/", function (req, res) {
+    res.locals.metaTags = {
+      title: "Netzwerk - Blog Acerca de Liderazgo y Administración",
+      description:
+        "Blog donde hablo de liderazgo y trabajo en equipo. Si quieres mejorar el desempeño de tu equipo de trabajo o si buscas mejorar en tu trabajo te recomiendo que me visites regularmente.",
+      keywords:
+        "liderazgo, crisis, administración, equipo, disciplina, colaboración, persuasión, asertividad, resolución de problemas, confianza, inteligencia emocional, liderazgo participativo, proactividad",
+      cardType: "summary_large_image",
+      site: "@netzwerk13",
+      creator: "@netzwerk13",
+      url: "https://netzwerk.mx/",
+      twitterTitle: "Blog acerca de temas de liderazgo y desarrollo de equipos",
+      twitterDescription:
+        "Blog donde quisiera compartir mis experiencias, lo que voy aprendiendo en el camino y me gustaria escuchar de ti.",
+      image: "https://netzwerk.mx/assets/dist/img/Logo_netzwerk.png",
+    };
+    db.Blog.findAll({
+      where: {
+        active: true,
+      },
+      order: [["createdAt", "DESC"]],
+      include: [db.Metatag],
+      limit: 5,
+    }).then((data) => {
+      let datos = data.map((data) => data.toJSON());
+      console.log(datos);
+      let scriptInicial = [
+        {
+          jsfile: "https://code.jquery.com/jquery.js",
+        },
+      ];
+      let jsfile = [{ jsfile: "/assets/dist/js/index.js" }];
+      let style = [{ style: "/assets/dist/css/main.css" }];
+      res.render("index", {
+        msg: "Welcome!",
+        jsfile: jsfile,
+        url: "/",
+        style: style,
+        scriptInicial: scriptInicial,
+        //Solucion al problema de handlebars
+        datos: data.map((data) => data.toJSON()),
+      });
+    });
+  });
+
+  // Load index page main page with list of all posts
+  app.get("/todos-los-post", function (req, res) {
     res.locals.metaTags = {
       title: "Netzwerk - Blog Acerca de Liderazgo y Administración",
       description:
@@ -49,6 +95,7 @@ module.exports = function (app) {
       });
     });
   });
+
 
   //Admin Page page
   app.get("/admin", isAuthenticated, (req, res) => {

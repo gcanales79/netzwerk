@@ -564,6 +564,34 @@ module.exports = function (app) {
       });
   });
 
+  //Get favorite post
+  app.get("/get-fav-post", (req, res) => {
+    db.Blog.findAll({
+      where:{
+        favorite:true,
+      },
+      limit:5,
+      order: [["createdAt", "ASC"]],
+    }).then((postStored)=>{
+      if(!postStored){
+        res.send({
+          message:"No se han encontrado ningun post",
+          alert:"Error"
+        })
+      } else{
+        res.send({
+          post:postStored,
+          alert:"Succes",
+        })
+      }
+    }).catch((err)=>{
+      res.send({
+        message:"Error del servidor",
+        alert:"Error"
+      })
+    })
+  })
+
   //Update Posts
   app.put("/update-post/:id", isAuthenticated, (req, res) => {
     const { id } = req.params;

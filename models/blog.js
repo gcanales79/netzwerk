@@ -15,6 +15,10 @@ module.exports = function (sequelize, DataTypes) {
         active:{
             type:DataTypes.BOOLEAN,
             defaultValue:false,
+        },
+        favorite:{
+            type:DataTypes.BOOLEAN,
+            defaultValue:false,
         }
     
     });
