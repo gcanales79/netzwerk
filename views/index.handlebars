@@ -10,9 +10,9 @@
                         <div class="main-post-area-holder">
                             {{#each datos}}
                             <article class="post-details-holder layout-two-post-details-holder">
-                                <div class="row align-items-center">
-                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
-                                        <div class="post-image img-fluid rounded mx-auto d-block" style="width:200px">
+                                <div class="row">
+                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" >
+                                        <div class="post-image">
                                            <a href="blog/{{this.url}}">
                                                <img src={{this.image}} class="lazyload" alt="{{{this.image_alt}}}">
                                            </a>
@@ -50,11 +50,12 @@
                         <aside class="sidebar">
                             <div class="sidebar-inner">
                                 {{>aboutMe}}
+                                 {{>tweet}}
                                 
-                                {{>IamSocial}}
+                                <!--{{>IamSocial}}-->
 
 
-                                {{>facebook}}
+                               
 
 
 
