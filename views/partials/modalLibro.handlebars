@@ -1,0 +1,102 @@
+<div class="modal fadeIn" id="modalLibroCenter" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" id="modalLibroDialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLibroLongTitle"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modalPostBody">
+                <form role="form" class="needs-validation" id="libroMain" novalidate>
+                    <div class="row g-3 form-group">
+                        <div class="col-sm-4 d-inline-flex">
+                            <div class="input-icon float-right"><i class="fas fa-book"></i></div>
+                            <div class="input-group">
+
+
+                                <input type="text" class="form-control" id="tituloLibro" placeholder="Titulo" required>
+
+                                <div class="invalid-feedback">
+                                    Falta Título
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4 d-inline-flex">
+                            <div class="input-icon"><i class="fas fa-link"></i></div>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="urlLibro" placeholder="url" required>
+
+                                <div class="invalid-feedback">
+                                    Falta Url
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 d-inline-flex">
+                            <div class="input-icon"><i class="far fa-user"></i></div>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="autorLibro" placeholder="Autor" required>
+
+                                <div class="invalid-feedback">
+                                    Falta Autor
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-3 form-group">
+                        <div class="col-sm-12 d-inline-flex">
+                            <div class="input-icon float-right"><i class="fas fa-book-reader"></i></div>
+                            <div class="input-group">
+
+
+                                <textarea class="form-control" id="descripcionLibro" placeholder="Descripción" rows="5"
+                                    required></textarea>
+
+                                <div class="invalid-feedback">
+                                    Falta Descripción
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="row g-3 form-group">
+
+                        <div class="col-sm-6 d-inline-flex" action="/fileupload" method="post" enctype="multipart/form-data">
+                            <div class="col input-group">
+                                <input type="file" id="bookImage" name="imagenBook" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 form-group">
+
+                        <div class="col-sm-6 d-inline-flex">
+                            <div class="input-icon"><i class="fas fa-camera"></i></div>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="imageBookAlt" placeholder="Imagen Alt Text">
+                            </div>
+
+                        </div>
+                        <div class="col-sm-6 d-inline-flex" id="libroThumbnail">
+            
+
+                        </div>
+
+                    </div>
+
+                    <div class="col">
+                        <button type="submit" style="width: 100%" id="createLibro" class="btn btn-primary"></button>
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>

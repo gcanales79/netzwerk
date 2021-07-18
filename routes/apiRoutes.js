@@ -15,10 +15,10 @@ const crypto = require("crypto");
 var async = require("async");
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-const Sequelize = require('sequelize');
+const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
-const imagemin = require('imagemin');
-const imageminWebp = require('imagemin-webp');
+const imagemin = require("imagemin");
+const imageminWebp = require("imagemin-webp");
 
 module.exports = function (app) {
   //JWT
@@ -214,52 +214,55 @@ module.exports = function (app) {
                 [Op.gt]: Date.now(),
               },
             },
-          }).then((user) => {
-            console.log(user)
-            if (!user) {
-              /*req.flash(
+          })
+            .then((user) => {
+              console.log(user);
+              if (!user) {
+                /*req.flash(
               "error",
               "El token para restablecer la contraseña ha expirado"
             );*/
-              res.send({
-                message: "El token para restablecer la contraseña ha expirado",
-                alert: "Error",
-              });
-            }
-            if (password.length > 4) {
-              if (password === confirm) {
-                db.User.update(
-                  {
-                    resetPasswordToken: null,
-                    resetPasswordExpire: null,
-                    password: password,
-                  },
-                  {
-                    where: {
-                      resetPasswordToken: token,
-                    },
-                    individualHooks: true,
-                  }
-                ).then((data, err) => {
-                  done(err, user);
-                });
-              } else {
-                /*req.flash("error","Las contraseñas no coinciden")*/
                 res.send({
-                  message: "Las contraseñas no coinciden",
+                  message:
+                    "El token para restablecer la contraseña ha expirado",
                   alert: "Error",
                 });
               }
-            } else {
-              /*req.flash("error","La contraseña debe tener minimo 5 caracteres")*/
-              res.send({
-                message: "La contraseña debe tener mínimo 5 caracteres",
-                alert:"Error"
-              });
-            }
-          }).catch((err)=>{
-            console.log(err)
-          });
+              if (password.length > 4) {
+                if (password === confirm) {
+                  db.User.update(
+                    {
+                      resetPasswordToken: null,
+                      resetPasswordExpire: null,
+                      password: password,
+                    },
+                    {
+                      where: {
+                        resetPasswordToken: token,
+                      },
+                      individualHooks: true,
+                    }
+                  ).then((data, err) => {
+                    done(err, user);
+                  });
+                } else {
+                  /*req.flash("error","Las contraseñas no coinciden")*/
+                  res.send({
+                    message: "Las contraseñas no coinciden",
+                    alert: "Error",
+                  });
+                }
+              } else {
+                /*req.flash("error","La contraseña debe tener minimo 5 caracteres")*/
+                res.send({
+                  message: "La contraseña debe tener mínimo 5 caracteres",
+                  alert: "Error",
+                });
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         },
         function (user, done) {
           const msg = {
@@ -567,30 +570,32 @@ module.exports = function (app) {
   //Get favorite post
   app.get("/get-fav-post", (req, res) => {
     db.Blog.findAll({
-      where:{
-        favorite:true,
+      where: {
+        favorite: true,
       },
-      limit:5,
+      limit: 5,
       order: [["createdAt", "ASC"]],
-    }).then((postStored)=>{
-      if(!postStored){
-        res.send({
-          message:"No se han encontrado ningun post",
-          alert:"Error"
-        })
-      } else{
-        res.send({
-          post:postStored,
-          alert:"Succes",
-        })
-      }
-    }).catch((err)=>{
-      res.send({
-        message:"Error del servidor",
-        alert:"Error"
-      })
     })
-  })
+      .then((postStored) => {
+        if (!postStored) {
+          res.send({
+            message: "No se han encontrado ningun post",
+            alert: "Error",
+          });
+        } else {
+          res.send({
+            post: postStored,
+            alert: "Succes",
+          });
+        }
+      })
+      .catch((err) => {
+        res.send({
+          message: "Error del servidor",
+          alert: "Error",
+        });
+      });
+  });
 
   //Update Posts
   app.put("/update-post/:id", isAuthenticated, (req, res) => {
@@ -603,7 +608,7 @@ module.exports = function (app) {
       image_alt,
       tema,
       active,
-      favorite
+      favorite,
     } = req.body;
     db.Blog.update(
       {
@@ -614,7 +619,7 @@ module.exports = function (app) {
         image_alt: image_alt,
         tema: tema,
         active: active,
-        favorite:favorite
+        favorite: favorite,
       },
       {
         where: {
@@ -846,10 +851,10 @@ module.exports = function (app) {
       let modifyPath = targetPath.replace(/\s+/g, "-").toLowerCase();
       let fileSplit = originalName.split(".");
       let fileExt = fileSplit[1];
-      let modifyUrlSplit=modifyUrl.split(".")
-      let webpFile=`${modifyUrlSplit[0]}.webp`;
+      let modifyUrlSplit = modifyUrl.split(".");
+      let webpFile = `${modifyUrlSplit[0]}.webp`;
       //console.log(req.file);
-      console.log(webpFile)
+      console.log(webpFile);
       const { imagen_alt } = req.body;
       if (
         fileExt !== "png" &&
@@ -885,10 +890,10 @@ module.exports = function (app) {
             var type = "success";
 
             imagemin([`${modifyPath}`], {
-              destination: './public/assets/dist/img',
-              plugins: [imageminWebp({quality: 50})]
+              destination: "./public/assets/dist/img",
+              plugins: [imageminWebp({ quality: 50 })],
             }).then(() => {
-              console.log('Done!');
+              console.log("Done!");
               db.Image.create({
                 imagen_url: webpFile,
                 imagen_alt: imagen_alt,
@@ -929,8 +934,6 @@ module.exports = function (app) {
                   }
                 });
             });
-
-            
           }
         });
       }
@@ -1078,4 +1081,272 @@ module.exports = function (app) {
         console.log(err);
       });
   });
+
+  //Get All Books
+  app.get("/get-all-books", (req, res) => {
+    db.Libro.findAndCountAll({
+      order: [["createdAt", "ASC"]],
+    })
+      .then((libroStored) => {
+        if (!libroStored) {
+          res.send({
+            message: "No se ha encontrado ningun libro",
+            alert: "Error",
+          });
+        } else {
+          res.send({
+            total: libroStored.count,
+            data: libroStored.rows,
+          });
+        }
+      })
+      .catch((err) => {
+        res.send({
+          message: "Error del servidor",
+          alert: "Error",
+          error: err,
+        });
+      });
+  });
+
+  //Add Book
+  app.post("/add-libro", isAuthenticated, (req, res) => {
+    const { title, url, author, description, image, image_alt } = req.body;
+    db.Libro.create({
+      title: title,
+      url: url,
+      description: description,
+      image: image,
+      image_alt: image_alt,
+      author:author,
+    })
+      .then((libroStored) => {
+        if (!libroStored) {
+          res.send({
+            message: "No se ha podido crear el libro",
+            alert: "Error",
+          });
+        } else {
+          res.send({
+            message: "Libro Creado correctamente",
+            alert: "Success",
+            libro: libroStored,
+          });
+        }
+      })
+      .catch((err) => {
+        res.send({ message: "Error de servidor", alert: "Error", error: err });
+      });
+  });
+
+   //Update Book
+   app.put("/update-libro/:id", isAuthenticated, (req, res) => {
+    const { id } = req.params;
+    const {
+      title,
+      url,
+      author,
+      description,
+      image,
+      image_alt,
+      active,
+    } = req.body;
+    db.Libro.update(
+      {
+        title: title,
+        url: url,
+        author:author,
+        description: description,
+        image: image,
+        image_alt: image_alt,
+        active: active,
+      },
+      {
+        where: {
+          id: id,
+        },
+      }
+    )
+      .then((updateLibro) => {
+        if (updateLibro[0] === 0) {
+          res.send({
+            message: "No se ha encontrado ningun libro",
+            alert: "Error",
+          });
+        } else {
+          res.send({
+            message: "Libro actualizado correctamente",
+            alert: "Success",
+          });
+        }
+      })
+      .catch((err) => {
+        res.send({ message: "Error del servidor", alert: "Error", error:err });
+      });
+  });
+
+  //Get Specific Book by id
+  app.get("/get-libro-id/:id", (req, res) => {
+    const { id } = req.params;
+    db.Libro.findOne({
+      where: {
+        id: id,
+      },
+    })
+      .then((libroStored) => {
+        if (!libroStored) {
+          res.send({
+            message: "No se ha encontrado ningun libro",
+            alert: "Error",
+          });
+        } else {
+          res.send({
+            libro: libroStored,
+            alert: "Success",
+          });
+        }
+      })
+      .catch((err) => {
+        res.send({
+          message: "Error del servidor",
+          alert: "Error",
+          error:err
+        });
+      });
+  });
+
+  //Upload Book Image
+  app.post(
+    "/bookupload",
+    upload.single("imagenBook"),
+   
+    function (req, res, next) {
+      //console.log(req.file)
+      let originalName = req.file.originalname;
+      let newName = req.file.filename;
+      let path = req.file.destination;
+      let tempPath = `${path}/${newName}`;
+      let targetPath = `${path}/netzwerk-${originalName}`;
+      let url = `/assets/dist/img/netzwerk-${originalName}`;
+      let modifyUrl = url.replace(/\s+/g, "-").toLowerCase();
+      let modifyPath = targetPath.replace(/\s+/g, "-").toLowerCase();
+      let fileSplit = originalName.split(".");
+      let fileExt = fileSplit[1];
+      let modifyUrlSplit = modifyUrl.split(".");
+      let webpFile = `${modifyUrlSplit[0]}.webp`;
+      //console.log(req.file);
+      console.log(webpFile);
+      if (
+        fileExt !== "png" &&
+        fileExt !== "jpg" &&
+        fileExt !== "JPG" &&
+        fileExt !== "PNG" &&
+        fileExt !== "JPEG" &&
+        fileExt !== "jpeg"
+      ) {
+        res.send({
+          message:
+            "La extensión no es valida. Extensiones permtidas: .png y .jpg",
+          alert: "Error",
+        });
+      } else {
+        fs.rename(tempPath.replace(/\/\//g, "/"), modifyPath, function (err) {
+          if (err) {
+            res.send({
+              message: "Error al subir el archivo, intentalo de nuevo",
+              alert: "Error",
+            });
+            var msg = "Error found to upload file " + err;
+            var type = "error";
+          } else {
+            //res.send("<b>File uploaded to "+targetPath+" ("+req.files.uploadfile.size +" bytes)</b>");
+            var fileSize = req.file.size / 1024;
+            var msg =
+              "File uploaded to " +
+              modifyPath +
+              " (" +
+              fileSize.toFixed(2) +
+              " kb)";
+            var type = "success";
+
+            imagemin([`${modifyPath}`], {
+              destination: "./public/assets/dist/img",
+              plugins: [imageminWebp({ quality: 50 })],
+            }).then(() => {
+              console.log("Done!");
+              db.Image.create({
+                imagen_url: webpFile,
+
+              })
+                .then((data) => {
+                  if (!data) {
+                    res.send({
+                      message: "El nombre del archivo ya esta dado de alta",
+                      alert: "Error",
+                    });
+                  } else {
+                    res.send({
+                      message: "Imagen guardada correctamente",
+                      alert: "Success",
+                      data: modifyUrl,
+                    });
+                  }
+                })
+                .catch((error) => {
+                  /* fs.unlink(tempPath.replace(/\\/g, "/"),function(err) {
+                    if(err) {
+                     res.send("Error to delete file: "+err);
+                     } else {
+                      res.send({ message:error.errors[0].message , alert: "Error" });
+                     }
+                  })*/
+                  if (error.errors[0].message == "imagen_url must be unique") {
+                    res.send({
+                      message: "Ya existe la imagen en la base de datos",
+                      alert: "Error",
+                    });
+                  } else {
+                    res.send({
+                      message: error.errors[0].message,
+                      alert: "Error",
+                    });
+                  }
+                });
+            });
+          }
+        });
+      }
+    }
+  );
+
+  //Delete Libro
+  app.delete("/delete-libro/:id", isAuthenticated, (req, res) => {
+    const { id } = req.params;
+    db.Libro.destroy({
+      where: {
+        id: id,
+      },
+    })
+      .then((libroDeleted) => {
+        //console.log(userDeleted);
+        if (!libroDeleted) {
+          res.send({
+            message: "Libro no encontrado",
+            alert: "Error",
+          });
+        } else {
+          res.send({
+            message: "Libro eliminado correctamente",
+            alert: "Success",
+          });
+        }
+      })
+      .catch((err) => {
+        res.send({ message: "Error de servidor", alert:"Error", err: err });
+      });
+  });
+
+   
+
+  
 };

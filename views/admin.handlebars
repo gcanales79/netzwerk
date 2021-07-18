@@ -34,6 +34,12 @@
                     Blog
                 </a>
             </li>
+             <li {{#if libroAdmin}}class="active" {{/if}}>
+                <a href="/admin/libros">
+                    <i class="fas fa-book"></i>
+                    Libros
+                </a>
+            </li>
             <li {{#if imageAdmin}}class="active" {{/if}}>
                 <a href="/admin/images">
                     <i class="fas fa-camera-retro"></i>
@@ -52,6 +58,11 @@
 
         {{#if postAdmin}}
         {{>postAdmin}}
+        {{/if}}
+
+        
+        {{#if libroAdmin}}
+        {{>libroAdmin}}
         {{/if}}
 
         {{#if imageAdmin}}
@@ -99,6 +110,9 @@
 {{>modalTwitter}}
 {{>modalImage}}
 {{>modalConfirmDelete}}
+
+<!--Modal Nuevo Libro-->
+{{>modalLibro}}
 
 <!--script src="https://code.jquery.com/jquery.js"></script>
 <script src="/assets/dist/js/pagination.js"></script>

@@ -51,6 +51,50 @@ module.exports = function (app) {
     });
   });
 
+  //Load Books Page
+  app.get("/libros", function (req, res) {
+    res.locals.metaTags = {
+      title: "Netzwerk - Blog Acerca de Liderazgo y Administración",
+      description:
+        "Blog donde hablo de liderazgo y trabajo en equipo. Si quieres mejorar el desempeño de tu equipo de trabajo o si buscas mejorar en tu trabajo te recomiendo que me visites regularmente.",
+      keywords:
+        "liderazgo, crisis, administración, equipo, disciplina, colaboración, persuasión, asertividad, resolución de problemas, confianza, inteligencia emocional, liderazgo participativo, proactividad",
+      cardType: "summary_large_image",
+      site: "@netzwerk13",
+      creator: "@netzwerk13",
+      url: "https://netzwerk.mx/",
+      twitterTitle: "Blog acerca de temas de liderazgo y desarrollo de equipos",
+      twitterDescription:
+        "Blog donde quisiera compartir mis experiencias, lo que voy aprendiendo en el camino y me gustaria escuchar de ti.",
+      image: "https://netzwerk.mx/assets/dist/img/Logo_netzwerk.png",
+    };
+    db.Libro.findAll({
+      where: {
+        active: true,
+      },
+      order: [["createdAt", "DESC"]],
+    }).then((data) => {
+      let datos = data.map((data) => data.toJSON());
+      //console.log(datos);
+      let scriptInicial = [
+        {
+          jsfile: "https://code.jquery.com/jquery.js",
+        },
+      ];
+      let jsfile = [{ jsfile: "/assets/dist/js/libros.js" }];
+      let style = [{ style: "/assets/dist/css/libros.css" }];
+      res.render("libros", {
+        msg: "Welcome!",
+        jsfile: jsfile,
+        url: "/libros",
+        style: style,
+        scriptInicial: scriptInicial,
+        //Solucion al problema de handlebars
+        datos: data.map((data) => data.toJSON()),
+      });
+    });
+  });
+
   // Load index page main page with list of all posts
   app.get("/todos-los-post", function (req, res) {
     res.locals.metaTags = {
@@ -243,6 +287,90 @@ module.exports = function (app) {
         jsfile: jsfile,
         jsarchivo: jsarchivo,
         url: "/admin/blog",
+        tiny: tiny,
+        scriptInicial: scriptInicial,
+        bootStyle: bootStyle,
+      });
+    });
+  });
+
+
+  //Create Book Recomendation
+  app.get("/admin/libros", isAuthenticated, (req, res) => {
+    let page = 1;
+    if (req.query.page) {
+      page = req.query.page;
+    }
+    let limit = 12;
+    if (req.query.limit) {
+      limit = req.query.limit;
+    }
+    db.Blog.findAndCountAll({
+      limit: parseInt(limit),
+      offset: (parseInt(page) - 1) * parseInt(limit),
+      order: [["createdAt", "ASC"]],
+    }).then((postStored) => {
+      //console.log(`Page: ${page}`);
+      let data = postStored.rows;
+      let datos = data.map((data) => data.toJSON());
+      //console.log(datos)
+      //console.log(page);
+      let bootStyle = [
+        {
+          href:
+            "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css",
+        },
+      ];
+      let style = [
+        {
+          style:
+            "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css",
+        },
+        { style: "/assets/dist/css/sidemenu.css" },
+      ];
+      let scriptInicial = [
+        {
+          jsfile: "https://code.jquery.com/jquery.js",
+        },
+      ];
+      let tiny = [
+        {
+          src:
+            "https://cdn.tiny.cloud/1/q2wc0wvoeizxrqmq7o9ev0r9zms41ac4rb5eihoawlsh3na0/tinymce/5/tinymce.min.js",
+          referrerpolicy: "origin",
+        },
+      ];
+      let jsarchivo = [
+        {
+          jsfile:
+            "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js",
+          integrity:
+            "sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut",
+          crossorigin: "anonymous",
+        },
+        {
+          jsfile:
+            "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js",
+          integrity:
+            "sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k",
+          crossorigin: "anonymous",
+        },
+      ];
+      let jsfile = [
+        { jsfile: "/assets/dist/js/pagination.js" },
+        { jsfile: "/assets/dist/js/bootstrap-notify.js" },
+        { jsfile: "/assets/dist/js/admin.js" },
+      ];
+      res.render("admin", {
+        style: style,
+        libroAdmin: true,
+        page: page,
+        limit: limit,
+        total: postStored.count,
+        data: datos,
+        jsfile: jsfile,
+        jsarchivo: jsarchivo,
+        url: "/admin/libros",
         tiny: tiny,
         scriptInicial: scriptInicial,
         bootStyle: bootStyle,
