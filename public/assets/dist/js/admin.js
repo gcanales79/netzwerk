@@ -411,6 +411,19 @@ $(document).ready(function () {
             OnIcon = $("<i>");
             OnIcon.attr("class", "fas fa-power-off");
             buttonOn.append(OnIcon);
+            //Button fav
+            buttonFav = $("<button>");
+            buttonFav.attr("type", "button");
+            let classFav = data[i].favorite
+              ? "btn btn-success favPost"
+              : "btn btn-danger favPost";
+            buttonFav.attr("class", classFav);
+            buttonFav.css("margin", "5px");
+            buttonFav.attr("value", data[i].id);
+            buttonFav.attr("page", pagination.pageNumber);
+            FavIcon = $("<i>");
+            FavIcon.attr("class", "far fa-thumbs-up");
+            buttonFav.append(FavIcon);
             //Button Delete
             buttonDelete = $("<button>");
             buttonDelete.attr("type", "button");
@@ -427,6 +440,7 @@ $(document).ready(function () {
             newDiv.append(buttonImage);
             newDiv.append(buttonTwitter);
             newDiv.append(buttonOn);
+            newDiv.append(buttonFav);
             newDiv.append(buttonDelete);
             //Append Div to Item
             newItem.append(divTitle);
@@ -677,6 +691,29 @@ $(document).ready(function () {
     //console.log(active)
     let changes = {
       active: active,
+    };
+    $.ajax({
+      url: `/update-post/${postId}`,
+      type: "PUT",
+      contentType: "application/json",
+      data: JSON.stringify(changes),
+      success: function (data) {
+        notificationToast(data.alert, data.message);
+        paginationBlog(pageNum);
+      },
+    });
+  });
+
+  //Make a Post a Favorite
+  $(document).on("click", ".favPost", function (event) {
+    event.preventDefault();
+    let postId = $(this).attr("value");
+    let pageNum = $(this).attr("page");
+    let classId = $(this).attr("class");
+    let favorite = classId == "btn btn-success favPost" ? false : true;
+    //console.log(postId)
+    let changes = {
+      favorite: favorite,
     };
     $.ajax({
       url: `/update-post/${postId}`,

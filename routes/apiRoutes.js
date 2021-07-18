@@ -603,6 +603,7 @@ module.exports = function (app) {
       image_alt,
       tema,
       active,
+      favorite
     } = req.body;
     db.Blog.update(
       {
@@ -613,6 +614,7 @@ module.exports = function (app) {
         image_alt: image_alt,
         tema: tema,
         active: active,
+        favorite:favorite
       },
       {
         where: {

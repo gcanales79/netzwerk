@@ -31,7 +31,7 @@ module.exports = function (app) {
       limit: 5,
     }).then((data) => {
       let datos = data.map((data) => data.toJSON());
-      console.log(datos);
+      //console.log(datos);
       let scriptInicial = [
         {
           jsfile: "https://code.jquery.com/jquery.js",
