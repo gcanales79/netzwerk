@@ -878,7 +878,8 @@ $(document).ready(function () {
   $("#addImage").on("click", function (event) {
     //console.log("Entro")
     event.preventDefault();
-    $("#imageAlt").empty();
+    $("#imageAlt").val("");
+    $("#previewImage").attr("src","");
     $("#modalImageLongTitle").text("Agregar Imagen");
     $("#uploadImage").text("Subir Imagen");
     $("#uploadImage").attr("accion", "secundaria");
@@ -887,6 +888,12 @@ $(document).ready(function () {
     $("#imageProgressBar").css("width", "0%");
     $("#modalImageCenter").modal("show");
   });
+
+  //Erase Data if Modal to Add Image is close
+  $("#modalImageCenter").on("hidden.bs.modal", function(){
+    $("#imageAlt").val("");
+    $("#previewImage").attr("src","");
+  })
 
   //Pagination of Images
   function paginationImage(pageNumber) {
@@ -1092,6 +1099,7 @@ $(document).ready(function () {
    $("#addLibro").on("click", function (event) {
     event.preventDefault();
     $("#libroMain")[0].reset();
+    $("portadaLibro").attr("src","")
     $("#modalLibroLongTitle").text("Añadir Nuevo Libro");
     $("#createLibro").text("Añadir Libro");
     $("#modalLibroCenter").attr("type", "Create");
@@ -1173,10 +1181,10 @@ $(document).ready(function () {
     event.preventDefault();
     let pageNum = $(this).attr("page");
     let libroId = $(this).attr("value");
-    divPortada=$("<img>")
-    divPortada.attr("class","img-thumbnail")
-    divPortada.attr("id","portadaLibro")
-    $("#libroThumbnail").append(divPortada)
+    //divPortada=$("<img>")
+    //divPortada.attr("class","img-thumbnail")
+    //divPortada.attr("id","portadaLibro")
+    //$("#libroThumbnail").append(divPortada)
     //console.log(`Page: ${pageNum} PostId: ${postId}`);
       $.get(`/get-libro-id/${libroId}`, () => {}).then((data) => {
       const { libro } = data;
@@ -1268,8 +1276,8 @@ $(document).ready(function () {
 
   //Hide Picture if Book Modal is hide
   $("#modalLibroCenter").on("hidden.bs.modal", function(){
-    $("#libroThumbnail").empty();
-    console.log("Cerro el Modal")
+    $("#portadaLibro").attr("src","");
+    //console.log("Cerro el Modal")
   })
 
    //Abrir el Modal Para Borrar un Libro
@@ -1354,6 +1362,28 @@ $(document).ready(function () {
       },
     });
   });
+
+  //Preview Image Before Upload Image For Post and Secondary Images
+  mainImage.onchange = evt => {
+    const [file] = mainImage.files
+    if (file) {
+      previewImage.src = URL.createObjectURL(file)
+      previewImage.onload = function() {
+        URL.revokeObjectURL(previewImage.src) // free memory
+      }
+    }
+  }
+
+  //Preview Image Before Upload for Books
+  bookImage.onchange = evt => {
+    const [file] = bookImage.files
+    if (file) {
+      portadaLibro.src = URL.createObjectURL(file)
+      portadaLibro.onload = function() {
+        URL.revokeObjectURL(portadaLibro.src) // free memory
+      }
+    }
+  }
 
 
 

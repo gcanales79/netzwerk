@@ -12,7 +12,7 @@
                 <form id="postBlog">
                     <div class="form-row" action="/fileupload" method="post" enctype="multipart/form-data">
                         <div class="col input-container">
-                            <input type="file" id="mainImage" name="imagenPost" />
+                            <input type="file" id="mainImage" name="imagenPost"/>
                         </div>
                     </div>
                     <div class="col input-container">
@@ -26,6 +26,9 @@
                 <div class="progress" id="ProgressBar">
                     <div class="progress-bar progress-bar-striped" id="imageProgressBar" role="progressbar"
                         style="width: 0%" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <div>
+                    <img class="image-preview" id="previewImage">
                 </div>
 
             </div>

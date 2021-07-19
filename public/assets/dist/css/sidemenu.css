@@ -35,6 +35,11 @@
   max-width: 150px;
 }
 
+.image-preview{
+  width: 100%;
+  max-width: 150px;
+}
+
 .alert-minimalist {
   background-color: rgb(241, 242, 240);
   border-color: rgba(149, 149, 149, 0.3);
