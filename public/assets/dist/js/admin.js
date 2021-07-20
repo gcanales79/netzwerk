@@ -7,6 +7,7 @@ $(document).ready(function () {
   paginationBlog(1);
   paginationImage(1);
   paginationLibro(1);
+  $("#main-nav").addClass("hide-libro");
 
   //Toggle de Usuarios Activos
   $("#activosToggle").on("change", function (event) {
