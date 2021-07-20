@@ -35,6 +35,10 @@
   max-width: 150px;
 }
 
+.hide-libro{
+  display: none;
+}
+
 .image-preview{
   width: 100%;
   max-width: 150px;

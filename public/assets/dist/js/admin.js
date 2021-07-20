@@ -1099,6 +1099,7 @@ $(document).ready(function () {
    $("#addLibro").on("click", function (event) {
     event.preventDefault();
     $("#libroMain")[0].reset();
+    $("#portadaLibro").addClass("hide-libro")
     $("portadaLibro").attr("src","")
     $("#modalLibroLongTitle").text("Añadir Nuevo Libro");
     $("#createLibro").text("Añadir Libro");
@@ -1379,6 +1380,7 @@ $(document).ready(function () {
     const [file] = bookImage.files
     if (file) {
       portadaLibro.src = URL.createObjectURL(file)
+      $("#portadaLibro").removeClass("hide-libro")
       portadaLibro.onload = function() {
         URL.revokeObjectURL(portadaLibro.src) // free memory
       }
