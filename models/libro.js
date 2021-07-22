@@ -5,8 +5,7 @@ module.exports = function (sequelize, DataTypes) {
             type:DataTypes.STRING,
         },
         url: {
-            type:DataTypes.STRING,
-            unique:true,
+            type:DataTypes.TEXT,
         },
         description: DataTypes.TEXT,
         image:DataTypes.STRING,

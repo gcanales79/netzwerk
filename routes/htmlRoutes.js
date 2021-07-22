@@ -207,6 +207,7 @@ module.exports = function (app) {
       url: "/admin",
       scriptInicial: scriptInicial,
       bootStyle: bootStyle,
+      menu:true,
       tiny: tiny,
     });
   });
@@ -289,6 +290,7 @@ module.exports = function (app) {
         url: "/admin/blog",
         tiny: tiny,
         scriptInicial: scriptInicial,
+        menu:true,
         bootStyle: bootStyle,
       });
     });
@@ -373,6 +375,7 @@ module.exports = function (app) {
         url: "/admin/libros",
         tiny: tiny,
         scriptInicial: scriptInicial,
+        menu:true,
         bootStyle: bootStyle,
       });
     });
@@ -434,6 +437,7 @@ module.exports = function (app) {
       jsarchivo: jsarchivo,
       scriptInicial: scriptInicial,
       tiny: tiny,
+      menu:true,
       bootStyle: bootStyle,
     });
   });
@@ -497,6 +501,7 @@ module.exports = function (app) {
       jsarchivo: jsarchivo,
       url: "/admin/images",
       scriptInicial: scriptInicial,
+      menu:true,
       bootStyle: bootStyle,
     });
   });
@@ -554,6 +559,7 @@ module.exports = function (app) {
       jsarchivo: jsarchivo,
       url: "/signup",
       scriptInicial: scriptInicial,
+      menu:true,
       bootStyle: bootStyle,
     });
   });
