@@ -543,7 +543,7 @@ module.exports = function (app) {
 
   app.get("/get-all-posts", (req, res) => {
     db.Blog.findAndCountAll({
-      order: [["createdAt", "ASC"]],
+      order: [["createdAt", "DESC"]],
     })
       .then((postStored) => {
         if (!postStored) {
