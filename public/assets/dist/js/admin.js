@@ -1119,7 +1119,7 @@ $(document).ready(function () {
     //console.log($("#postBlogMain").validate())
     //$("#postBlogMain").submit()
     let title = $("#tituloLibro").val().trim();
-    let url = $("#urlLibro").val().toLowerCase().trim();
+    let url = $("#urlLibro").val().trim();
     let modifyurl = url.replace(/\s/g, "-");
     let author=$("#autorLibro").val().trim();
     let description = $("#descripcionLibro").val().trim();
