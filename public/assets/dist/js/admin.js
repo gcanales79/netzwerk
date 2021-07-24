@@ -383,7 +383,11 @@ $(document).ready(function () {
             //Button Image
             buttonImage = $("<button>");
             buttonImage.attr("type", "button");
-            buttonImage.attr("class", "btn btn-primary imagePost");
+            if (data[i].image !=null ) {
+              buttonImage.attr("class", "btn btn-success imagePost");
+            } else {
+              buttonImage.attr("class", "btn btn-primary imagePost");
+            }
             buttonImage.css("margin", "5px");
             buttonImage.attr("value", data[i].id);
             buttonImage.attr("page", pagination.pageNumber);
