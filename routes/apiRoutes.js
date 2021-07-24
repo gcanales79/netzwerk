@@ -514,7 +514,7 @@ module.exports = function (app) {
     db.Blog.findAndCountAll({
       limit: parseInt(limit),
       offset: (parseInt(page) - 1) * parseInt(limit),
-      order: [["createdAt", "ASC"]],
+      order: [["createdAt", "DESC"]],
     })
       .then((postStored) => {
         if (!postStored) {
@@ -1118,7 +1118,7 @@ module.exports = function (app) {
       description: description,
       image: image,
       image_alt: image_alt,
-      author:author,
+      author: author,
     })
       .then((libroStored) => {
         if (!libroStored) {
@@ -1139,23 +1139,16 @@ module.exports = function (app) {
       });
   });
 
-   //Update Book
-   app.put("/update-libro/:id", isAuthenticated, (req, res) => {
+  //Update Book
+  app.put("/update-libro/:id", isAuthenticated, (req, res) => {
     const { id } = req.params;
-    const {
-      title,
-      url,
-      author,
-      description,
-      image,
-      image_alt,
-      active,
-    } = req.body;
+    const { title, url, author, description, image, image_alt, active } =
+      req.body;
     db.Libro.update(
       {
         title: title,
         url: url,
-        author:author,
+        author: author,
         description: description,
         image: image,
         image_alt: image_alt,
@@ -1181,7 +1174,7 @@ module.exports = function (app) {
         }
       })
       .catch((err) => {
-        res.send({ message: "Error del servidor", alert: "Error", error:err });
+        res.send({ message: "Error del servidor", alert: "Error", error: err });
       });
   });
 
@@ -1210,7 +1203,7 @@ module.exports = function (app) {
         res.send({
           message: "Error del servidor",
           alert: "Error",
-          error:err
+          error: err,
         });
       });
   });
@@ -1219,7 +1212,7 @@ module.exports = function (app) {
   app.post(
     "/bookupload",
     upload.single("imagenBook"),
-   
+
     function (req, res, next) {
       //console.log(req.file)
       let originalName = req.file.originalname;
@@ -1276,7 +1269,6 @@ module.exports = function (app) {
               console.log("Done!");
               db.Image.create({
                 imagen_url: webpFile,
-
               })
                 .then((data) => {
                   if (!data) {
@@ -1342,11 +1334,7 @@ module.exports = function (app) {
         }
       })
       .catch((err) => {
-        res.send({ message: "Error de servidor", alert:"Error", err: err });
+        res.send({ message: "Error de servidor", alert: "Error", err: err });
       });
   });
-
-   
-
-  
 };
