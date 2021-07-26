@@ -24,7 +24,7 @@ axios
         function (error, tweet, response) {
           if (!error) {
             //console.log(tweet);
-            axios.put(`${process.env.url}/update-tweet/${data[i].id}`,{
+            axios.put(`${process.env.url_netzwerk}/update-tweet/${data[i].id}`,{
                 complete:true,
             })
             .then((response)=>{
