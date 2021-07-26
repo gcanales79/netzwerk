@@ -12,7 +12,7 @@ var client = new Twitter({
 let fecha = moment().tz("Europe/Warsaw").format("X");
 
 axios
-  .get(`${process.env.url}/to-send-tweets/${fecha}`)
+  .get(`${process.env.url_netzwerk}/to-send-tweets/${fecha}`)
   .then((response) => {
     const { data } = response;
     //console.log(response)
