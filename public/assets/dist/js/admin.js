@@ -7,6 +7,7 @@ $(document).ready(function () {
   paginationBlog(1);
   paginationImage(1);
   paginationLibro(1);
+  paginationTweet(1);
   //$("#main-nav").addClass("hide-libro");
 
   //Toggle de Usuarios Activos
@@ -383,7 +384,7 @@ $(document).ready(function () {
             //Button Image
             buttonImage = $("<button>");
             buttonImage.attr("type", "button");
-            if (data[i].image !=null ) {
+            if (data[i].image != null) {
               buttonImage.attr("class", "btn btn-success imagePost");
             } else {
               buttonImage.attr("class", "btn btn-primary imagePost");
@@ -884,7 +885,7 @@ $(document).ready(function () {
     //console.log("Entro")
     event.preventDefault();
     $("#imageAlt").val("");
-    $("#previewImage").attr("src","");
+    $("#previewImage").attr("src", "");
     $("#modalImageLongTitle").text("Agregar Imagen");
     $("#uploadImage").text("Subir Imagen");
     $("#uploadImage").attr("accion", "secundaria");
@@ -895,10 +896,10 @@ $(document).ready(function () {
   });
 
   //Erase Data if Modal to Add Image is close
-  $("#modalImageCenter").on("hidden.bs.modal", function(){
+  $("#modalImageCenter").on("hidden.bs.modal", function () {
     $("#imageAlt").val("");
-    $("#previewImage").attr("src","");
-  })
+    $("#previewImage").attr("src", "");
+  });
 
   //Pagination of Images
   function paginationImage(pageNumber) {
@@ -1050,7 +1051,7 @@ $(document).ready(function () {
             buttonImage = $("<button>");
             buttonImage.attr("type", "button");
             //console.log(data[i].image.length)
-            if (data[i].image !=null ) {
+            if (data[i].image != null) {
               buttonImage.attr("class", "btn btn-success imageBook");
             } else {
               buttonImage.attr("class", "btn btn-primary imageBook");
@@ -1101,16 +1102,16 @@ $(document).ready(function () {
   }
 
   //Abrir Modal Para Añadir libros
-   $("#addLibro").on("click", function (event) {
+  $("#addLibro").on("click", function (event) {
     event.preventDefault();
     $("#libroMain")[0].reset();
-    $("#portadaLibro").addClass("hide-libro")
-    $("portadaLibro").attr("src","")
+    $("#portadaLibro").addClass("hide-libro");
+    $("portadaLibro").attr("src", "");
     $("#modalLibroLongTitle").text("Añadir Nuevo Libro");
     $("#createLibro").text("Añadir Libro");
     $("#modalLibroCenter").attr("type", "Create");
     $("#modalLibroCenter").modal("show");
-  })
+  });
 
   //Create Libro Function #createLibro
 
@@ -1121,7 +1122,7 @@ $(document).ready(function () {
     let title = $("#tituloLibro").val().trim();
     let url = $("#urlLibro").val().trim();
     let modifyurl = url.replace(/\s/g, "-");
-    let author=$("#autorLibro").val().trim();
+    let author = $("#autorLibro").val().trim();
     let description = $("#descripcionLibro").val().trim();
     let imagen_alt = $("#imageBookAlt").val();
     let buttonType = $("#modalLibroCenter").attr("type");
@@ -1130,37 +1131,41 @@ $(document).ready(function () {
     var file = document.getElementById("bookImage").files[0];
     //console.log(pageNum);
     //console.log(postId);
-    if (title.length !== 0 && url.length !== 0 && author.length !== 0 && description.length !== 0) {
+    if (
+      title.length !== 0 &&
+      url.length !== 0 &&
+      author.length !== 0 &&
+      description.length !== 0
+    ) {
       if (buttonType == "Create") {
         $.post("/add-libro", {
           title: title,
           url: modifyurl,
-          author:author,
+          author: author,
           description: description,
-          image_alt:imagen_alt,
+          image_alt: imagen_alt,
         }).then((data) => {
           //console.log(data);
           const { libro } = data;
           //console.log(libro)
-          libroId=libro.id
+          libroId = libro.id;
           //Crear el metatag
-            $("#modalLibroCenter").modal("hide");
-            //Limpiar la forma despues de hacer submitt
-            $("#libroMain")[0].reset();
-            $("#libroMain").removeClass("was-validated");
-            uploadBookImage(buttonType,libroId,pageNum,file);
-            notificationToast(data.alert, data.message);
-            paginationLibro(1);
-        
+          $("#modalLibroCenter").modal("hide");
+          //Limpiar la forma despues de hacer submitt
+          $("#libroMain")[0].reset();
+          $("#libroMain").removeClass("was-validated");
+          uploadBookImage(buttonType, libroId, pageNum, file);
+          notificationToast(data.alert, data.message);
+          paginationLibro(1);
         });
       } else if (buttonType == "Update") {
         //console.log(`PageNum: ${pageNum} PostId: ${postId}`);
         let changes = {
           title: title,
           url: modifyurl,
-          author:author,
+          author: author,
           description: description,
-          image_alt:imagen_alt,
+          image_alt: imagen_alt,
         };
         $.ajax({
           url: `/update-libro/${libroId}`,
@@ -1171,7 +1176,7 @@ $(document).ready(function () {
             $("#modalLibroCenter").modal("hide");
             $("#libroMain").removeClass("was-validated");
             notificationToast(data.alert, data.message);
-            uploadBookImage(buttonType,libroId,pageNum,file);
+            uploadBookImage(buttonType, libroId, pageNum, file);
             //console.log("Usuario borrado");
             paginationLibro(pageNum);
           },
@@ -1192,7 +1197,7 @@ $(document).ready(function () {
     //divPortada.attr("id","portadaLibro")
     //$("#libroThumbnail").append(divPortada)
     //console.log(`Page: ${pageNum} PostId: ${postId}`);
-      $.get(`/get-libro-id/${libroId}`, () => {}).then((data) => {
+    $.get(`/get-libro-id/${libroId}`, () => {}).then((data) => {
       const { libro } = data;
       //console.log(libro);
       $("#modalLibroLongTitle").text("Actualizar Libro");
@@ -1203,25 +1208,22 @@ $(document).ready(function () {
       $("#tituloLibro").val(libro.title);
       $("#urlLibro").val(libro.url);
       $("#autorLibro").val(libro.author);
-      $("#descripcionLibro").val(libro.description)
-      $("#imageBookAlt").val(libro.image_alt)
-     
+      $("#descripcionLibro").val(libro.description);
+      $("#imageBookAlt").val(libro.image_alt);
 
-      $("#portadaLibro").attr("src",libro.image)
+      $("#portadaLibro").attr("src", libro.image);
 
       $("#modalLibroCenter").modal("show");
     });
   });
 
-
   //Upload Book Picture
 
-  function uploadBookImage(buttonType,libroId,pageNum,file) {
+  function uploadBookImage(buttonType, libroId, pageNum, file) {
     let accion = buttonType;
-    
-    
+
     var formData = new FormData();
- 
+
     //console.log(file)
     formData.append("imagenBook", file);
     var xhr = new XMLHttpRequest();
@@ -1244,7 +1246,7 @@ $(document).ready(function () {
       console.log(e);
     };
     xhr.onload = function () {
-      if (accion === "Create" || accion==="Update") {
+      if (accion === "Create" || accion === "Update") {
         var file = JSON.parse(xhr.responseText);
         //console.log(file);
         //$("#modalImageCenter").modal("hide");
@@ -1278,17 +1280,17 @@ $(document).ready(function () {
     };
 
     xhr.send(formData);
-  };
+  }
 
   //Hide Picture if Book Modal is hide
-  $("#modalLibroCenter").on("hidden.bs.modal", function(){
-    $("#portadaLibro").attr("src","");
+  $("#modalLibroCenter").on("hidden.bs.modal", function () {
+    $("#portadaLibro").attr("src", "");
     //console.log("Cerro el Modal")
-  })
+  });
 
-   //Abrir el Modal Para Borrar un Libro
+  //Abrir el Modal Para Borrar un Libro
 
-   $(document).on("click", ".deleteBook", function (event) {
+  $(document).on("click", ".deleteBook", function (event) {
     event.preventDefault();
     let libroId = $(this).attr("value");
     let pageNum = $(this).attr("page");
@@ -1370,29 +1372,191 @@ $(document).ready(function () {
   });
 
   //Preview Image Before Upload Image For Post and Secondary Images
-  mainImage.onchange = evt => {
-    const [file] = mainImage.files
+  mainImage.onchange = (evt) => {
+    const [file] = mainImage.files;
     if (file) {
-      previewImage.src = URL.createObjectURL(file)
-      previewImage.onload = function() {
-        URL.revokeObjectURL(previewImage.src) // free memory
-      }
+      previewImage.src = URL.createObjectURL(file);
+      previewImage.onload = function () {
+        URL.revokeObjectURL(previewImage.src); // free memory
+      };
     }
-  }
+  };
 
   //Preview Image Before Upload for Books
-  bookImage.onchange = evt => {
-    const [file] = bookImage.files
+  bookImage.onchange = (evt) => {
+    const [file] = bookImage.files;
     if (file) {
-      portadaLibro.src = URL.createObjectURL(file)
-      $("#portadaLibro").removeClass("hide-libro")
-      portadaLibro.onload = function() {
-        URL.revokeObjectURL(portadaLibro.src) // free memory
+      portadaLibro.src = URL.createObjectURL(file);
+      $("#portadaLibro").removeClass("hide-libro");
+      portadaLibro.onload = function () {
+        URL.revokeObjectURL(portadaLibro.src); // free memory
+      };
+    }
+  };
+
+  //Abrir Modal Para Añadir tweet
+  $("#addTweet").on("click", function (event) {
+    event.preventDefault();
+    $("#tweetMain")[0].reset();
+    $("#modalTweetLongTitle").text("Añadir Nuevo Tweet");
+    $("#createTweet").text("Añadir Tweet");
+    $("#modalTweetCenter").attr("type", "Create");
+    $("#modalTweetCenter").modal("show");
+  });
+
+  //Create Tweet Function #createTweet
+
+  $("#tweetMain").submit(function (event) {
+    event.preventDefault();
+    //console.log($("#postBlogMain").validate())
+    //$("#postBlogMain").submit()
+    let title = $("#tituloTweet").val().trim();
+    let tweet = $("#contenidoTweet").val().trim();
+    let schedule_date = $("#fechaTweet").val();
+    //console.log(schedule_date)
+    let buttonType = $("#modalTweetCenter").attr("type");
+    let pageNum = $(this).find("#createTweet").attr("page");
+    let tweetId = $(this).find("#createTweet").attr("libroId");
+    //console.log(pageNum);
+    //console.log(postId);
+    if (
+      title.length !== 0 &&
+      tweet.length !== 0 &&
+      schedule_date.length !== 0
+    ) {
+      if (buttonType == "Create") {
+        $.post("/add-tweet", {
+          title: title,
+          tweet: tweet,
+          schedule_date: schedule_date,
+        }).then((data) => {
+          //console.log(data);
+          const { tweet } = data;
+          //console.log(libro)
+          tweetId = tweet.id;
+          //Crear el metatag
+          $("#modalTweetCenter").modal("hide");
+          //Limpiar la forma despues de hacer submitt
+          $("#tweetMain")[0].reset();
+          $("#tweetMain").removeClass("was-validated");
+          //uploadBookImage(buttonType, libroId, pageNum, file);
+          notificationToast(data.alert, data.message);
+          paginationTweet(1);
+        });
+      } else if (buttonType == "Update") {
+        //console.log(`PageNum: ${pageNum} PostId: ${postId}`);
+        let changes = {
+          title: title,
+          tweet: tweet,
+          schedule_date: schedule_date,
+        };
+        $.ajax({
+          url: `/update-tweet/${tweetId}`,
+          type: "PUT",
+          contentType: "application/json",
+          data: JSON.stringify(changes),
+          success: function (data) {
+            $("#modalTweetCenter").modal("hide");
+            $("#tweetMain").removeClass("was-validated");
+            notificationToast(data.alert, data.message);
+            //uploadBookImage(buttonType, libroId, pageNum, file);
+            //console.log("Usuario borrado");
+            paginationTweet(pageNum);
+          },
+        });
       }
+    } else {
+      //console.log("No valida");
+    }
+  });
+
+  //Listado de todos los tweet
+  function paginationTweet(pageNumber) {
+    $("#pagination-containertweet").empty();
+    if ($("#pagination-containertweet").length) {
+      //console.log("Entro")
+      //Pagination
+      $("#pagination-containertweet").pagination({
+        dataSource: function (done) {
+          $.ajax({
+            type: "GET",
+            url: "/get-all-tweets",
+            success: function (response) {
+              //console.log(response)
+              done(response.data);
+            },
+          });
+        },
+        pageSize: 10,
+        pageNumber: pageNumber,
+        callback: function (data, pagination) {
+          $("#tweetList").empty();
+          for (let i = 0; i < data.length; i++) {
+            newItem = $("<li>");
+            newItem.attr(
+              "class",
+              "list-group-item d-flex justify-content-around align-items-start"
+            );
+            divTitle = $("<div>");
+            divTitle.text(data[i].title);
+            divTitle.attr("class", "col");
+            divFecha = $("<div>");
+            let fecha = moment(data[i].schedule_date).format(
+              "DD-MM-YYYY hh:mm a"
+            );
+            divFecha.text(fecha);
+            divFecha.attr("class", "col");
+            newDiv = $("<div>");
+            newDiv.attr("class", "col");
+            if (data[i].complete) {
+              //Button Tweet
+              buttonTweet = $("<button>");
+              buttonTweet.attr("type", "button");
+              buttonTweet.attr("class", "btn btn-success");
+              buttonTweet.css("margin", "5px");
+              buttonTweet.attr("value", data[i].id);
+              buttonTweet.attr("page", pagination.pageNumber);
+              tweetIcon = $("<i>");
+              tweetIcon.attr("class", "fab fa-twitter-square");
+              buttonTweet.append(tweetIcon);
+              //Append Icons to Div
+              newDiv.append(buttonTweet);
+            } else {
+              //Button Edit
+              buttonEdit = $("<button>");
+              buttonEdit.attr("type", "button");
+              buttonEdit.attr("class", "btn btn-primary editTweet");
+              buttonEdit.css("margin", "5px");
+              buttonEdit.attr("value", data[i].id);
+              buttonEdit.attr("page", pagination.pageNumber);
+              editIcon = $("<i>");
+              editIcon.attr("class", "fas fa-edit");
+              buttonEdit.append(editIcon);
+              //Button Delete
+              buttonDelete = $("<button>");
+              buttonDelete.attr("type", "button");
+              buttonDelete.attr("class", "btn btn-danger deleteBook");
+              buttonDelete.css("margin", "5px");
+              buttonDelete.attr("value", data[i].id);
+              buttonDelete.attr("page", pagination.pageNumber);
+              deleteIcon = $("<i>");
+              deleteIcon.attr("class", "fas fa-trash-alt");
+              buttonDelete.append(deleteIcon);
+              //Append Icons to Div
+              newDiv.append(buttonEdit);
+              newDiv.append(buttonDelete);
+            }
+            //Append Div to Item
+            newItem.append(divTitle);
+            newItem.append(divFecha);
+            newItem.append(newDiv);
+            //Append Item to List
+            $("#tweetList").append(newItem);
+          }
+        },
+      });
     }
   }
-
-
 
   //Notification Function
 

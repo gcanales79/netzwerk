@@ -133,7 +133,7 @@ module.exports = function (app) {
         jsfile: jsfile,
         url: "/",
         style: style,
-        btnMas:"display: none",
+        btnMas: "display: none",
         scriptInicial: scriptInicial,
         //Solucion al problema de handlebars
         datos: data.map((data) => data.toJSON()),
@@ -141,13 +141,11 @@ module.exports = function (app) {
     });
   });
 
-
   //Admin Page page
   app.get("/admin", isAuthenticated, (req, res) => {
     let bootStyle = [
       {
-        href:
-          "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css",
+        href: "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css",
       },
     ];
     let style = [
@@ -163,8 +161,7 @@ module.exports = function (app) {
     ];
     let tiny = [
       {
-        src:
-          "https://cdn.tiny.cloud/1/q2wc0wvoeizxrqmq7o9ev0r9zms41ac4rb5eihoawlsh3na0/tinymce/5/tinymce.min.js",
+        src: "https://cdn.tiny.cloud/1/q2wc0wvoeizxrqmq7o9ev0r9zms41ac4rb5eihoawlsh3na0/tinymce/5/tinymce.min.js",
         referrerpolicy: "origin",
       },
     ];
@@ -207,7 +204,7 @@ module.exports = function (app) {
       url: "/admin",
       scriptInicial: scriptInicial,
       bootStyle: bootStyle,
-      menu:true,
+      menu: true,
       tiny: tiny,
     });
   });
@@ -234,8 +231,7 @@ module.exports = function (app) {
       //console.log(page);
       let bootStyle = [
         {
-          href:
-            "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css",
+          href: "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css",
         },
       ];
       let style = [
@@ -252,8 +248,7 @@ module.exports = function (app) {
       ];
       let tiny = [
         {
-          src:
-            "https://cdn.tiny.cloud/1/q2wc0wvoeizxrqmq7o9ev0r9zms41ac4rb5eihoawlsh3na0/tinymce/5/tinymce.min.js",
+          src: "https://cdn.tiny.cloud/1/q2wc0wvoeizxrqmq7o9ev0r9zms41ac4rb5eihoawlsh3na0/tinymce/5/tinymce.min.js",
           referrerpolicy: "origin",
         },
       ];
@@ -290,12 +285,11 @@ module.exports = function (app) {
         url: "/admin/blog",
         tiny: tiny,
         scriptInicial: scriptInicial,
-        menu:true,
+        menu: true,
         bootStyle: bootStyle,
       });
     });
   });
-
 
   //Create Book Recomendation
   app.get("/admin/libros", isAuthenticated, (req, res) => {
@@ -319,8 +313,7 @@ module.exports = function (app) {
       //console.log(page);
       let bootStyle = [
         {
-          href:
-            "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css",
+          href: "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css",
         },
       ];
       let style = [
@@ -337,8 +330,7 @@ module.exports = function (app) {
       ];
       let tiny = [
         {
-          src:
-            "https://cdn.tiny.cloud/1/q2wc0wvoeizxrqmq7o9ev0r9zms41ac4rb5eihoawlsh3na0/tinymce/5/tinymce.min.js",
+          src: "https://cdn.tiny.cloud/1/q2wc0wvoeizxrqmq7o9ev0r9zms41ac4rb5eihoawlsh3na0/tinymce/5/tinymce.min.js",
           referrerpolicy: "origin",
         },
       ];
@@ -375,9 +367,72 @@ module.exports = function (app) {
         url: "/admin/libros",
         tiny: tiny,
         scriptInicial: scriptInicial,
-        menu:true,
+        menu: true,
         bootStyle: bootStyle,
       });
+    });
+  });
+
+  //Create Tweet Schedule
+  app.get("/admin/tweet", isAuthenticated, (req, res) => {
+    let bootStyle = [
+      {
+        href: "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css",
+      },
+    ];
+    let style = [
+      {
+        style:
+          "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css",
+      },
+      { style: "/assets/dist/css/sidemenu.css" },
+    ];
+    let scriptInicial = [
+      {
+        jsfile: "https://code.jquery.com/jquery.js",
+      },
+    ];
+    let tiny = [
+      {
+        src: "https://cdn.tiny.cloud/1/q2wc0wvoeizxrqmq7o9ev0r9zms41ac4rb5eihoawlsh3na0/tinymce/5/tinymce.min.js",
+        referrerpolicy: "origin",
+      },
+    ];
+    let jsarchivo = [
+      {
+        jsfile:
+          "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js",
+        integrity:
+          "sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut",
+        crossorigin: "anonymous",
+      },
+      {
+        jsfile:
+          "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js",
+        integrity:
+          "sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k",
+        crossorigin: "anonymous",
+      },
+    ];
+    let jsfile = [
+      { jsfile: "/assets/dist/js/pagination.js" },
+      { jsfile: "/assets/dist/js/bootstrap-notify.js" },
+      {
+        jsfile:
+          "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js",
+      },
+      { jsfile: "/assets/dist/js/admin.js" },
+    ];
+    res.render("admin", {
+      style: style,
+      tweetAdmin: true,
+      jsfile: jsfile,
+      jsarchivo: jsarchivo,
+      url: "/admin/tweet",
+      tiny: tiny,
+      scriptInicial: scriptInicial,
+      menu: true,
+      bootStyle: bootStyle,
     });
   });
 
@@ -386,8 +441,7 @@ module.exports = function (app) {
   app.get("/admin/images", isAuthenticated, (req, res) => {
     let bootStyle = [
       {
-        href:
-          "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css",
+        href: "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css",
       },
     ];
     let style = [
@@ -399,8 +453,7 @@ module.exports = function (app) {
     ];
     let tiny = [
       {
-        src:
-          "https://cdn.tiny.cloud/1/q2wc0wvoeizxrqmq7o9ev0r9zms41ac4rb5eihoawlsh3na0/tinymce/5/tinymce.min.js",
+        src: "https://cdn.tiny.cloud/1/q2wc0wvoeizxrqmq7o9ev0r9zms41ac4rb5eihoawlsh3na0/tinymce/5/tinymce.min.js",
         referrerpolicy: "origin",
       },
     ];
@@ -437,7 +490,7 @@ module.exports = function (app) {
       jsarchivo: jsarchivo,
       scriptInicial: scriptInicial,
       tiny: tiny,
-      menu:true,
+      menu: true,
       bootStyle: bootStyle,
     });
   });
@@ -447,8 +500,7 @@ module.exports = function (app) {
     let alert = req.flash("error");
     let bootStyle = [
       {
-        href:
-          "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css",
+        href: "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css",
       },
     ];
     let style = [
@@ -501,7 +553,7 @@ module.exports = function (app) {
       jsarchivo: jsarchivo,
       url: "/admin/images",
       scriptInicial: scriptInicial,
-      menu:true,
+      menu: true,
       bootStyle: bootStyle,
     });
   });
@@ -512,8 +564,7 @@ module.exports = function (app) {
     //console.log(alert);
     let bootStyle = [
       {
-        href:
-          "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css",
+        href: "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css",
       },
     ];
     let style = [
@@ -559,7 +610,7 @@ module.exports = function (app) {
       jsarchivo: jsarchivo,
       url: "/signup",
       scriptInicial: scriptInicial,
-      menu:true,
+      menu: true,
       bootStyle: bootStyle,
     });
   });
@@ -569,8 +620,7 @@ module.exports = function (app) {
     const { token } = req.params;
     let bootStyle = [
       {
-        href:
-          "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css",
+        href: "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css",
       },
     ];
     let style = [
@@ -627,8 +677,7 @@ module.exports = function (app) {
         };
         let bootStyle = [
           {
-            href:
-              "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css",
+            href: "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css",
           },
         ];
         let style = [{ style: "/assets/dist/css/blog.css" }];
@@ -687,8 +736,7 @@ module.exports = function (app) {
         };
         let bootStyle = [
           {
-            href:
-              "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css",
+            href: "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css",
           },
         ];
         let style = [{ style: "/assets/dist/css/blog.css" }];
@@ -709,7 +757,6 @@ module.exports = function (app) {
         });
       });
   });
-
 
   // Cookies
   app.get("/cookies", function (req, res) {

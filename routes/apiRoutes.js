@@ -1337,4 +1337,61 @@ module.exports = function (app) {
         res.send({ message: "Error de servidor", alert: "Error", err: err });
       });
   });
+
+  //Add Tweet
+  app.post("/add-tweet", isAuthenticated, (req, res) => {
+    const { title, tweet, schedule_date } = req.body;
+    //console.log(schedule_date);
+    db.Tweet.create({
+      title: title,
+      tweet: tweet,
+      schedule_date: schedule_date,
+    })
+      .then((tweetStored) => {
+        if (!tweetStored) {
+          res.send({
+            message: "No se ha podido crear el tweet",
+            alert: "Error",
+          });
+        } else {
+          res.send({
+            message: "Tweet Creado correctamente",
+            alert: "Success",
+            tweet: tweetStored,
+          });
+        }
+      })
+      .catch((err) => {
+        res.send({ message: "Error de servidor", alert: "Error", error: err });
+        console.log(err);
+      });
+  });
+
+  //Get All Tweets
+  app.get("/get-all-tweets", (req, res) => {
+    db.Tweet.findAndCountAll({
+      order: [["schedule_date", "DESC"]],
+    })
+      .then((tweetStored) => {
+        if (!tweetStored) {
+          res.send({
+            message: "No se ha encontrado ningun tweet",
+            alert: "Error",
+          });
+        } else {
+          res.send({
+            total: tweetStored.count,
+            data: tweetStored.rows,
+          });
+        }
+      })
+      .catch((err) => {
+        res.send({
+          message: "Error del servidor",
+          alert: "Error",
+          error: err,
+        });
+        console.log(err)
+      });
+  });
 };

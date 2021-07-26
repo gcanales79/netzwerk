@@ -40,6 +40,12 @@
                     Libros
                 </a>
             </li>
+             <li {{#if tweetAdmin}}class="active" {{/if}}>
+                <a href="/admin/tweet">
+                    <i class="fab fa-twitter"></i>
+                    Tweets
+                </a>
+            </li>
             <li {{#if imageAdmin}}class="active" {{/if}}>
                 <a href="/admin/images">
                     <i class="fas fa-camera-retro"></i>
@@ -63,6 +69,10 @@
         
         {{#if libroAdmin}}
         {{>libroAdmin}}
+        {{/if}}
+
+         {{#if tweetAdmin}}
+        {{>tweetAdmin}}
         {{/if}}
 
         {{#if imageAdmin}}
@@ -110,6 +120,7 @@
 {{>modalTwitter}}
 {{>modalImage}}
 {{>modalConfirmDelete}}
+{{>modalTweet}}
 
 <!--Modal Nuevo Libro-->
 {{>modalLibro}}

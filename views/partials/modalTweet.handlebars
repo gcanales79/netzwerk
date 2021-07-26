@@ -1,0 +1,68 @@
+<div class="modal fadeIn" id="modalTweetCenter" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" id="modalTweetDialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTweetLongTitle"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modalTweetBody">
+                <form role="form" class="needs-validation" id="tweetMain" novalidate>
+                    <div class="row g-3 form-group">
+                        <div class="col-sm-6 d-inline-flex">
+                            <div class="input-icon float-right"><i class="fas fa-book"></i></div>
+                            <div class="input-group">
+
+
+                                <input type="text" class="form-control" id="tituloTweet" placeholder="Titulo" required>
+
+                                <div class="invalid-feedback">
+                                    Falta Título
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 d-inline-flex">
+                            <div class="input-icon"><i class="far fa-clock"></i></div>
+                            <div class="input-group">
+                                <input type="datetime-local" class="form-control" id="fechaTweet"  required>
+
+                                <div class="invalid-feedback">
+                                    Falta Fecha
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-3 form-group">
+                        <div class="col-sm-12 d-inline-flex">
+                            <div class="input-icon float-right"><i class="fab fa-twitter"></i></div>
+                            <div class="input-group">
+
+
+                                <textarea class="form-control" id="contenidoTweet" placeholder="Tweet" rows="5"
+                                    required></textarea>
+
+                                <div class="invalid-feedback">
+                                    Falta Tweet
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+                    <div class="col">
+                        <button type="submit" style="width: 100%" id="createTweet" class="btn btn-primary"></button>
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
