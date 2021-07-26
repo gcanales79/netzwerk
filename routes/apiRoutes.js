@@ -1431,11 +1431,12 @@ module.exports = function (app) {
   app.put("/update-tweet/:id", (req, res) => {
     const { id } = req.params;
     const { title, tweet, schedule_date, complete } = req.body;
+    let fecha=moment.tz(schedule_date,"Europe/Warsaw")
     db.Tweet.update(
       {
         title: title,
         tweet: tweet,
-        schedule_date,
+        schedule_date:fecha,
         complete: complete,
       },
       {
