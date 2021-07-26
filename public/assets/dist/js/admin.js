@@ -1416,7 +1416,7 @@ $(document).ready(function () {
     //console.log(schedule_date)
     let buttonType = $("#modalTweetCenter").attr("type");
     let pageNum = $(this).find("#createTweet").attr("page");
-    let tweetId = $(this).find("#createTweet").attr("libroId");
+    let tweetId = $(this).find("#createTweet").attr("tweetId");
     //console.log(pageNum);
     //console.log(postId);
     if (
@@ -1535,7 +1535,7 @@ $(document).ready(function () {
               //Button Delete
               buttonDelete = $("<button>");
               buttonDelete.attr("type", "button");
-              buttonDelete.attr("class", "btn btn-danger deleteBook");
+              buttonDelete.attr("class", "btn btn-danger deleteTweet");
               buttonDelete.css("margin", "5px");
               buttonDelete.attr("value", data[i].id);
               buttonDelete.attr("page", pagination.pageNumber);
@@ -1557,6 +1557,90 @@ $(document).ready(function () {
       });
     }
   }
+
+  //Abrir el Modal Para Borrar un Tweet
+
+  $(document).on("click", ".deleteTweet", function (event) {
+    event.preventDefault();
+    let tweetId = $(this).attr("value");
+    let pageNum = $(this).attr("page");
+    $.get(`/get-tweet-id/${tweetId}`, () => {}).then((data) => {
+      const { tweet } = data;
+      //console.log(post);
+      buttonBorrarTweet(tweetId, pageNum);
+      $("#adminModalCenter").modal("show");
+      clearUserForm();
+      $("#adminModalLongTitle").text("Borrar Tweet");
+      $("#modalBodyAlert").css("display", "inline-block");
+      $("#modalBodyAlert").text(
+        `Seguro que quieres borrar el Tweet ${tweet.title}`
+      );
+    });
+  });
+
+  //Crear boton Borrar Libro
+  function buttonBorrarTweet(tweetId, pageNum) {
+    $("#modalFooter").empty();
+
+    //Boton Cerrar
+    let buttonClose = $("<button>");
+    buttonClose.attr("class", "btn btn-secondary");
+    buttonClose.attr("data-dismiss", "modal");
+    buttonClose.text("Cerrar");
+    $("#modalFooter").append(buttonClose);
+
+    //Boton Borrar
+    let buttonBorrar = $("<button>");
+    buttonBorrar.attr("class", "btn btn-danger");
+    buttonBorrar.attr("id", "buttonBorrarTweet");
+    buttonBorrar.text("Eliminar");
+    buttonBorrar.attr("value", tweetId);
+    buttonBorrar.attr("page", pageNum);
+    $("#modalFooter").append(buttonBorrar);
+  }
+
+  //Confirmar Borrar Tweet
+  $(document).on("click", "#buttonBorrarTweet", function (event) {
+    event.preventDefault();
+    let tweetId = $(this).attr("value");
+    let pageNum = $(this).attr("page");
+    $.ajax({
+      url: `/delete-tweet/${tweetId}`,
+      type: "DELETE",
+      contentType: "application/json",
+      success: function (data) {
+        //console.log(data)
+        $("#adminModalCenter").modal("hide");
+        notificationToast(data.alert, data.message);
+        //console.log("Usuario borrado");
+        paginationTweet(pageNum);
+      },
+    });
+  });
+
+  //Abrir Modal para Editar Libro
+  $(document).on("click", ".editTweet", function (event) {
+    event.preventDefault();
+    let pageNum = $(this).attr("page");
+    let tweetId = $(this).attr("value");
+    
+    $.get(`/get-tweet-id/${tweetId}`, () => {}).then((data) => {
+      const { tweet } = data;
+      //console.log(tweet)
+      let fecha=moment(tweet.schedule_date).format("YYYY-MM-DDTHH:mm")
+      //console.log(fecha)
+      //console.log(libro);
+      $("#modalTweetLongTitle").text("Actualizar Tweet");
+      $("#createTweet").text("Actualizar Tweet");
+      $("#createTweet").attr("tweetId", tweetId);
+      $("#createTweet").attr("page", pageNum);
+      $("#modalTweetCenter").attr("type", "Update");
+      $("#tituloTweet").val(tweet.title);
+      $("#fechaTweet").val(fecha);
+      $("#contenidoTweet").val(tweet.tweet);
+      $("#modalTweetCenter").modal("show");
+    });
+  });
 
   //Notification Function
 

@@ -19,6 +19,7 @@ const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 const imagemin = require("imagemin");
 const imageminWebp = require("imagemin-webp");
+var moment = require("moment-timezone");
 
 module.exports = function (app) {
   //JWT
@@ -1341,11 +1342,12 @@ module.exports = function (app) {
   //Add Tweet
   app.post("/add-tweet", isAuthenticated, (req, res) => {
     const { title, tweet, schedule_date } = req.body;
+    let fecha=moment.tz(schedule_date,"Europe/Warsaw")
     //console.log(schedule_date);
     db.Tweet.create({
       title: title,
       tweet: tweet,
-      schedule_date: schedule_date,
+      schedule_date: fecha,
     })
       .then((tweetStored) => {
         if (!tweetStored) {
@@ -1368,7 +1370,7 @@ module.exports = function (app) {
   });
 
   //Get All Tweets
-  app.get("/get-all-tweets", (req, res) => {
+  app.get("/get-all-tweets", isAuthenticated, (req, res) => {
     db.Tweet.findAndCountAll({
       order: [["schedule_date", "DESC"]],
     })
@@ -1391,7 +1393,134 @@ module.exports = function (app) {
           alert: "Error",
           error: err,
         });
+        console.log(err);
+      });
+  });
+
+  //Get Tweets before the hour
+  app.get("/to-send-tweets/:startinghour", (req, res) => {
+    const { startinghour } = req.params;
+    let fechaInicial = moment.unix(startinghour).format("YYYY-MM-DD HH:mm");
+    db.Tweet.findAll({
+      where: {
+        [Op.and]: {
+          schedule_date: {
+            [Op.lte]: fechaInicial,
+          },
+          complete: {
+            [Op.eq]: false,
+          },
+        },
+      },
+    })
+      .then((data) => {
+        console.log(data);
+        if (data.length <= 0) {
+          res.send({ data: "No se ha encontrado ningun Tweet para mandar" });
+        } else {
+          res.json(data);
+          console.log(data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+
+  //Update Tweet
+  app.put("/update-tweet/:id", (req, res) => {
+    const { id } = req.params;
+    const { title, tweet, schedule_date, complete } = req.body;
+    db.Tweet.update(
+      {
+        title: title,
+        tweet: tweet,
+        schedule_date,
+        complete: complete,
+      },
+      {
+        where: {
+          id: id,
+        },
+      }
+    )
+      .then((updateTweet) => {
+        if (updateTweet[0] === 0) {
+          res.send({
+            message: "No se ha encontrado ningun tweet",
+            alert: "Error",
+          });
+        } else {
+          res.send({
+            message: "Tweet actualizado correctamente",
+            alert: "Success",
+          });
+        }
+      })
+      .catch((err) => {
+        res.send({ message: "Error del servidor", alert: "Error", error: err });
+        console.log(err);
+      });
+  });
+
+  //Delete Tweeet
+  app.delete("/delete-tweet/:id", isAuthenticated, (req, res) => {
+    const { id } = req.params;
+    db.Tweet.destroy({
+      where: {
+        id: id,
+      },
+    })
+      .then((tweetDeleted) => {
+        //console.log(userDeleted);
+        if (!tweetDeleted) {
+          res.send({
+            message: "Tweet no encontrado",
+            alert: "Error",
+          });
+        } else {
+          res.send({
+            message: "Tweet eliminado correctamente",
+            alert: "Success",
+          });
+        }
+      })
+      .catch((err) => {
+        res.send({ message: "Error de servidor", alert: "Error", err: err });
+        console.log(err);
+      });
+  });
+
+  //Get Specific Tweet by id
+  app.get("/get-tweet-id/:id", (req, res) => {
+    const { id } = req.params;
+    db.Tweet.findOne({
+      where: {
+        id: id,
+      },
+    })
+      .then((tweetStored) => {
+        if (!tweetStored) {
+          res.send({
+            message: "No se ha encontrado ningun libro",
+            alert: "Error",
+          });
+        } else {
+          res.send({
+            tweet: tweetStored,
+            alert: "Success",
+          });
+        }
+      })
+      .catch((err) => {
+        res.send({
+          message: "Error del servidor",
+          alert: "Error",
+          error: err,
+        });
         console.log(err)
       });
   });
+
+  
 };
