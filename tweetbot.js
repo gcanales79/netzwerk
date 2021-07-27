@@ -3,10 +3,10 @@ var moment = require("moment-timezone");
 const axios = require("axios");
 var Twitter = require("twitter");
 var client = new Twitter({
-  consumer_key: process.env.TWITTER_CONSUMER_KEY,
-  consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
-  access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
-  access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
+  consumer_key: process.env.TWITTER_API_KEY,
+  consumer_secret: process.env.TWITTER_API_SECRET_KEY,
+  access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEYN,
+  access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRETN,
 });
 
 let fecha = moment().tz("Europe/Warsaw").format("X");

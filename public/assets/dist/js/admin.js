@@ -1495,7 +1495,7 @@ $(document).ready(function () {
             newItem = $("<li>");
             newItem.attr(
               "class",
-              "list-group-item d-flex justify-content-around align-items-start"
+              "list-group-item d-flex justify-content-center"
             );
             divTitle = $("<div>");
             divTitle.text(data[i].title);

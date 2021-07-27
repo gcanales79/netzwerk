@@ -44,6 +44,11 @@
   max-width: 150px;
 }
 
+.title-row{
+  font-weight: bold;
+  border-bottom: 1px solid black;
+}
+
 .alert-minimalist {
   background-color: rgb(241, 242, 240);
   border-color: rgba(149, 149, 149, 0.3);
