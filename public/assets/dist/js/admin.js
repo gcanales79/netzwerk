@@ -1642,6 +1642,12 @@ $(document).ready(function () {
     });
   });
 
+  //Contar caracteres
+  $("#contenidoTweet").keyup(function(){
+    let char= $("#contenidoTweet").val().length;
+    $("#chaCount").text(`Num. Caracteres: ${char}`)    
+  })
+
   //Notification Function
 
   function notificationToast(result, message) {

@@ -1428,7 +1428,7 @@ module.exports = function (app) {
   });
 
   //Update Tweet
-  app.put("/update-tweet/:id", (req, res) => {
+  app.put("/update-tweet/:id",isAuthenticated, (req, res) => {
     const { id } = req.params;
     const { title, tweet, schedule_date, complete } = req.body;
     let fecha=moment.tz(schedule_date,"Europe/Warsaw")
