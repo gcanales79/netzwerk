@@ -78,6 +78,10 @@
   margin: 10px;
 }
 
+table td {
+  border-top: none !important;
+}
+
 /*
     DEMO STYLE
 */

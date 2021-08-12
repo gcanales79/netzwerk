@@ -1492,7 +1492,7 @@ $(document).ready(function () {
         callback: function (data, pagination) {
           $("#tweetList").empty();
           for (let i = 0; i < data.length; i++) {
-            newItem = $("<li>");
+            /*newItem = $("<li>");
             newItem.attr(
               "class",
               "list-group-item d-flex justify-content-center"
@@ -1552,6 +1552,60 @@ $(document).ready(function () {
             newItem.append(newDiv);
             //Append Item to List
             $("#tweetList").append(newItem);
+            */
+           newItem=$("<tr>")
+           titleTweet=$("<td>")
+           titleTweet.text(data[i].title);
+           fechaTweet=$("<td>")
+           let fecha = moment(data[i].schedule_date).format(
+            "DD-MM-YYYY hh:mm a"
+          );
+           fechaTweet.text(fecha)
+           actionTweet = $("<td>");
+            if (data[i].complete) {
+              //Button Tweet
+              buttonTweet = $("<button>");
+              buttonTweet.attr("type", "button");
+              buttonTweet.attr("class", "btn btn-success");
+              buttonTweet.css("margin", "5px");
+              buttonTweet.attr("value", data[i].id);
+              buttonTweet.attr("page", pagination.pageNumber);
+              tweetIcon = $("<i>");
+              tweetIcon.attr("class", "fab fa-twitter-square");
+              buttonTweet.append(tweetIcon);
+              //Append Icons to Div
+              actionTweet.append(buttonTweet);
+            } else {
+              //Button Edit
+              buttonEdit = $("<button>");
+              buttonEdit.attr("type", "button");
+              buttonEdit.attr("class", "btn btn-primary editTweet");
+              buttonEdit.css("margin", "5px");
+              buttonEdit.attr("value", data[i].id);
+              buttonEdit.attr("page", pagination.pageNumber);
+              editIcon = $("<i>");
+              editIcon.attr("class", "fas fa-edit");
+              buttonEdit.append(editIcon);
+              //Button Delete
+              buttonDelete = $("<button>");
+              buttonDelete.attr("type", "button");
+              buttonDelete.attr("class", "btn btn-danger deleteTweet");
+              buttonDelete.css("margin", "5px");
+              buttonDelete.attr("value", data[i].id);
+              buttonDelete.attr("page", pagination.pageNumber);
+              deleteIcon = $("<i>");
+              deleteIcon.attr("class", "fas fa-trash-alt");
+              buttonDelete.append(deleteIcon);
+              //Append Icons to Div
+              actionTweet.append(buttonEdit);
+              actionTweet.append(buttonDelete);
+            }
+            newItem.append(titleTweet)
+            newItem.append(fechaTweet);
+            newItem.append(actionTweet);
+            //Append Item to Tweet
+            $("#tweetList").append(newItem);
+           
           }
         },
       });
