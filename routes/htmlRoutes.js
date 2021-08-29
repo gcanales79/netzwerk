@@ -1,5 +1,6 @@
 var db = require("../models");
 var isAuthenticated = require("../config/middleware/isAuthenticated");
+var ensureTotp = require("../config/middleware/ensureTotp");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 const queryString = require("query-string");
@@ -142,7 +143,8 @@ module.exports = function (app) {
   });
 
   //Admin Page page
-  app.get("/admin", isAuthenticated, (req, res) => {
+  app.get("/admin", isAuthenticated, ensureTotp, (req, res) => {
+    console.log(req.user);
     let bootStyle = [
       {
         href: "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css",
@@ -210,7 +212,7 @@ module.exports = function (app) {
   });
 
   //Blog Creation Page
-  app.get("/admin/blog", isAuthenticated, (req, res) => {
+  app.get("/admin/blog", isAuthenticated, ensureTotp, (req, res) => {
     let page = 1;
     if (req.query.page) {
       page = req.query.page;
@@ -292,7 +294,7 @@ module.exports = function (app) {
   });
 
   //Create Book Recomendation
-  app.get("/admin/libros", isAuthenticated, (req, res) => {
+  app.get("/admin/libros", isAuthenticated, ensureTotp,(req, res) => {
     let page = 1;
     if (req.query.page) {
       page = req.query.page;
@@ -374,7 +376,7 @@ module.exports = function (app) {
   });
 
   //Create Tweet Schedule
-  app.get("/admin/tweet", isAuthenticated, (req, res) => {
+  app.get("/admin/tweet", isAuthenticated,ensureTotp, (req, res) => {
     let bootStyle = [
       {
         href: "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css",
@@ -438,7 +440,7 @@ module.exports = function (app) {
 
   //Image Upload Page
 
-  app.get("/admin/images", isAuthenticated, (req, res) => {
+  app.get("/admin/images", isAuthenticated, ensureTotp,(req, res) => {
     let bootStyle = [
       {
         href: "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css",
@@ -555,6 +557,71 @@ module.exports = function (app) {
       scriptInicial: scriptInicial,
       menu: true,
       bootStyle: bootStyle,
+    });
+  });
+
+  //2FA Page
+  app.get("/verification", isAuthenticated, (req, res) => {
+    let alert = req.flash("error");
+    let bootStyle = [
+      {
+        href: "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css",
+      },
+    ];
+    let style = [
+      {
+        style:
+          "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css",
+      },
+      { style: "/assets/dist/css/login.css" },
+      { style: "/assets/dist/css/verification.css" },
+    ];
+    let scriptInicial = [
+      {
+        jsfile: "https://code.jquery.com/jquery.js",
+      },
+    ];
+    let jsarchivo = [
+      {
+        jsfile:
+          "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js",
+        integrity:
+          "sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut",
+        crossorigin: "anonymous",
+      },
+      {
+        jsfile:
+          "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js",
+        integrity:
+          "sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k",
+        crossorigin: "anonymous",
+      },
+    ];
+    let jsfile = [
+      {
+        jsfile: "/assets/dist/js/bootstrap-notify.js",
+      },
+      {
+        jsfile:
+          "https://www.google.com/recaptcha/api.js?render=6LcP6XYaAAAAAB0SXo9Dmt7n2xuuB1VJaD6QJ2Hf",
+      },
+      { jsfile: "/assets/dist/js/verification.js" },
+    ];
+    console.log(alert);
+    res.render("verification", {
+      style: style,
+      alerta: alert,
+      title: "Sign in",
+      title2: "Sign up",
+      link: "/signup",
+      buttonTitle: "Login",
+      jsfile: jsfile,
+      jsarchivo: jsarchivo,
+      url: "/admin/images",
+      scriptInicial: scriptInicial,
+      menu: true,
+      bootStyle: bootStyle,
+      userId:req.user.id,
     });
   });
 
@@ -709,7 +776,7 @@ module.exports = function (app) {
   });
 
   //Preview Post Test
-  app.get("/admin/:url", isAuthenticated, (req, res) => {
+  app.get("/admin/:url", isAuthenticated, ensureTotp,(req, res) => {
     const { url } = req.params;
     db.Blog.findOne({
       where: {

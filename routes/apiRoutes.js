@@ -20,6 +20,8 @@ const Op = Sequelize.Op;
 const imagemin = require("imagemin");
 const imageminWebp = require("imagemin-webp");
 var moment = require("moment-timezone");
+const speakeasy = require("speakeasy");
+const qrcode = require("qrcode");
 
 module.exports = function (app) {
   //JWT
@@ -65,8 +67,9 @@ module.exports = function (app) {
   });
 
   //Login
-  app.get("/signin", function (req, res, next) {
-    const { token } = req.query;
+  app.post("/signin", function (req, res, next) {
+    //console.log(req.query)
+    const { token } = req.body;
     //console.log(token)
     const secret_key = process.env.SECRET_KEY_RECAPTCHA;
     const url = `https://www.google.com/recaptcha/api/siteverify?secret=${secret_key}&response=${token}`;
@@ -84,19 +87,20 @@ module.exports = function (app) {
             if (!user) {
               res.send({ message: info.message, alert: "Error" });
             }
+
             req.logIn(user, function (err) {
               if (err) {
+                console.log(err);
+              } else {
+                //console.log(user)
                 res.send({
-                  message: "Error de servidor",
-                  alert: "Error",
+                  message: "Usuario correcto",
+                  alert: "Success",
+                  accessToken: jwt.createAccessToken(user),
+                  refreshToken: jwt.createRefreshToken(user),
+                  redirect: "/admin",
                 });
               }
-              res.send({
-                message: "Usuario correcto",
-                alert: "Success",
-                accessToken: jwt.createAccessToken(user),
-                refreshToken: jwt.createRefreshToken(user),
-              });
             });
           })(req, res, next);
         } else {
@@ -360,7 +364,15 @@ module.exports = function (app) {
       where: {
         active: query.active,
       },
-      attributes: ["id", "email", "role", "active"],
+      attributes: [
+        "id",
+        "email",
+        "role",
+        "active",
+        "twofa",
+        "temp_secret",
+        "permanent_secret",
+      ],
     })
       .then((users) => {
         if (users.length == 0) {
@@ -377,13 +389,14 @@ module.exports = function (app) {
   //Activate User
   app.put("/activate-user/:id", isAuthenticated, (req, res) => {
     const { id } = req.params;
-    const { email, active, role, password } = req.body;
+    const { email, active, role, password, twofa } = req.body;
     db.User.update(
       {
         email: email,
         active: active,
         role: role,
         password: password,
+        twofa: twofa,
       },
       {
         where: {
@@ -424,7 +437,15 @@ module.exports = function (app) {
       where: {
         id: id,
       },
-      attributes: ["id", "email", "role", "active"],
+      attributes: [
+        "id",
+        "email",
+        "role",
+        "active",
+        "twofa",
+        "temp_secret",
+        "permanent_secret",
+      ],
     }).then((userStore) => {
       if (!userStore) {
         res.send({
@@ -436,6 +457,127 @@ module.exports = function (app) {
           message: "Usuario correcto",
           alert: "Success",
           user: userStore,
+        });
+      }
+    });
+  });
+
+  //Activate FA
+  app.get("/activate-fa/:id", isAuthenticated, (req, res) => {
+    const { id } = req.params;
+    db.User.findOne({
+      where: {
+        id: id,
+      },
+      attributes: [
+        "id",
+        "email",
+        "role",
+        "active",
+        "twofa",
+        "temp_secret",
+        "permanent_secret",
+      ],
+    }).then((userStore) => {
+      if (userStore.twofa) {
+        res.send({
+          action: "Disable",
+        });
+      } else {
+        var secret = speakeasy.generateSecret({
+          name: "Netzwerk",
+        });
+        qrcode.toDataURL(secret.otpauth_url, function (err, data) {
+          if (err) {
+            console.log(err);
+          } else {
+            //console.log(data);
+            //console.log(secret)
+            res.send({
+              action: "Enable",
+              qrcode: data,
+              ascii: secret.ascii,
+            });
+          }
+        });
+      }
+    });
+  });
+
+  //Confirm FA
+  app.post("/fa-validate/:id", isAuthenticated, (req, res) => {
+    const { id } = req.params;
+    const { ascii, code } = req.body;
+    let verified = speakeasy.totp.verify({
+      secret: ascii,
+      encoding: "ascii",
+      token: code,
+    });
+    if (verified) {
+      db.User.update(
+        {
+          permanent_secret: ascii,
+          twofa: true,
+        },
+        {
+          where: {
+            id: id,
+          },
+        }
+      )
+        .then((userStore) => {
+          //console.log(userStore);
+          if (userStore[0] === 0) {
+            res.send({
+              message: "Usuario no encontrado",
+              alert: "Error",
+            });
+          } else {
+            res.send({
+              message: "Usuario actualizado correctamente",
+              alert: "Success",
+            });
+          }
+        })
+        .catch((err) => {
+          res.send({ message: "Error del servidor" });
+        });
+    } else {
+      res.send({
+        message: "Codigo de Verificacion Incorrecto",
+        alert: "Error",
+      });
+    }
+  });
+
+  //Validate FA
+  app.post("/fa-validation/:id", isAuthenticated, (req, res) => {
+    const { id } = req.params;
+    const { code } = req.body;
+    db.User.findOne({
+      where: {
+        id: id,
+      },
+    }).then((userStored) => {
+      const { permanent_secret } = userStored;
+      let verified = speakeasy.totp.verify({
+        secret: permanent_secret,
+        encoding: "ascii",
+        token: code,
+      });
+      //console.log(verified);
+      if (verified) {
+        req.user.twofa_valid=true;
+        res.send({
+          message: "Código correcto",
+          alert: "Success",
+          redirect: "/admin",
+        });
+      } else {
+        res.send({
+          message: "Código Incorrecto",
+          alert: "Error",
+          redirect: "/admin",
         });
       }
     });
@@ -1342,7 +1484,7 @@ module.exports = function (app) {
   //Add Tweet
   app.post("/add-tweet", isAuthenticated, (req, res) => {
     const { title, tweet, schedule_date } = req.body;
-    let fecha=moment.tz(schedule_date,"Europe/Warsaw")
+    let fecha = moment.tz(schedule_date, "Europe/Warsaw");
     //console.log(schedule_date);
     db.Tweet.create({
       title: title,
@@ -1431,12 +1573,12 @@ module.exports = function (app) {
   app.put("/update-tweet/:id", (req, res) => {
     const { id } = req.params;
     const { title, tweet, schedule_date, complete } = req.body;
-    let fecha=moment.tz(schedule_date,"Europe/Warsaw")
+    let fecha = moment.tz(schedule_date, "Europe/Warsaw");
     db.Tweet.update(
       {
         title: title,
         tweet: tweet,
-        schedule_date:fecha,
+        schedule_date: fecha,
         complete: complete,
       },
       {
@@ -1519,9 +1661,7 @@ module.exports = function (app) {
           alert: "Error",
           error: err,
         });
-        console.log(err)
+        console.log(err);
       });
   });
-
-  
 };

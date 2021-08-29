@@ -38,18 +38,17 @@ $(document).ready(function () {
 
   // loginUser does a post to our "api/login" route and if successful, redirects us the the members page
   function loginUser(email, password, token) {
-    $.get("/signin", {
+    $.post("/signin", {
       email: email,
       password: password,
       token: token,
     }).then((data) => {
       console.log(data);
-
       if (data.alert === "Success") {
         notificationToast(data.alert, data.message);
         localStorage.setItem("ACCESS_TOKEN", data.accessToken);
         localStorage.setItem("REFRESH_TOKEN", data.refreshToken);
-        window.location.href = "./admin";
+        window.location.href = data.redirect;
       } else {
         notificationToast(data.alert, data.message);
       }

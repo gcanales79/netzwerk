@@ -1,0 +1,47 @@
+<div class="modal fadeIn" id="modalFACenter" role="dialog" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" id="modalFADialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalFALongTitle">Activar Autorizacion De Dos Pasos</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modalPostBody">
+                <img id="qrCode">
+
+                <form role="form" class="needs-validation" id="FAMain" novalidate>
+                    <p>Por favor escanea el codigo con Google Auth e inserta el codigo<p>
+                    <div class="row g-3 form-group">
+                        <div class="col-sm-4 d-inline-flex">
+                            <div class="input-icon float-right"><i class="fas fa-qrcode"></i></div>
+
+                            <div class="input-group">
+
+
+                                <input type="text" class="form-control" id="codigoFA"
+                                    placeholder="Codigo de Verificación" required>
+
+                                <div class="invalid-feedback">
+                                    Falta Codigo de Verificación
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+
+                    <div class="col">
+                        <button type="submit" style="width: 100%" id="activateFA"
+                            class="btn btn-primary">Activar</button>
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>

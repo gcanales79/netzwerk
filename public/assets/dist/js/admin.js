@@ -35,7 +35,7 @@ $(document).ready(function () {
       contentType: "application/json",
       data: JSON.stringify(changes),
       success: function (data) {
-        console.log(data);
+        //console.log(data);
         notificationToast(data.alert, data.message);
         getUsers(toggleValue);
       },
@@ -208,10 +208,25 @@ $(document).ready(function () {
       iconEdit.attr("class", "fas fa-edit");
       buttonEdit.append(iconEdit);
 
+      //Boton 2FA
+      let buttonFA = $("<button>");
+      // console.log(users[i])
+      if (users[i].twofa) {
+        buttonFA.attr("class", "btn btn-success buttonTable buttonFA");
+      } else {
+        buttonFA.attr("class", "btn btn-danger buttonTable buttonFA");
+      }
+
+      buttonFA.attr("value", users[i].id);
+      let iconFA = $("<i>");
+      iconFA.attr("class", "fas fa-user-lock");
+      buttonFA.append(iconFA);
+
       //Tabla
       let newtdActions = $("<td>");
       newtdActions.append(buttonEdit);
       newtdActions.append(buttonActive);
+      newtdActions.append(buttonFA);
       newtr.append(newtdId);
       newtr.append(newtdEmail);
       newtr.append(newtdRole);
@@ -259,6 +274,60 @@ $(document).ready(function () {
       $("#bodyTablaUsuarios").append(newtr);
     }
   }
+
+  //Activar FA
+  $(document).on("click", ".buttonFA", function (event) {
+    event.preventDefault();
+    $("#FAMain").removeClass("was-validated");
+    let userId = $(this).attr("value");
+    $.get(`/activate-fa/${userId}`, () => {}).then((data) => {
+      if (data.action === "Disable") {
+        let changes = {
+          twofa: false,
+        };
+        $.ajax({
+          url: `/activate-user/${userId}`,
+          type: "PUT",
+          contentType: "application/json",
+          data: JSON.stringify(changes),
+          success: function (data) {
+            //console.log(data);
+            notificationToast(data.alert, data.message);
+            getUsers(true);
+          },
+        });
+      }
+      if (data.action === "Enable") {
+        //console.log(data)
+        $("#qrCode").attr("src", data.qrcode);
+        $("#activateFA").attr("ascii", data.ascii);
+        $("#activateFA").attr("userId", userId);
+        $("#modalFACenter").modal("show");
+      }
+    });
+  });
+
+  //Submit Code to Activate FA
+  $("#FAMain").submit(function (event) {
+    event.preventDefault();
+    let userId = $(this).find("#activateFA").attr("userId");
+    let ascii = $(this).find("#activateFA").attr("ascii");
+    let code = $("#codigoFA").val().trim();
+    //console.log(ascci)
+    //console.log(code)
+    //console.log(userId)
+    if (code.length !== 0) {
+      $.post(`/fa-validate/${userId}`, {
+        ascii: ascii,
+        code: code,
+      }).then((data) => {
+        $("#modalFACenter").modal("hide");
+        $("#FAMain")[0].reset();
+        notificationToast(data.alert, data.message);
+        getUsers(true);
+      });
+    }
+  });
 
   //Crear boton Borrar Usuario
   function buttonBorrarUsuario(userId) {
@@ -1553,15 +1622,15 @@ $(document).ready(function () {
             //Append Item to List
             $("#tweetList").append(newItem);
             */
-           newItem=$("<tr>")
-           titleTweet=$("<td>")
-           titleTweet.text(data[i].title);
-           fechaTweet=$("<td>")
-           let fecha = moment(data[i].schedule_date).format(
-            "DD-MM-YYYY hh:mm a"
-          );
-           fechaTweet.text(fecha)
-           actionTweet = $("<td>");
+            newItem = $("<tr>");
+            titleTweet = $("<td>");
+            titleTweet.text(data[i].title);
+            fechaTweet = $("<td>");
+            let fecha = moment(data[i].schedule_date).format(
+              "DD-MM-YYYY hh:mm a"
+            );
+            fechaTweet.text(fecha);
+            actionTweet = $("<td>");
             if (data[i].complete) {
               //Button Tweet
               buttonTweet = $("<button>");
@@ -1600,12 +1669,11 @@ $(document).ready(function () {
               actionTweet.append(buttonEdit);
               actionTweet.append(buttonDelete);
             }
-            newItem.append(titleTweet)
+            newItem.append(titleTweet);
             newItem.append(fechaTweet);
             newItem.append(actionTweet);
             //Append Item to Tweet
             $("#tweetList").append(newItem);
-           
           }
         },
       });
@@ -1677,11 +1745,11 @@ $(document).ready(function () {
     event.preventDefault();
     let pageNum = $(this).attr("page");
     let tweetId = $(this).attr("value");
-    
+
     $.get(`/get-tweet-id/${tweetId}`, () => {}).then((data) => {
       const { tweet } = data;
       //console.log(tweet)
-      let fecha=moment(tweet.schedule_date).format("YYYY-MM-DDTHH:mm")
+      let fecha = moment(tweet.schedule_date).format("YYYY-MM-DDTHH:mm");
       //console.log(fecha)
       //console.log(libro);
       $("#modalTweetLongTitle").text("Actualizar Tweet");
@@ -1697,10 +1765,10 @@ $(document).ready(function () {
   });
 
   //Contar caracteres
-  $("#contenidoTweet").keyup(function(){
-    let char= $("#contenidoTweet").val().length;
-    $("#chaCount").text(`Num. Caracteres: ${char}`)    
-  })
+  $("#contenidoTweet").keyup(function () {
+    let char = $("#contenidoTweet").val().length;
+    $("#chaCount").text(`Num. Caracteres: ${char}`);
+  });
 
   //Notification Function
 

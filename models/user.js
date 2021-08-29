@@ -27,6 +27,20 @@ module.exports = function(sequelize, DataTypes) {
         type:DataTypes.BOOLEAN,
         defaultValue:false
     },
+    twofa:{
+      type:DataTypes.BOOLEAN,
+      defaultValue:false
+    },
+    twofa_valid:{
+      type:DataTypes.BOOLEAN,
+      defaultValue:false
+    },
+    temp_secret:{
+      type:DataTypes.STRING,
+    },
+    permanent_secret:{
+      type:DataTypes.STRING,
+    },
     resetPasswordToken:{
       type:DataTypes.STRING,
     },
