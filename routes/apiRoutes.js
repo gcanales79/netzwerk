@@ -370,7 +370,6 @@ module.exports = function (app) {
         "role",
         "active",
         "twofa",
-        "temp_secret",
         "permanent_secret",
       ],
     })
@@ -443,7 +442,6 @@ module.exports = function (app) {
         "role",
         "active",
         "twofa",
-        "temp_secret",
         "permanent_secret",
       ],
     }).then((userStore) => {
@@ -475,7 +473,6 @@ module.exports = function (app) {
         "role",
         "active",
         "twofa",
-        "temp_secret",
         "permanent_secret",
       ],
     }).then((userStore) => {
