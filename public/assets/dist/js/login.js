@@ -4,6 +4,10 @@ $(document).ready(function () {
   var emailInput = $("input#email-input");
   var passwordInput = $("input#password-input");
   var myToken;
+  var signupForm = $("form.signup");
+  var newemailInput = $("input#newemail-input");
+  var newpasswordInput = $("input#newpassword-input");
+  var repeatPassword = $("input#repeatpassword-input");
 
   // When the form is submitted, we validate there's an email and password entered
   loginForm.on("submit", function (event) {
@@ -36,6 +40,25 @@ $(document).ready(function () {
     });
   });
 
+  signupForm.on("submit", function (event) {
+    event.preventDefault();
+    var userData = {
+      email: newemailInput.val().trim(),
+      password: newpasswordInput.val().trim(),
+      repeatPassword:repeatPassword.val().trim(),
+    };
+    if (!userData.email || !userData.password || !userData.repeatPassword) {
+      return;
+    }
+
+    if(userData.password!=userData.repeatPassword){
+      return notificationToast("Error","Las contraseñas no coinciden")
+    }else{
+      signupUser(userData.email,userData.password)
+    }
+
+  });
+
   // loginUser does a post to our "api/login" route and if successful, redirects us the the members page
   function loginUser(email, password, token) {
     $.post("/signin", {
@@ -43,7 +66,7 @@ $(document).ready(function () {
       password: password,
       token: token,
     }).then((data) => {
-      console.log(data);
+      //console.log(data);
       if (data.alert === "Success") {
         notificationToast(data.alert, data.message);
         localStorage.setItem("ACCESS_TOKEN", data.accessToken);
@@ -55,32 +78,49 @@ $(document).ready(function () {
     });
   }
 
-  $("#resetPwd").on("click",function(event){
+  //Sign Up Function
+  function signupUser(email, password) {
+    $.post("/signup", {
+      email: email,
+      password: password,
+    }).then((data) => {
+      //console.log(data);
+      if (data.alert === "Success") {
+        notificationToast(data.alert, data.message);
+        $("#signup-form")[0].reset();
+      } else {
+        notificationToast(data.alert, data.message);
+      }
+    });
+  }
+
+  $("#resetPwd").on("click", function (event) {
     event.preventDefault();
     $("#alertZone").empty();
-    $("#alertZone").removeClass("alert alert-danger")
+    $("#resetForm").removeClass("was-validated");
+    $("#alertZone").removeClass("alert alert-danger");
     $("#forgotEmail").val("");
     $("#modalForgotCenter").modal("show");
-  })
+  });
 
-  $("#resetForm").submit(function(event){
+  $("#resetForm").submit(function (event) {
     event.preventDefault();
-    let email=$("#forgotEmail").val().trim().toLowerCase();
-    if (email.length!=0){
-      $.post("/forgot",{
-        email:email
-      }).then((data)=>{
-        if(data.alert==="Error"){
-          $("#alertZone").addClass("alert alert-danger")
-          $("#alertZone").text(data.message)
+    let email = $("#forgotEmail").val().trim().toLowerCase();
+    if (email.length != 0) {
+      $.post("/forgot", {
+        email: email,
+      }).then((data) => {
+        if (data.alert === "Error") {
+          $("#alertZone").addClass("alert alert-danger");
+          $("#alertZone").text(data.message);
         }
-        if(data.alert==="Success"){
+        if (data.alert === "Success") {
           $("#modalForgotCenter").modal("hide");
-          notificationToast(data.alert, data.message)
+          notificationToast(data.alert, data.message);
         }
-      })
+      });
     }
-  })
+  });
 
   function notificationToast(result, message) {
     switch (result) {
@@ -109,7 +149,7 @@ $(document).ready(function () {
     }
   }
 
-   //Validation of Forms
+  //Validation of Forms
   // Example starter JavaScript for disabling form submissions if there are invalid fields
   (function () {
     "use strict";

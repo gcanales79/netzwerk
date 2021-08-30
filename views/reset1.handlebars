@@ -1,0 +1,34 @@
+<div class="container-fluid">
+    <div class="row justify-content-md-center">
+        <aside class="col-sm-5">
+            <div class="card">
+                <article class="card-body">
+                    <h4 class="card-title mb-4 mt-1">Restablecer Contraseña</h4>
+                    <form role="form" id="resetPwd">
+                        <div class="form-group pass_show">
+                            <label>Nueva Contraseña</label>
+                            <input type="password" value="" id="newPassword" class="form-control"
+                                placeholder="New Password" required>
+                        </div> <!-- form-group// -->
+                        <div class="form-group pass_show">
+                            <label>Confirmar Contraseña</label>
+                            <input type="password" value="" id="confirmPassword" class="form-control"
+                                placeholder="Confirm Password" required>
+                        </div> <!-- form-group// -->
+                        <div class="form-group">
+
+                        </div> <!-- form-group// -->
+                        <div class="form-group">
+                            <button type="submit" value={{token}} id="btnReset"
+                                class="btn btn-primary btn-block">Restablecer Contraseña</button>
+                        </div> <!-- form-group// -->
+                    </form>
+                    <div class="col" id="alertZone">
+                    </div>
+                </article>
+            </div> <!-- card.// -->
+
+        </aside>
+    </div>
+
+</div>

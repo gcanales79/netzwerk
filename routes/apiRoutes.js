@@ -221,7 +221,7 @@ module.exports = function (app) {
             },
           })
             .then((user) => {
-              console.log(user);
+              //console.log(user);
               if (!user) {
                 /*req.flash(
               "error",

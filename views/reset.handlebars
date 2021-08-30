@@ -1,34 +1,30 @@
-<div class="container-fluid">
-    <div class="row justify-content-md-center">
-        <aside class="col-sm-5">
-            <div class="card">
-                <article class="card-body">
-                    <h4 class="card-title mb-4 mt-1">Restablecer Contraseña</h4>
-                    <form role="form" id="resetPwd">
-                        <div class="form-group pass_show">
-                            <label>Nueva Contraseña</label>
-                            <input type="password" value="" id="newPassword" class="form-control"
-                                placeholder="New Password" required>
-                        </div> <!-- form-group// -->
-                        <div class="form-group pass_show">
-                            <label>Confirmar Contraseña</label>
-                            <input type="password" value="" id="confirmPassword" class="form-control"
-                                placeholder="Confirm Password" required>
-                        </div> <!-- form-group// -->
-                        <div class="form-group">
+<div class="login-wrap">
+    <div class="login-html">
+        <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Recuperar
+            Contraseña</label>
+        <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab"></label>
+        <div class="login-form">
+            <form class="sign-in-htm" id="resetPwd" role="form">
+                <div class="group pass_show">
+                    <label for="user" class="label">Nueva Contraseña</label>
+                    <input id="newPassword" type="password" class="input" required>
+                </div>
+                <div class="group pass_show">
+                    <label for="pass" class="label">Confirmar Contraseña</label>
+                    <input id="confirmPassword" type="password" class="input" required>
+                </div>
+                <!--div class="group">
+					<input id="check" type="checkbox" class="check" checked>
+					<label for="check"><span class="icon"></span> Keep me Signed in</label>
+				</div-->
+                <div class="group">
+                    <button type="submit" id="btnReset" value={{token}} class="button">Restablecer Contraseña</button>
+                </div>
+                <div class="hr"></div>
+                <div class="col" id="alertZone">
+                </div>
 
-                        </div> <!-- form-group// -->
-                        <div class="form-group">
-                            <button type="submit" value={{token}} id="btnReset"
-                                class="btn btn-primary btn-block">Restablecer Contraseña</button>
-                        </div> <!-- form-group// -->
-                    </form>
-                    <div class="col" id="alertZone">
-                    </div>
-                </article>
-            </div> <!-- card.// -->
-
-        </aside>
+            </form>
+        </div>
     </div>
-
 </div>

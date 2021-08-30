@@ -5,19 +5,23 @@ $(document).ready(function () {
     event.preventDefault();
     $("#alertZone").empty();
     $("#alertZone").removeClass("alert alert-danger");
+    
     let newPwd = $("#newPassword").val();
     let confirmPwd = $("#confirmPassword").val();
     let token = $("#btnReset").val();
     if (newPwd != confirmPwd) {
-      $("#alertZone").addClass("alert alert-danger");
-      $("#alertZone").text("Las contraseñas no coinciden");
+     
+      notificationToast("Error","Las contraseñas no coinciden");
     } else {
       $.post(`/reset/${token}`, {
         password: newPwd,
         confirm: confirmPwd,
       }).then((data) => {
-        console.log(data)
+        //console.log(data)
         notificationToast(data.alert,data.message);
+        setTimeout(function () {
+          window.location.href = ("/login");
+      }, 2000);
       });
     }
   });
@@ -52,7 +56,7 @@ $(document).ready(function () {
 
 $(document).on("click", ".pass_show .ptxt", function () {
   let oldClass=$(this).attr("class")
-  let newClass=$(this).hasClass("svg-inline--fa fa-eye fa-w-18 ptxt") ? "svg-inline--fa fa-eye-slash fa-w-18 ptxt" : "svg-inline--fa fa-eye fa-w-18 ptxt"
+  let newClass=$(this).hasClass("fas fa-eye ptxt") ? "fas fa-eye-slash ptxt" : "fas fa-eye ptxt"
   $(this).removeClass(oldClass).addClass(newClass)
 
   //$(this).class($(this).hasclass() == "fas fa-eye ptx" ? "fas fa-eye-slash ptx" : "fas fa-eye ptx");
