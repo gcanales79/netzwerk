@@ -45,18 +45,17 @@ $(document).ready(function () {
     var userData = {
       email: newemailInput.val().trim(),
       password: newpasswordInput.val().trim(),
-      repeatPassword:repeatPassword.val().trim(),
+      repeatPassword: repeatPassword.val().trim(),
     };
     if (!userData.email || !userData.password || !userData.repeatPassword) {
       return;
     }
 
-    if(userData.password!=userData.repeatPassword){
-      return notificationToast("Error","Las contraseñas no coinciden")
-    }else{
-      signupUser(userData.email,userData.password)
+    if (userData.password != userData.repeatPassword) {
+      return notificationToast("Error", "Las contraseñas no coinciden");
+    } else {
+      signupUser(userData.email, userData.password);
     }
-
   });
 
   // loginUser does a post to our "api/login" route and if successful, redirects us the the members page
@@ -125,7 +124,7 @@ $(document).ready(function () {
   function notificationToast(result, message) {
     switch (result) {
       case "Success":
-        $.notify(
+        /*$.notify(
           {
             icon: "far fa-check-circle",
             message: message,
@@ -133,10 +132,11 @@ $(document).ready(function () {
           {
             type: "success",
           }
-        );
+        );*/
+        toastr.success(message);
         break;
       case "Error":
-        $.notify(
+        /*$.notify(
           {
             icon: "far fa-times-circle",
             message: message,
@@ -144,7 +144,8 @@ $(document).ready(function () {
           {
             type: "danger",
           }
-        );
+        );*/
+        toastr.error(message);
         break;
     }
   }

@@ -1776,7 +1776,7 @@ $(document).ready(function () {
     //console.log("Entro")
     switch (result) {
       case "Success":
-        $.notify(
+        /*$.notify(
           {
             icon: "far fa-check-circle",
             message: message,
@@ -1784,11 +1784,12 @@ $(document).ready(function () {
           {
             type: "success",
           }
-        );
+        )*/
+        toastr.success(message);
         break;
       case "Error":
         //console.log("Error")
-        $.notify(
+        /*$.notify(
           {
             icon: "far fa-times-circle",
             message: message,
@@ -1796,7 +1797,8 @@ $(document).ready(function () {
           {
             type: "danger",
           }
-        );
+        );*/
+        toastr.error(message);
         break;
     }
   }

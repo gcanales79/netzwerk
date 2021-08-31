@@ -160,6 +160,7 @@ module.exports = function (app) {
           "https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css",
       },
       { style: "/assets/dist/css/sidemenu.css" },
+      { style: "/assets/dist/css/toastr.css" },
     ];
     let tiny = [
       {
@@ -194,6 +195,7 @@ module.exports = function (app) {
         jsfile:
           "https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js",
       },
+      { jsfile: "/assets/dist/js/toastr.js" },
       { jsfile: "/assets/dist/js/admin.js" },
       { jsfile: "/assets/dist/js/pagination.js" },
       { jsfile: "/assets/dist/js/bootstrap-notify.js" },
@@ -242,6 +244,7 @@ module.exports = function (app) {
             "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css",
         },
         { style: "/assets/dist/css/sidemenu.css" },
+        { style: "/assets/dist/css/toastr.css" },
       ];
       let scriptInicial = [
         {
@@ -272,7 +275,7 @@ module.exports = function (app) {
       ];
       let jsfile = [
         { jsfile: "/assets/dist/js/pagination.js" },
-        { jsfile: "/assets/dist/js/bootstrap-notify.js" },
+        { jsfile: "/assets/dist/js/toastr.js" },
         { jsfile: "/assets/dist/js/admin.js" },
       ];
       res.render("admin", {
@@ -294,7 +297,7 @@ module.exports = function (app) {
   });
 
   //Create Book Recomendation
-  app.get("/admin/libros", isAuthenticated, ensureTotp,(req, res) => {
+  app.get("/admin/libros", isAuthenticated, ensureTotp, (req, res) => {
     let page = 1;
     if (req.query.page) {
       page = req.query.page;
@@ -324,6 +327,7 @@ module.exports = function (app) {
             "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css",
         },
         { style: "/assets/dist/css/sidemenu.css" },
+        { style: "/assets/dist/css/toastr.css" },
       ];
       let scriptInicial = [
         {
@@ -354,7 +358,7 @@ module.exports = function (app) {
       ];
       let jsfile = [
         { jsfile: "/assets/dist/js/pagination.js" },
-        { jsfile: "/assets/dist/js/bootstrap-notify.js" },
+        { jsfile: "/assets/dist/js/toastr.js" },
         { jsfile: "/assets/dist/js/admin.js" },
       ];
       res.render("admin", {
@@ -376,7 +380,7 @@ module.exports = function (app) {
   });
 
   //Create Tweet Schedule
-  app.get("/admin/tweet", isAuthenticated,ensureTotp, (req, res) => {
+  app.get("/admin/tweet", isAuthenticated, ensureTotp, (req, res) => {
     let bootStyle = [
       {
         href: "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css",
@@ -388,6 +392,7 @@ module.exports = function (app) {
           "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css",
       },
       { style: "/assets/dist/css/sidemenu.css" },
+      { style: "/assets/dist/css/toastr.css" },
     ];
     let scriptInicial = [
       {
@@ -418,7 +423,7 @@ module.exports = function (app) {
     ];
     let jsfile = [
       { jsfile: "/assets/dist/js/pagination.js" },
-      { jsfile: "/assets/dist/js/bootstrap-notify.js" },
+      { jsfile: "/assets/dist/js/toastr.js" },
       {
         jsfile:
           "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js",
@@ -440,7 +445,7 @@ module.exports = function (app) {
 
   //Image Upload Page
 
-  app.get("/admin/images", isAuthenticated, ensureTotp,(req, res) => {
+  app.get("/admin/images", isAuthenticated, ensureTotp, (req, res) => {
     let bootStyle = [
       {
         href: "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css",
@@ -510,6 +515,7 @@ module.exports = function (app) {
         style:
           "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css",
       },
+      { style: "/assets/dist/css/toastr.css" },
       { style: "/assets/dist/css/login.css" },
     ];
     let scriptInicial = [
@@ -532,8 +538,10 @@ module.exports = function (app) {
           "sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k",
         crossorigin: "anonymous",
       },
+      
     ];
     let jsfile = [
+      { jsfile: "/assets/dist/js/toastr.js" },
       {
         jsfile: "/assets/dist/js/bootstrap-notify.js",
       },
@@ -575,6 +583,7 @@ module.exports = function (app) {
       },
       { style: "/assets/dist/css/login.css" },
       { style: "/assets/dist/css/verification.css" },
+      { style: "/assets/dist/css/toastr.css" },
     ];
     let scriptInicial = [
       {
@@ -598,9 +607,7 @@ module.exports = function (app) {
       },
     ];
     let jsfile = [
-      {
-        jsfile: "/assets/dist/js/bootstrap-notify.js",
-      },
+      { jsfile: "/assets/dist/js/toastr.js" },
       {
         jsfile:
           "https://www.google.com/recaptcha/api.js?render=6LcP6XYaAAAAAB0SXo9Dmt7n2xuuB1VJaD6QJ2Hf",
@@ -621,7 +628,7 @@ module.exports = function (app) {
       scriptInicial: scriptInicial,
       menu: true,
       bootStyle: bootStyle,
-      userId:req.user.id,
+      userId: req.user.id,
     });
   });
 
@@ -640,6 +647,7 @@ module.exports = function (app) {
           "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css",
       },
       { style: "/assets/dist/css/login.css" },
+      { style: "/assets/dist/css/toastr.css" },
     ];
     let scriptInicial = [
       {
@@ -664,7 +672,7 @@ module.exports = function (app) {
     ];
     let jsfile = [
       { jsfile: "/assets/dist/js/login.js" },
-      { jsfile: "/assets/dist/js/bootstrap-notify.js" },
+      { jsfile: "/assets/dist/js/toastr.js" },
     ];
     res.render("signup", {
       style: style,
@@ -696,6 +704,7 @@ module.exports = function (app) {
           "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css",
       },
       { style: "/assets/dist/css/reset.css" },
+      { style: "/assets/dist/css/toastr.css" },
     ];
     let scriptInicial = [
       {
@@ -704,7 +713,7 @@ module.exports = function (app) {
     ];
     let jsfile = [
       { jsfile: "/assets/dist/js/reset.js" },
-      { jsfile: "/assets/dist/js/bootstrap-notify.js" },
+      { jsfile: "/assets/dist/js/toastr.js" },
     ];
     res.render("reset", {
       style: style,
@@ -776,7 +785,7 @@ module.exports = function (app) {
   });
 
   //Preview Post Test
-  app.get("/admin/:url", isAuthenticated, ensureTotp,(req, res) => {
+  app.get("/admin/:url", isAuthenticated, ensureTotp, (req, res) => {
     const { url } = req.params;
     db.Blog.findOne({
       where: {

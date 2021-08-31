@@ -36,8 +36,8 @@ app.use(session({
   saveUninitialized: true,
   resave: 'true',
   httpOnly: "true",
-  sameSite:"true",
-  Secure:"true",
+  sameSite:"none",
+  secure:true,
   secret: 'secret'
 }));
 

@@ -5,23 +5,22 @@ $(document).ready(function () {
     event.preventDefault();
     $("#alertZone").empty();
     $("#alertZone").removeClass("alert alert-danger");
-    
+
     let newPwd = $("#newPassword").val();
     let confirmPwd = $("#confirmPassword").val();
     let token = $("#btnReset").val();
     if (newPwd != confirmPwd) {
-     
-      notificationToast("Error","Las contraseñas no coinciden");
+      notificationToast("Error", "Las contraseñas no coinciden");
     } else {
       $.post(`/reset/${token}`, {
         password: newPwd,
         confirm: confirmPwd,
       }).then((data) => {
         //console.log(data)
-        notificationToast(data.alert,data.message);
+        notificationToast(data.alert, data.message);
         setTimeout(function () {
-          window.location.href = ("/login");
-      }, 2000);
+          window.location.href = "/login";
+        }, 2000);
       });
     }
   });
@@ -29,7 +28,7 @@ $(document).ready(function () {
   function notificationToast(result, message) {
     switch (result) {
       case "Success":
-        $.notify(
+        /* $.notify(
           {
             icon: "far fa-check-circle",
             message: message,
@@ -37,10 +36,11 @@ $(document).ready(function () {
           {
             type: "success",
           }
-        );
+        );*/
+        toastr.success(message);
         break;
       case "Error":
-        $.notify(
+        /*$.notify(
           {
             icon: "far fa-times-circle",
             message: message,
@@ -48,16 +48,19 @@ $(document).ready(function () {
           {
             type: "danger",
           }
-        );
+        );*/
+        toastr.success(message);
         break;
     }
   }
 });
 
 $(document).on("click", ".pass_show .ptxt", function () {
-  let oldClass=$(this).attr("class")
-  let newClass=$(this).hasClass("fas fa-eye ptxt") ? "fas fa-eye-slash ptxt" : "fas fa-eye ptxt"
-  $(this).removeClass(oldClass).addClass(newClass)
+  let oldClass = $(this).attr("class");
+  let newClass = $(this).hasClass("fas fa-eye ptxt")
+    ? "fas fa-eye-slash ptxt"
+    : "fas fa-eye ptxt";
+  $(this).removeClass(oldClass).addClass(newClass);
 
   //$(this).class($(this).hasclass() == "fas fa-eye ptx" ? "fas fa-eye-slash ptx" : "fas fa-eye ptx");
 
@@ -66,6 +69,4 @@ $(document).on("click", ".pass_show .ptxt", function () {
     .attr("type", function (index, attr) {
       return attr == "password" ? "text" : "password";
     });
-
-
 });
