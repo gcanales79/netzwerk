@@ -160,6 +160,7 @@ module.exports = function (app) {
           "https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css",
       },
       { style: "/assets/dist/css/sidemenu.css" },
+      { style: "/assets/dist/css/toogle.css" },
       { style: "/assets/dist/css/toastr.css" },
     ];
     let tiny = [
@@ -538,7 +539,6 @@ module.exports = function (app) {
           "sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k",
         crossorigin: "anonymous",
       },
-      
     ];
     let jsfile = [
       { jsfile: "/assets/dist/js/toastr.js" },

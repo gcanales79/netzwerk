@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "scss": "node-sass --watch public/assets/dist/scss -o public/assets/dist/css"
   },
   "repository": {
     "type": "git",
@@ -43,6 +44,7 @@
     "morgan": "^1.10.0",
     "multer": "^1.4.2",
     "mysql2": "^2.2.5",
+    "node-sass": "^6.0.1",
     "nodemon": "^2.0.7",
     "paginationjs": "^2.1.5",
     "passport": "^0.4.1",

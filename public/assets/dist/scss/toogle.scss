@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css?family=Varela+Round');
+body,
+html,
+span {
+  font-weight:400;
+  font-family: 'Varela Round', sans-serif;
+}
+
+.box {
+  
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+}
+
+.type-checkbox {
+	display: none;
+	+ label {
+		$time: 300ms;
+		display: block;
+		width: 160px;
+		height: 45px;
+		background-color: rgba(6, 214, 160, 1);
+		border-radius: 22px;
+		box-shadow: 0px 0px 25px -3px rgba(0,0,0,0.4);
+		transition: all $time cubic-bezier(0.79,-0.01, 0.36, 1);
+		cursor:pointer;
+		position: relative;
+
+		span {
+			position: absolute;
+			color:white;
+			font-size: 12px;
+      font-family: 'Varela Round', sans-serif;
+		}
+
+		span.aprobado {
+			top:50%;
+			transform:translateY(-50%);
+			left:2.5em;
+			animation:left-check 300ms ease-in-out;
+			@keyframes left-check{
+				0% {
+					opacity: 0;
+					left:5em;
+				}
+				100% {
+					opacity: 1;
+					left:2.5em;
+				}
+			}
+		}
+
+		span.desaprobado {
+			top:50%;
+			transform:translateY(-50%);
+			right:1.3em;
+			display: none;
+			animation:right-check 300ms ease-in-out;
+			@keyframes left-check{
+				0% {
+					opacity: 0;
+					right:5em;
+				}
+				100% {
+					opacity: 1;
+					right:1.3em;
+				}
+			}
+		}
+
+		&:before {
+			display: block;
+			content:"";
+			width: 35px;
+			height: 35px;
+			border-radius: 50%;
+			background-color: white;
+			box-shadow: 0px 0px 25px -3px rgba(0,0,0,0.4);
+			position: relative;
+			top:50%;
+			transform: translateY(-50%);
+			left: 117px;
+			transition: left $time cubic-bezier(0.79,-0.01, 0.36, 1);
+		}
+	}
+
+	&:checked {
+
+		+ label {
+			background-color: rgba(239, 71, 111, 1);
+
+			span.aprobado {
+				display: none;
+			}
+			span.desaprobado {
+				display: block;
+			}
+
+			&:before {
+				left:8px;
+			}
+		}
+	}
+}

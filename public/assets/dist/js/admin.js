@@ -10,10 +10,12 @@ $(document).ready(function () {
   paginationTweet(1);
   //$("#main-nav").addClass("hide-libro");
 
+
+
   //Toggle de Usuarios Activos
-  $("#activosToggle").on("change", function (event) {
+  $("#toogle").on("change", function (event) {
     event.preventDefault();
-    let toggleValue = $("#activosToggle").is(":checked") ? true : false;
+    let toggleValue = $("#toogle").prop("checked") ? false : true;
     console.log(toggleValue);
     getUsers(toggleValue);
   });
@@ -22,7 +24,7 @@ $(document).ready(function () {
   $(document).on("click", ".buttonActive", function (event) {
     event.preventDefault();
     let userId = $(this).attr("value");
-    let toggleValue = $("#activosToggle").is(":checked") ? true : false;
+    let toggleValue = $("#toogle").prop("checked") ? false : true;
     //console.log(userId);
     let changes = {
       active: !toggleValue,
@@ -66,7 +68,7 @@ $(document).ready(function () {
     let userEmail = $("#inputEmail").val().trim();
     let userPassword = $("#inputPassword").val();
     let userRole = $("#selectRole").val();
-    let toggleValue = $("#activosToggle").is(":checked") ? true : false;
+    let toggleValue = $("#toogle").prop("checked") ? false : true;
     $.post("/signup", {
       email: userEmail,
       password: userPassword,
@@ -118,7 +120,7 @@ $(document).ready(function () {
   $(document).on("click", "#buttonEditUser", function (event) {
     let userEmail = $("#inputEmail").val().trim();
     let userRole = $("#selectRole").val();
-    let toggleValue = $("#activosToggle").is(":checked") ? true : false;
+    let toggleValue = $("#toogle").prop("checked") ? false : true;
     let changes = {
       email: userEmail,
       role: userRole,
