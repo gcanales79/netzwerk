@@ -564,7 +564,7 @@ module.exports = function (app) {
       });
       //console.log(verified);
       if (verified) {
-        req.user.twofa_valid=true;
+        req.user.twofa_valid = true;
         res.send({
           message: "Código correcto",
           alert: "Success",
@@ -1632,7 +1632,7 @@ module.exports = function (app) {
   });
 
   //Get Specific Tweet by id
-  app.get("/get-tweet-id/:id", (req, res) => {
+  app.get("/get-tweet-id/:id", isAuthenticated, (req, res) => {
     const { id } = req.params;
     db.Tweet.findOne({
       where: {
@@ -1658,6 +1658,144 @@ module.exports = function (app) {
           alert: "Error",
           error: err,
         });
+        console.log(err);
+      });
+  });
+
+  //Add tracking
+  app.post(
+    "/add-tracking",
+    isAuthenticated,
+    check("phone")
+      .isMobilePhone("", { strictMode: true })
+      .withMessage("No es un telefono valido"),
+    (req, res) => {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        //console.log(errors)
+        let errores = errors.array();
+        return res.send({
+          message: errores[0].msg,
+          alert: "Error",
+        });
+      }
+      const { description, tracking, carrier, phone, status } = req.body;
+      //console.log(schedule_date);
+      db.Pack.create({
+        description: description,
+        tracking: tracking,
+        carrier: carrier,
+        phone: phone,
+        status: status,
+      })
+        .then((trackStored) => {
+          if (!trackStored) {
+            res.send({
+              message: "No se ha podido crear el tracking",
+              alert: "Error",
+            });
+          } else {
+            res.send({
+              message: "Tracking Creado correctamente",
+              alert: "Success",
+              track: trackStored,
+            });
+          }
+        })
+        .catch((err) => {
+          res.send({
+            message: "Error de servidor",
+            alert: "Error",
+            error: err,
+          });
+          console.log(err);
+        });
+    }
+  );
+
+  //List of all trackings
+  app.get("/get-all-tracking", isAuthenticated, (req, res) => {
+    db.Pack.findAll({
+      order: [["createdAt", "DESC"]],
+    })
+      .then((trackStored) => {
+        if (!trackStored) {
+          res.send({
+            message: "No se ha encontrado ningun paquete",
+            alert: "Error",
+          });
+        } else {
+          res.send({
+            data: trackStored,
+          });
+        }
+      })
+      .catch((err) => {
+        res.send({
+          message: "Error del servidor",
+          alert: "Error",
+          error: err,
+        });
+        console.log(err);
+      });
+  });
+
+  //Get a Tracking by id
+  app.get("/get-tracking-id/:id", isAuthenticated, (req, res) => {
+    const { id } = req.params;
+    db.Pack.findOne({
+      where: {
+        id: id,
+      },
+    })
+      .then((trackStored) => {
+        if (!trackStored) {
+          res.send({
+            message: "No se ha encontrado ningun paquete",
+            alert: "Error",
+          });
+        } else {
+          res.send({
+            tracking: trackStored,
+            alert: "Success",
+          });
+        }
+      })
+      .catch((err) => {
+        res.send({
+          message: "Error del servidor",
+          alert: "Error",
+          error: err,
+        });
+        console.log(err);
+      });
+  });
+
+  //Delete Tracking by id
+  //Delete Tweeet
+  app.delete("/delete-tracking/:id", isAuthenticated, (req, res) => {
+    const { id } = req.params;
+    db.Pack.destroy({
+      where: {
+        id: id,
+      },
+    })
+      .then((trackDeleted) => {
+        //console.log(userDeleted);
+        if (!trackDeleted) {
+          res.send({
+            message: "Paquete no encontrado",
+            alert: "Error",
+          });
+        } else {
+          res.send({
+            message: "Tracking eliminado correctamente",
+            alert: "Success",
+          });
+        }
+      })
+      .catch((err) => {
+        res.send({ message: "Error de servidor", alert: "Error", err: err });
         console.log(err);
       });
   });

@@ -277,7 +277,7 @@ module.exports = function (app) {
       let jsfile = [
         { jsfile: "/assets/dist/js/pagination.js" },
         { jsfile: "/assets/dist/js/toastr.js" },
-        { jsfile: "/assets/dist/js/admin.js" },
+        { jsfile: "/assets/dist/js/admin_blog.js" },
       ];
       res.render("admin", {
         style: style,
@@ -360,7 +360,7 @@ module.exports = function (app) {
       let jsfile = [
         { jsfile: "/assets/dist/js/pagination.js" },
         { jsfile: "/assets/dist/js/toastr.js" },
-        { jsfile: "/assets/dist/js/admin.js" },
+        { jsfile: "/assets/dist/js/admin_book.js" },
       ];
       res.render("admin", {
         style: style,
@@ -429,7 +429,7 @@ module.exports = function (app) {
         jsfile:
           "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js",
       },
-      { jsfile: "/assets/dist/js/admin.js" },
+      { jsfile: "/assets/dist/js/admin_tweet.js" },
     ];
     res.render("admin", {
       style: style,
@@ -438,6 +438,71 @@ module.exports = function (app) {
       jsarchivo: jsarchivo,
       url: "/admin/tweet",
       tiny: tiny,
+      scriptInicial: scriptInicial,
+      menu: true,
+      bootStyle: bootStyle,
+    });
+  });
+
+  //Track packages and get notifications
+  //Create Tweet Schedule
+  app.get("/admin/tracking", isAuthenticated, ensureTotp, (req, res) => {
+    let bootStyle = [
+      {
+        href: "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css",
+      },
+    ];
+    let style = [
+      {
+        style:
+          "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css",
+      },
+      { style: "/assets/dist/css/sidemenu.css" },
+      { style: "/assets/dist/css/track.css" },
+      { style: "/assets/dist/css/toastr.css" },
+    ];
+    let scriptInicial = [
+      {
+        jsfile: "https://code.jquery.com/jquery.js",
+      },
+    ];
+    let tiny = [
+      {
+        src: "https://cdn.tiny.cloud/1/q2wc0wvoeizxrqmq7o9ev0r9zms41ac4rb5eihoawlsh3na0/tinymce/5/tinymce.min.js",
+        referrerpolicy: "origin",
+      },
+    ];
+    let jsarchivo = [
+      {
+        jsfile:
+          "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js",
+        integrity:
+          "sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut",
+        crossorigin: "anonymous",
+      },
+      {
+        jsfile:
+          "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js",
+        integrity:
+          "sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k",
+        crossorigin: "anonymous",
+      },
+    ];
+    let jsfile = [
+      { jsfile: "/assets/dist/js/pagination.js" },
+      { jsfile: "/assets/dist/js/toastr.js" },
+      {
+        jsfile:
+          "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js",
+      },
+      { jsfile: "/assets/dist/js/admin_track.js" },
+    ];
+    res.render("admin", {
+      style: style,
+      trackAdmin: true,
+      jsfile: jsfile,
+      jsarchivo: jsarchivo,
+      url: "/admin/tracking",
       scriptInicial: scriptInicial,
       menu: true,
       bootStyle: bootStyle,
@@ -489,7 +554,7 @@ module.exports = function (app) {
     let jsfile = [
       { jsfile: "/assets/dist/js/pagination.js" },
       { jsfile: "/assets/dist/js/bootstrap-notify.js" },
-      { jsfile: "/assets/dist/js/admin.js" },
+      { jsfile: "/assets/dist/js/admin_image.js" },
     ];
     res.render("admin", {
       style: style,

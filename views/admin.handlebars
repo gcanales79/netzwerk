@@ -52,6 +52,12 @@
                     Images
                 </a>
             </li>
+            <li {{#if trackAdmin}}class="active" {{/if}}>
+                <a href="/admin/tracking">
+                    <i class="fab fa-fedex"></i>
+                    Tracking
+                </a>
+            </li>
 
         </ul>
 
@@ -77,6 +83,10 @@
 
         {{#if imageAdmin}}
         {{>imageAdmin}}
+        {{/if}}
+
+        {{#if trackAdmin}}
+        {{>trackAdmin}}
         {{/if}}
 
 </div>
@@ -122,6 +132,7 @@
 {{>modalConfirmDelete}}
 {{>modalTweet}}
 {{>modalFA}}
+{{>modalTrack}}
 
 <!--Modal Nuevo Libro-->
 {{>modalLibro}}

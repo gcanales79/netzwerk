@@ -6,7 +6,7 @@ module.exports = function (req, res, next) {
     return next();
   }
 
-  if (req.user.twofa && req.user.twofa_valid) {
+  if (req.user.twofa /*&& req.user.twofa_valid*/) {
     return next();
   }
 

@@ -1,0 +1,49 @@
+<div id="content">
+
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+
+            <button type="button" id="sidebarCollapse" class="btn btn-info">
+                <i class="fas fa-align-left"></i>
+                <span>Toggle Sidebar</span>
+            </button>
+            <button type="button" id="addTrack" class="btn btn-info">
+                <i class="fas fa-plus-square"></i>
+                <span>Tracking</span>
+            </button>
+            <button type="button" id="logoutButton" class="btn btn-danger" onclick="location.href='/logout'">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="table-responsive-md">
+            <table class="table table-dark">
+                <thead>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Tracking</th>
+                    <th scope="col">Courier</th>
+                    <th scope="col">Status</th>
+                    <th scope="col"></th>
+                </thead>
+
+                <tbody id="trackList">
+
+                </tbody>
+            </table>
+        </div>
+
+        <div class="data-container"></div>
+        <div class="row justify-content-center">
+            <div class="paginationjs" id="pagination-containertrack">
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+</div>
