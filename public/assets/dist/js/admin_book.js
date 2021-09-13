@@ -371,29 +371,7 @@ $(document).ready(function () {
     });
   });
 
-  //Abrir Modal para Editar Libro
-  $(document).on("click", ".editTweet", function (event) {
-    event.preventDefault();
-    let pageNum = $(this).attr("page");
-    let tweetId = $(this).attr("value");
 
-    $.get(`/get-tweet-id/${tweetId}`, () => {}).then((data) => {
-      const { tweet } = data;
-      //console.log(tweet)
-      let fecha = moment(tweet.schedule_date).format("YYYY-MM-DDTHH:mm");
-      //console.log(fecha)
-      //console.log(libro);
-      $("#modalTweetLongTitle").text("Actualizar Tweet");
-      $("#createTweet").text("Actualizar Tweet");
-      $("#createTweet").attr("tweetId", tweetId);
-      $("#createTweet").attr("page", pageNum);
-      $("#modalTweetCenter").attr("type", "Update");
-      $("#tituloTweet").val(tweet.title);
-      $("#fechaTweet").val(fecha);
-      $("#contenidoTweet").val(tweet.tweet);
-      $("#modalTweetCenter").modal("show");
-    });
-  });
 
   //Preview Image Before Upload Image For Post and Secondary Images
   mainImage.onchange = (evt) => {

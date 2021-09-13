@@ -22,6 +22,9 @@ const imageminWebp = require("imagemin-webp");
 var moment = require("moment-timezone");
 const speakeasy = require("speakeasy");
 const qrcode = require("qrcode");
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const client = require("twilio")(accountSid, authToken);
 
 module.exports = function (app) {
   //JWT
@@ -1772,7 +1775,6 @@ module.exports = function (app) {
   });
 
   //Delete Tracking by id
-  //Delete Tweeet
   app.delete("/delete-tracking/:id", isAuthenticated, (req, res) => {
     const { id } = req.params;
     db.Pack.destroy({
@@ -1799,4 +1801,98 @@ module.exports = function (app) {
         console.log(err);
       });
   });
+
+  //Update Tweet
+  app.put("/update-tracking/:id", (req, res) => {
+    const { id } = req.params;
+    const { description, tracking, carrier, phone, status } = req.body;
+    db.Pack.update(
+      {
+        description: description,
+        tracking: tracking,
+        carrier: carrier,
+        phone: phone,
+        status: status,
+      },
+      {
+        where: {
+          id: id,
+        },
+      }
+    )
+      .then((updateTrack) => {
+        if (updateTrack[0] === 0) {
+          res.send({
+            message: "No se ha encontrado ningun tracking",
+            alert: "Error",
+          });
+        } else {
+          res.send({
+            message: "Tracking actualizado correctamente",
+            alert: "Success",
+          });
+        }
+      })
+      .catch((err) => {
+        res.send({ message: "Error del servidor", alert: "Error", error: err });
+        console.log(err);
+      });
+  });
+
+  //Get tracking per carrier
+  app.get("/get-tracking-of/:carrier", (req, res) => {
+    const { carrier } = req.params;
+    db.Pack.findAll({
+      order: [["createdAt", "DESC"]],
+      where:{
+        [Op.and]: {
+          carrier: {
+            [Op.eq]: carrier,
+          },
+          status: {
+            [Op.ne]: "Delivered",
+          },
+        },
+      }
+    })
+      .then((trackStored) => {
+        if (!trackStored) {
+          res.send({
+            message: "No se ha encontrado ningun paquete",
+            alert: "Error",
+          });
+        } else {
+          res.send({
+            data: trackStored,
+          });
+        }
+      })
+      .catch((err) => {
+        res.send({
+          message: "Error del servidor",
+          alert: "Error",
+          error: err,
+        });
+        console.log(err);
+      });
+  });
+
+  //Send update of tracking by Whatsapp
+  app.post("/status-tracking",(req,res)=>{
+    const {telephone,description,status}=req.body;
+    client.messages.create({
+      from:`whatsapp:${process.env.TWILIO_PHONE}`,
+      body:`The status of your tracking ${description} is: ${status}.`,
+      to: `whatsapp:${telephone}`
+    }).then((message)=>{
+      res.send({
+        message:message
+      })
+    }).catch((err)=>{
+      res.json(err)
+    })
+
+  })
+
+
 };

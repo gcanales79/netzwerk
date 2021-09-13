@@ -54,6 +54,7 @@
     "sequelize": "^6.3.5",
     "speakeasy": "^2.0.0",
     "technicalindicators": "^3.1.0",
+    "twilio": "^3.67.2",
     "twitter": "^1.7.1"
   }
 }

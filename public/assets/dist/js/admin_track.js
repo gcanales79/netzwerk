@@ -23,6 +23,8 @@ $(document).ready(function () {
     let tracking = $("#trackNumber").val().trim();
     let phone = $("#trackPhone").val();
     let carrier = $("#trackCarrier").val();
+    let pageNum = $(this).find("#createTrack").attr("page");
+    let trackId = $(this).find("#createTrack").attr("trackId");
     if (buttonType === "Create") {
       $.post("/add-tracking", {
         description: description,
@@ -35,8 +37,27 @@ $(document).ready(function () {
         } else {
           $("#modalTrackCenter").modal("hide");
           notificationToast(data.alert, data.message);
-          paginationTracking(1)
+          paginationTracking(1);
         }
+      });
+    } else if (buttonType == "Update") {
+      //console.log(`PageNum: ${pageNum} PostId: ${postId}`);
+      let changes = {
+        description: description,
+        tracking: tracking,
+        carrier: carrier,
+        phone: phone,
+      };
+      $.ajax({
+        url: `/update-tracking/${trackId}`,
+        type: "PUT",
+        contentType: "application/json",
+        data: JSON.stringify(changes),
+        success: function (data) {
+          $("#modalTrackCenter").modal("hide");
+          notificationToast(data.alert, data.message);
+          paginationTracking(pageNum);
+        },
       });
     }
   });
@@ -130,7 +151,7 @@ $(document).ready(function () {
       );
     });
   });
-  
+
   //Confirmar Borrar Tracking
   $(document).on("click", "#buttonBorrarTrack", function (event) {
     event.preventDefault();
@@ -170,10 +191,33 @@ $(document).ready(function () {
     $("#modalFooter").append(buttonBorrar);
   }
 
-   //Limpiar User Form
-   function clearUserForm() {
+  //Limpiar User Form
+  function clearUserForm() {
     $("#userForm").css("display", "none");
   }
+
+  //Abrir Modal para Editar Tracking
+  $(document).on("click", ".editTrack", function (event) {
+    event.preventDefault();
+    let pageNum = $(this).attr("page");
+    let trackId = $(this).attr("value");
+
+    $.get(`/get-tracking-id/${trackId}`, () => {}).then((data) => {
+      const { tracking } = data;
+      //console.log(tracking)
+      $("#modalTrackLongTitle").text("Actualizar Tracking");
+      $("#createTrack").text("Actualizar");
+      $("#createTrack").attr("trackId", trackId);
+      $("#createTrack").attr("page", pageNum);
+      $("#modalTrackCenter").attr("type", "Update");
+      $("#trackDescription").val(tracking.description);
+      $("#trackNumber").val(tracking.tracking);
+      $("#trackPhone").val(tracking.phone);
+      $("#trackCarrier").val(tracking.carrier);
+
+      $("#modalTrackCenter").modal("show");
+    });
+  });
 
   //Notification Function
   function notificationToast(result, message) {
