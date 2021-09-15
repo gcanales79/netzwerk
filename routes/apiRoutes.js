@@ -1729,12 +1729,12 @@ module.exports = function (app) {
         })
         .catch((err) => {
           //console.log(err);
-          const {error} =err;
-          let message=error.error.message
+          const { error } = err;
+          let message = error.error.message;
           res.send({
-            message:message,
-            alert:"Error",
-          })
+            message: message,
+            alert: "Error",
+          });
         });
     }
   );
@@ -1917,44 +1917,48 @@ module.exports = function (app) {
   //Webhook of easy post.
   app.post("/easypost-webhook", (req, res) => {
     const { result } = req.body;
-    //console.log(result);
-    updateTracking(result);
-    res.status(200).send({
-      message: "Tracking data received succesfully",
-    });
+    if (result) {
+      updateTracking(result);
+      res.status(200).json({
+        message: "Tracking data received succesfully",
+      });
+    }
   });
 };
 
-
 //Function to updateTracking
-function updateTracking(result) {
-  db.Pack.update(
+async function updateTracking(result) {
+  console.log(result.id);
+  await db.Pack.update(
     {
       status: result.status,
       eta: result.est_delivery_date,
     },
     {
       where: {
-        easypost_id: result.id,
+        easypost_id: {
+          [Op.eq]: result.id,
+        },
       },
     }
   )
     .then((updateTrack) => {
+      console.log(updateTrack);
       if (updateTrack[0] === 0) {
-        console.log({
+        return ({
           message: "No se ha encontrado ningun tracking",
           alert: "Error",
         });
       } else {
         notificationTracking(result);
-        console.log({
+        return ({
           message: "Tracking actualizado correctamente",
           alert: "Success",
         });
       }
     })
     .catch((err) => {
-      console.log({
+      return ({
         message: "Error del servidor",
         alert: "Error",
         error: err,
@@ -1964,8 +1968,8 @@ function updateTracking(result) {
 }
 
 //Function to send the whatsapp message
-function notificationTracking(result) {
-  db.Pack.findOne({
+async function notificationTracking(result) {
+  await db.Pack.findOne({
     where: {
       easypost_id: result.id,
     },
