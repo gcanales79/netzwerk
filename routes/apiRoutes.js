@@ -25,6 +25,8 @@ const qrcode = require("qrcode");
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = require("twilio")(accountSid, authToken);
+const EasyPost = require("@easypost/api");
+const api = new EasyPost(process.env.EASY_POST_API_KEY);
 
 module.exports = function (app) {
   //JWT
@@ -1682,36 +1684,57 @@ module.exports = function (app) {
           alert: "Error",
         });
       }
-      const { description, tracking, carrier, phone, status } = req.body;
+      const { description, tracking, carrier, phone } = req.body;
       //console.log(schedule_date);
-      db.Pack.create({
-        description: description,
-        tracking: tracking,
+      const tracker = new api.Tracker({
+        tracking_code: tracking,
         carrier: carrier,
-        phone: phone,
-        status: status,
-      })
-        .then((trackStored) => {
-          if (!trackStored) {
-            res.send({
-              message: "No se ha podido crear el tracking",
-              alert: "Error",
+      });
+
+      tracker
+        .save()
+        .then((Tracker) => {
+          //console.log(Tracker);
+          db.Pack.create({
+            description: description,
+            tracking: tracking,
+            carrier: carrier,
+            phone: phone,
+            status: Tracker.status,
+            eta: Tracker.est_delivery_date,
+            easypost_id: Tracker.id,
+          })
+            .then((trackStored) => {
+              if (!trackStored) {
+                res.send({
+                  message: "No se ha podido crear el tracking",
+                  alert: "Error",
+                });
+              } else {
+                res.send({
+                  message: "Tracking Creado correctamente",
+                  alert: "Success",
+                  track: trackStored,
+                });
+              }
+            })
+            .catch((err) => {
+              res.send({
+                message: "Error de servidor",
+                alert: "Error",
+                error: err,
+              });
+              console.log(err);
             });
-          } else {
-            res.send({
-              message: "Tracking Creado correctamente",
-              alert: "Success",
-              track: trackStored,
-            });
-          }
         })
         .catch((err) => {
+          //console.log(err);
+          const {error} =err;
+          let message=error.error.message
           res.send({
-            message: "Error de servidor",
-            alert: "Error",
-            error: err,
-          });
-          console.log(err);
+            message:message,
+            alert:"Error",
+          })
         });
     }
   );
@@ -1844,16 +1867,11 @@ module.exports = function (app) {
     const { carrier } = req.params;
     db.Pack.findAll({
       order: [["createdAt", "DESC"]],
-      where:{
-        [Op.and]: {
-          carrier: {
-            [Op.eq]: carrier,
-          },
-          status: {
-            [Op.ne]: "Delivered",
-          },
+      where: {
+        status: {
+          [Op.ne]: "delivered",
         },
-      }
+      },
     })
       .then((trackStored) => {
         if (!trackStored) {
@@ -1878,21 +1896,96 @@ module.exports = function (app) {
   });
 
   //Send update of tracking by Whatsapp
-  app.post("/status-tracking",(req,res)=>{
-    const {telephone,description,status}=req.body;
-    client.messages.create({
-      from:`whatsapp:${process.env.TWILIO_PHONE}`,
-      body:`The status of your tracking ${description} is: ${status}.`,
-      to: `whatsapp:${telephone}`
-    }).then((message)=>{
-      res.send({
-        message:message
+  app.post("/status-tracking", (req, res) => {
+    const { telephone, description, status } = req.body;
+    client.messages
+      .create({
+        from: `whatsapp:${process.env.TWILIO_PHONE}`,
+        body: `The status of your tracking ${description} is: ${status}.`,
+        to: `whatsapp:${telephone}`,
       })
-    }).catch((err)=>{
-      res.json(err)
-    })
+      .then((message) => {
+        res.send({
+          message: message,
+        });
+      })
+      .catch((err) => {
+        res.json(err);
+      });
+  });
 
-  })
-
-
+  //Webhook of easy post.
+  app.post("/easypost-webhook", (req, res) => {
+    const { result } = req.body;
+    //console.log(result);
+    updateTracking(result);
+    res.status(200).send({
+      message: "Tracking data received succesfully",
+    });
+  });
 };
+
+
+//Function to updateTracking
+function updateTracking(result) {
+  db.Pack.update(
+    {
+      status: result.status,
+      eta: result.est_delivery_date,
+    },
+    {
+      where: {
+        easypost_id: result.id,
+      },
+    }
+  )
+    .then((updateTrack) => {
+      if (updateTrack[0] === 0) {
+        console.log({
+          message: "No se ha encontrado ningun tracking",
+          alert: "Error",
+        });
+      } else {
+        notificationTracking(result);
+        console.log({
+          message: "Tracking actualizado correctamente",
+          alert: "Success",
+        });
+      }
+    })
+    .catch((err) => {
+      console.log({
+        message: "Error del servidor",
+        alert: "Error",
+        error: err,
+      });
+      console.log(err);
+    });
+}
+
+//Function to send the whatsapp message
+function notificationTracking(result) {
+  db.Pack.findOne({
+    where: {
+      easypost_id: result.id,
+    },
+  })
+    .then((data) => {
+      const { phone, description, status } = data;
+      client.messages
+        .create({
+          from: `whatsapp:${process.env.TWILIO_PHONE}`,
+          body: `The status of your tracking ${description} is: ${status}.`,
+          to: `whatsapp:${phone}`,
+        })
+        .then((message) => {
+          console.log(message.sid);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}

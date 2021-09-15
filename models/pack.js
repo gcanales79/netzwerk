@@ -4,6 +4,9 @@ module.exports = function (sequelize, DataTypes) {
     tracking: {
       type: DataTypes.STRING,
     },
+    easypost_id:{
+      type: DataTypes.STRING,
+    },
     description: {
       type: DataTypes.TEXT,
     },
@@ -11,6 +14,9 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.TEXT,
       defaultValue:"Created",
       length:"long",
+    },
+    eta: {
+      type: DataTypes.DATE,
     },
     phone: {
       type: DataTypes.STRING,
