@@ -1,10 +1,10 @@
 require("dotenv").config();
 const axios = require("axios");
 const EasyPost = require("@easypost/api");
-const api = new EasyPost(process.env.EASY_POST_TEST_KEY);
+const api = new EasyPost(process.env.EASY_POST_API_KEY);
 
-let tracking="EZ1000000001";
-let carrier="UPS";
+let tracking="40274251559255503";
+let carrier="Amazonmws";
 
 trackingPackage(tracking,carrier)
 

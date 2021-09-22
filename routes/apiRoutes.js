@@ -26,7 +26,7 @@ const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = require("twilio")(accountSid, authToken);
 const EasyPost = require("@easypost/api");
-const api = new EasyPost(process.env.EASY_POST_API_KEY);
+const api = new EasyPost(process.env.EASY_POST_TEST_KEY);
 
 module.exports = function (app) {
   //JWT
@@ -1917,10 +1917,22 @@ module.exports = function (app) {
   //Webhook of easy post.
   app.post("/easypost-webhook", (req, res) => {
     const { result } = req.body;
+    //console.log(result)
     if (result) {
-      updateTracking(result);
-      res.status(200).json({
-        message: "Tracking data received succesfully",
+      db.Pack.findOne({
+        where: {
+          easypost_id: result.id,
+        },
+      }).then((data) => {
+        //console.log(data);
+        const {status}=data
+        console.log(`El status anterior era ${status} el nuevo es ${result.status}`)
+        if (status != result.status) {
+          updateTracking(result);
+          res.status(200).json({
+            message: "Tracking data received succesfully",
+          });
+        }
       });
     }
   });
@@ -1928,7 +1940,7 @@ module.exports = function (app) {
 
 //Function to updateTracking
 async function updateTracking(result) {
-  console.log(result.id);
+  //console.log(result.id);
   await db.Pack.update(
     {
       status: result.status,
@@ -1945,24 +1957,24 @@ async function updateTracking(result) {
     .then((updateTrack) => {
       console.log(updateTrack);
       if (updateTrack[0] === 0) {
-        return ({
+        return {
           message: "No se ha encontrado ningun tracking",
           alert: "Error",
-        });
+        };
       } else {
         notificationTracking(result);
-        return ({
+        return {
           message: "Tracking actualizado correctamente",
           alert: "Success",
-        });
+        };
       }
     })
     .catch((err) => {
-      return ({
+      return {
         message: "Error del servidor",
         alert: "Error",
         error: err,
-      });
+      };
       console.log(err);
     });
 }
@@ -1975,11 +1987,12 @@ async function notificationTracking(result) {
     },
   })
     .then((data) => {
-      const { phone, description, status } = data;
+      const { phone, description, status,eta } = data;
+      let eta_date=moment(eta).format("DD-MM-YYYY");
       client.messages
         .create({
           from: `whatsapp:${process.env.TWILIO_PHONE}`,
-          body: `The status of your tracking ${description} is: ${status}.`,
+          body: `The status of your tracking ${description} is: ${status} with estimate delivery date of: ${eta_date}.`,
           to: `whatsapp:${phone}`,
         })
         .then((message) => {
