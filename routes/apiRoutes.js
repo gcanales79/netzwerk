@@ -26,7 +26,7 @@ const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = require("twilio")(accountSid, authToken);
 const EasyPost = require("@easypost/api");
-const api = new EasyPost(process.env.EASY_POST_TEST_KEY);
+const api = new EasyPost(process.env.EASY_POST_API_KEY);
 
 module.exports = function (app) {
   //JWT
