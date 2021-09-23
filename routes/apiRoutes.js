@@ -1932,7 +1932,7 @@ module.exports = function (app) {
         console.log(
           `El status anterior era ${status} el nuevo es ${result.status}`
         );
-        if (status != result.status) {
+        if (status != "delivered") {
           updateTracking(result);
         }
       });
@@ -1990,6 +1990,9 @@ async function notificationTracking(result) {
   })
     .then((data) => {
       const { phone, description, status, eta } = data;
+      const {tracking_details,public_url}=result.tracking
+      let trackDetail=tracking_details[tracking_details.length-1]
+      let trackMessage=trackDetail.message;
       let eta_date = moment(eta).format("DD-MM-YYYY");
       client.messages
         .create({

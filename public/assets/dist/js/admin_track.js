@@ -94,6 +94,9 @@ $(document).ready(function () {
             statusTrack = $("<td>");
             statusTrack.text(data[i].status);
             actionTrack = $("<td>");
+            etaTrack=$("<td>");
+            let eta_date=moment(data[i].eta).format("DD-MM-YYYY")
+            etaTrack.text(eta_date);
 
             //Button Edit
             buttonEdit = $("<button>");
@@ -123,6 +126,7 @@ $(document).ready(function () {
             newItem.append(trackingTrack);
             newItem.append(carrierTrack);
             newItem.append(statusTrack);
+            newItem.append(etaTrack)
             newItem.append(actionTrack);
             //Append Item to Tweet
             $("#trackList").append(newItem);
