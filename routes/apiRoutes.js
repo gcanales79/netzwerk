@@ -1925,10 +1925,16 @@ module.exports = function (app) {
         },
       }).then((data) => {
         //console.log(data);
-        const {status}=data
-        console.log(`El status anterior era ${status} el nuevo es ${result.status}`)
+        const { status } = data;
+        console.log(
+          `El status anterior era ${status} el nuevo es ${result.status}`
+        );
         if (status != result.status) {
           updateTracking(result);
+          res.status(200).json({
+            message: "Tracking data received succesfully",
+          });
+        } else {
           res.status(200).json({
             message: "Tracking data received succesfully",
           });
@@ -1987,8 +1993,8 @@ async function notificationTracking(result) {
     },
   })
     .then((data) => {
-      const { phone, description, status,eta } = data;
-      let eta_date=moment(eta).format("DD-MM-YYYY");
+      const { phone, description, status, eta } = data;
+      let eta_date = moment(eta).format("DD-MM-YYYY");
       client.messages
         .create({
           from: `whatsapp:${process.env.TWILIO_PHONE}`,
