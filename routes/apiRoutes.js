@@ -1919,6 +1919,9 @@ module.exports = function (app) {
     const { result } = req.body;
     //console.log(result)
     if (result) {
+      res.status(200).json({
+        message: "Tracking data received succesfully",
+      });
       db.Pack.findOne({
         where: {
           easypost_id: result.id,
@@ -1931,13 +1934,6 @@ module.exports = function (app) {
         );
         if (status != result.status) {
           updateTracking(result);
-          res.status(200).json({
-            message: "Tracking data received succesfully",
-          });
-        } else {
-          res.status(200).json({
-            message: "Tracking data received succesfully",
-          });
         }
       });
     }
