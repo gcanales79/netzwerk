@@ -1990,14 +1990,14 @@ async function notificationTracking(result) {
   })
     .then((data) => {
       const { phone, description, status, eta } = data;
-      const {tracking_details,public_url}=result.tracking
+      const {tracking_details,public_url}=result
       let trackDetail=tracking_details[tracking_details.length-1]
       let trackMessage=trackDetail.message;
       let eta_date = moment(eta).format("DD-MM-YYYY");
       client.messages
         .create({
           from: `whatsapp:${process.env.TWILIO_PHONE}`,
-          body: `The status of your tracking ${description} is: ${status} with estimate delivery date of: ${eta_date}.`,
+          body: `The status of your tracking ${description} is: ${status}, the detail is ${trackMessage}. The estimate delivery date is: ${eta_date}. More info: ${public_url}.`,
           to: `whatsapp:${phone}`,
         })
         .then((message) => {

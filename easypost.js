@@ -3,7 +3,7 @@ const axios = require("axios");
 const EasyPost = require("@easypost/api");
 const api = new EasyPost(process.env.EASY_POST_API_KEY);
 
-let tracking="40274251559255503";
+let tracking="702-4980318-2709018";
 let carrier="Amazonmws";
 
 trackingPackage(tracking,carrier)
