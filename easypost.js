@@ -3,10 +3,11 @@ const axios = require("axios");
 const EasyPost = require("@easypost/api");
 const api = new EasyPost(process.env.EASY_POST_API_KEY);
 
-let tracking="702-4980318-2709018";
-let carrier="Amazonmws";
+let tracking="3442300054";
+let carrier="Estafeta";
 
 trackingPackage(tracking,carrier)
+//listCarriers();
 
 function trackingPackage(tracking,carrier) {
     const tracker = new api.Tracker({
@@ -23,5 +24,9 @@ function trackingPackage(tracking,carrier) {
       .catch((err) => {
         console.log(err);
       });
+  }
+
+  function listCarriers(){
+    api.CarrierAccount.all().then(console.log)
   }
   

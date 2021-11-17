@@ -27,6 +27,7 @@ const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = require("twilio")(accountSid, authToken);
 const EasyPost = require("@easypost/api");
 const api = new EasyPost(process.env.EASY_POST_API_KEY);
+const MessagingResponse = require("twilio").twiml.MessagingResponse;
 
 module.exports = function (app) {
   //JWT
@@ -1938,6 +1939,32 @@ module.exports = function (app) {
       });
     }
   });
+
+  //Answer whatsapp messages
+  app.post("/receive-whatsapp", (req, res) => {
+    const { To, From, Body } = req.body;
+    //console.log(To, From, Body);
+    //   client.messages
+    //     .create({
+    //       from: {To},
+    //       body: `We appreciate your message, we will respond to you as soon as possible.`,
+    //       to: {From},
+    //     })
+    //     .then((message) => {
+    //       console.log(message.sid)
+    //     })
+    //     .catch((err) => {
+    //       res.json(err);
+    //     });
+    const twiml = new MessagingResponse();
+
+    twiml.message(
+      "We appreciate your message, we will respond to you as soon as possible."
+    );
+
+    res.writeHead(200, { "Content-Type": "text/xml" });
+    res.end(twiml.toString());
+  });
 };
 
 //Function to updateTracking
@@ -1990,9 +2017,9 @@ async function notificationTracking(result) {
   })
     .then((data) => {
       const { phone, description, status, eta } = data;
-      const {tracking_details,public_url}=result
-      let trackDetail=tracking_details[tracking_details.length-1]
-      let trackMessage=trackDetail.message;
+      const { tracking_details, public_url } = result;
+      let trackDetail = tracking_details[tracking_details.length - 1];
+      let trackMessage = trackDetail.message;
       let eta_date = moment(eta).format("DD-MM-YYYY");
       client.messages
         .create({
