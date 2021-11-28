@@ -815,6 +815,7 @@ module.exports = function (app) {
             data.dataValues.Metatag.dataValues.twitterDescription,
           image: data.dataValues.Metatag.dataValues.image,
           pageIdentifier: data.dataValues.url,
+          date:data.dataValues.Metatag.dataValues.createdAt,
         };
         let bootStyle = [
           {
