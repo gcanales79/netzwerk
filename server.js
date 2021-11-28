@@ -62,6 +62,10 @@ var hbs = exphbs.create({
       ampDate:function(property){
         var fechaAmp =moment(property).format("YYYY-MM-DDTHH:mm:ss Z")
         return JSON.stringify(fechaAmp)
+      },
+      metaDate:function(property){
+        var fechaMeta=moment(property).format("YYYY-MM-DD")
+        return JSON.stringify(fechaMeta)
       }
       
     }
