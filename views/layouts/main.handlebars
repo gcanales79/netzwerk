@@ -8,8 +8,22 @@
         "@context":"https://schema.org",
         "@type":"NewsArticle",
         "headline":{{{json headline}}},
-        "image":[
-        {{{json image}}}],
+        "image":{
+            "@type":"ImageObject",
+            "url":{{{json image}}}
+        },
+        "author":{
+            "@type":"Person",
+            "name": "Gustavo A. Canales R."
+        }, 
+        "publisher":{
+            "@type":"Organization".
+            "name":"Netzwerk",
+            "logo":{
+                "@type":"ImageObject",
+                "url":"https://netzwerk.mx/assets/dist/img/Logo_netzwerk.webp"
+            }
+        },
         "datePublished":{{{ampDate datePublished}}},
         "dateModified":{{{ampDate datePublished}}}
     }
