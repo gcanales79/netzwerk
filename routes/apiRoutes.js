@@ -660,6 +660,7 @@ module.exports = function (app) {
     db.Blog.findAndCountAll({
       limit: parseInt(limit),
       offset: (parseInt(page) - 1) * parseInt(limit),
+      include: [db.Metatag],
       order: [["createdAt", "DESC"]],
     })
       .then((postStored) => {

@@ -5,3 +5,7 @@ blockquote p {
 .blockquote-footer{
     color:#ffff !important;
 }
+
+.widget-category-listings{
+    list-style-type: none !important;
+}

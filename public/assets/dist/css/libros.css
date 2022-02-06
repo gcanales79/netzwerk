@@ -7,3 +7,7 @@
     max-width: 200px;
   }
 
+  .widget-category-listings{
+    list-style-type: none !important;
+}
+
