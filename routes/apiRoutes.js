@@ -666,11 +666,13 @@ module.exports = function (app) {
       .then((postStored) => {
         if (!postStored) {
           res.send({
+            code:"404",
             message: "No se ha encontrado ningun post",
             alert: "Error",
           });
         } else {
           res.send({
+            code:"200",
             page: page,
             limit: limit,
             total: postStored.count,
@@ -680,6 +682,7 @@ module.exports = function (app) {
       })
       .catch((err) => {
         res.send({
+          code:"500",
           message: "Error del servidor",
           alert: "Error",
         });
