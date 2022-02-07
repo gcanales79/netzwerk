@@ -1237,7 +1237,10 @@ module.exports = function (app) {
 
   //Get All Books
   app.get("/get-all-books", (req, res) => {
+    const { page=1, limit=12 } = req.query;
     db.Libro.findAndCountAll({
+      limit: parseInt(limit),
+      offset: (parseInt(page) - 1) * parseInt(limit),
       order: [["createdAt", "ASC"]],
     })
       .then((libroStored) => {
@@ -1250,6 +1253,8 @@ module.exports = function (app) {
         } else {
           res.send({
             code:"200",
+            page: page,
+            limit: limit,
             total: libroStored.count,
             data: libroStored.rows,
           });
