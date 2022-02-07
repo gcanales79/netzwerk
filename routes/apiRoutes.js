@@ -1243,11 +1243,13 @@ module.exports = function (app) {
       .then((libroStored) => {
         if (!libroStored) {
           res.send({
+            code:"404",
             message: "No se ha encontrado ningun libro",
             alert: "Error",
           });
         } else {
           res.send({
+            code:"200",
             total: libroStored.count,
             data: libroStored.rows,
           });
@@ -1255,6 +1257,7 @@ module.exports = function (app) {
       })
       .catch((err) => {
         res.send({
+          code:"500",
           message: "Error del servidor",
           alert: "Error",
           error: err,
