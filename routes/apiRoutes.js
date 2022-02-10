@@ -829,6 +829,7 @@ module.exports = function (app) {
       where: {
         url: url,
       },
+      include: [db.Metatag],
     })
       .then((postStored) => {
         if (!postStored) {
