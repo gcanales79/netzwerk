@@ -684,7 +684,7 @@ module.exports = function (app) {
         res.send({
           code:"500",
           message: "Error del servidor",
-          alert: "Error",
+          alert: err,
         });
       });
   });
@@ -1690,7 +1690,7 @@ module.exports = function (app) {
     isAuthenticated,
     check("phone")
       .isMobilePhone("", { strictMode: true })
-      .withMessage("No es un telefono valido"),
+      .withMessage("No es un telefono valido"), 
     (req, res) => {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
