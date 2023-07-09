@@ -9,6 +9,8 @@ $(document).ready(function () {
   var newpasswordInput = $("input#newpassword-input");
   var repeatPassword = $("input#repeatpassword-input");
 
+ 
+
   // When the form is submitted, we validate there's an email and password entered
   loginForm.on("submit", function (event) {
     event.preventDefault();
@@ -122,6 +124,7 @@ $(document).ready(function () {
   });
 
   function notificationToast(result, message) {
+    // console.log("Hello")
     switch (result) {
       case "Success":
         /*$.notify(

@@ -208,7 +208,9 @@ module.exports = function (app) {
           });
         }
       }
-    );
+    ).catch((err)=>{
+      console.log(err)
+    });
   });
 
   //Change password
@@ -309,7 +311,9 @@ module.exports = function (app) {
           });
         }
       }
-    );
+    ).catch((err)=>{
+      console.log(err)
+    });
   });
 
   //User Signup
